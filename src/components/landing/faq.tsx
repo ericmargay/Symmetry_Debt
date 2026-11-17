@@ -12,7 +12,7 @@ export function Faq() {
     <Section id="faq" tone="band">
       <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <SectionHeading id="faq" index="11" eyebrow={t("eyebrow")} title={t("title")} className="lg:sticky lg:top-28 lg:self-start" />
-        <Accordion type="single" collapsible className="rounded-3xl border border-border bg-background px-5 sm:px-7">
+        <Accordion data-reveal type="single" collapsible className="rounded-3xl border border-border bg-background px-5 sm:px-7">
           {QUESTIONS.map((key) => (
             <AccordionItem key={key} value={key}>
               <AccordionTrigger className="min-h-14 items-center gap-4 py-4 text-base leading-snug">{t(`${key}.q`)}</AccordionTrigger>

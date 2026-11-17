@@ -23,7 +23,7 @@ export function OpenSource({ repoUrl }: { repoUrl: string }) {
       <div className="grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
         <div>
           <SectionHeading id="open-source" index="09" eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
-          <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-4">
+          <div data-reveal className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-4">
             <Button asChild size="lg" variant="outline">
               <a href={repoUrl} target="_blank" rel="noopener noreferrer">
                 <GithubIcon data-icon="inline-start" />
@@ -31,7 +31,7 @@ export function OpenSource({ repoUrl }: { repoUrl: string }) {
               </a>
             </Button>
           </div>
-          <ul aria-label={t("stackLabel")} className="mt-7 flex flex-wrap gap-2">
+          <ul data-reveal aria-label={t("stackLabel")} className="mt-7 flex flex-wrap gap-2">
             {STACK.map((item) => (
               <li
                 key={item}
@@ -45,8 +45,8 @@ export function OpenSource({ repoUrl }: { repoUrl: string }) {
 
         <ul className="grid gap-5 sm:grid-cols-2">
           {POINTS.map(({ key, icon: Icon }) => (
-            <li key={key} className="rounded-3xl border border-border bg-card p-6">
-              <Icon className="size-6 text-primary" aria-hidden />
+            <li key={key} data-reveal className="landing-lift group rounded-3xl border border-border bg-card p-6">
+              <Icon className="size-6 text-primary transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6" aria-hidden />
               <h3 className="mt-4 font-display text-xl leading-snug font-medium">{t(`${key}.title`)}</h3>
               <p className="mt-2 text-[0.95rem] leading-relaxed text-muted-foreground">{t(`${key}.text`)}</p>
             </li>

@@ -51,12 +51,12 @@ export function SectionHeading({
   className?: string;
 }) {
   return (
-    <div className={cn("max-w-2xl", className)}>
+    <div data-reveal className={cn("max-w-2xl", className)}>
       <p className="flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-primary uppercase">
         <span aria-hidden className="tabular text-muted-foreground">
           {index}
         </span>
-        <span aria-hidden className="h-px w-8 bg-border" />
+        <span aria-hidden className="landing-bar h-px w-8 bg-primary/40" />
         {eyebrow}
       </p>
       <h2 id={`${id}-title`} className="mt-5 font-display text-[2rem] leading-[1.08] font-medium sm:text-4xl lg:text-[2.75rem]">
@@ -67,11 +67,11 @@ export function SectionHeading({
   );
 }
 
-/** Icon + title + sentence. Rendered inside a <ul>. */
+/** Icon + title + sentence. Rendered inside a <ul>. Reveals on scroll; the icon answers hover. */
 export function FeatureItem({ icon: Icon, title, text }: { icon: LucideIcon; title: string; text: string }) {
   return (
-    <li className="flex gap-4">
-      <span className="mt-0.5 grid size-10 shrink-0 place-items-center rounded-xl bg-secondary text-secondary-foreground">
+    <li data-reveal className="group flex gap-4">
+      <span className="mt-0.5 grid size-10 shrink-0 place-items-center rounded-xl bg-secondary text-secondary-foreground transition-[background-color,color,translate,rotate] duration-300 group-hover:-translate-y-0.5 group-hover:-rotate-3 group-hover:bg-agreed-soft group-hover:text-agreed">
         <Icon className="size-5" aria-hidden />
       </span>
       <div>
@@ -85,7 +85,7 @@ export function FeatureItem({ icon: Icon, title, text }: { icon: LucideIcon; tit
 /** A sentence with a check mark. Rendered inside a <ul>. */
 export function CheckLine({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <li className={cn("flex gap-3 text-[0.95rem] leading-relaxed", className)}>
+    <li data-reveal className={cn("flex gap-3 text-[0.95rem] leading-relaxed", className)}>
       <Check className="mt-1 size-4 shrink-0 text-primary" aria-hidden />
       <span>{children}</span>
     </li>

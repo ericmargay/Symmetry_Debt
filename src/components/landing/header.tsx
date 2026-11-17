@@ -24,7 +24,7 @@ export function LandingHeader({ signedIn }: { signedIn: boolean }) {
 
   return (
     <header
-      className="sticky top-0 z-40 border-b border-border/70 bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/75"
+      className="landing-header sticky top-0 z-40 border-b border-border/70 bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/75"
     >
       <Container className="flex h-16 items-center justify-between gap-3">
         <Link
@@ -58,7 +58,7 @@ export function LandingHeader({ signedIn }: { signedIn: boolean }) {
           <LanguageSwitch className="hidden sm:inline-flex" />
           {/* On phones the two language buttons get a full-size touch target. */}
           <LanguageSwitch variant="menu" className="sm:hidden [&_button]:min-h-10 [&_button]:min-w-10" />
-          <Button asChild size="sm" className="max-sm:h-10">
+          <Button asChild size="sm" className="max-sm:h-10 shadow-[0_8px_20px_-12px] shadow-primary/70">
             <Link href={signedIn ? "/app" : "/login"}>{signedIn ? t("dashboard") : t("signIn")}</Link>
           </Button>
         </div>

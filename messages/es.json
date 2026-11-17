@@ -1158,8 +1158,29 @@
     "support": {
       "title": "¿Te resulta útil Symmetry Debt? Ayúdanos a mantenerlo gratuito.",
       "text": "Es gratuito y de código abierto. Si te sirve, puedes apoyar su desarrollo con una aportación voluntaria. Ninguna función depende de ello.",
-      "button": "Apoyar el proyecto",
-      "external": "Las donaciones se hacen en la plataforma que elijas. Symmetry Debt no procesa pagos ni guarda datos de tarjetas."
+      "external": "Las donaciones se hacen en la plataforma que elijas. Symmetry Debt no procesa pagos ni guarda datos de tarjetas.",
+      "textFree": "Es gratuito y de código abierto, y ninguna función depende de un pago. Si te sirve, puedes ayudar sin gastar nada:",
+      "donateTitle": "Aportación voluntaria",
+      "newTab": "se abre en una pestaña nueva",
+      "ways": {
+        "star": {
+          "title": "Dale una estrella",
+          "text": "En GitHub, para que más gente lo encuentre."
+        },
+        "share": {
+          "title": "Compártelo",
+          "text": "Con quien lleve cuentas con familia o amigos."
+        },
+        "improve": {
+          "title": "Ayuda a mejorarlo",
+          "text": "Reporta un error o propón una mejora."
+        }
+      },
+      "share": {
+        "title": "Symmetry Debt",
+        "text": "Deudas claras y acuerdos entre dos personas. Gratis, privado y de código abierto.",
+        "copied": "Enlace copiado"
+      }
     },
     "faq": {
       "eyebrow": "Preguntas frecuentes",

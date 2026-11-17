@@ -1,0 +1,259 @@
+/*
+ * Landing page motion and decoration. Imported by the landing page only; every rule is scoped to
+ * a `landing-*` class or to the data attributes set by `components/landing/landing-effects.tsx`.
+ *
+ * Motion lives inside `prefers-reduced-motion: no-preference`: with reduced motion everything is
+ * simply in place.
+ */
+
+:root {
+  --landing-ease: cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+@keyframes landing-rise {
+  from {
+    opacity: 0;
+    translate: 0 22px;
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    filter: none;
+  }
+}
+
+@keyframes landing-grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes landing-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -7px;
+  }
+}
+
+@keyframes landing-sheen {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+@keyframes landing-converge-left {
+  from {
+    transform: translateX(-5%) rotate(-1.4deg);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes landing-converge-right {
+  from {
+    transform: translateX(5%) rotate(1.4deg);
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────────────────────────── */
+
+/* A faint dot grid that fades towards the edges, behind the hero. */
+.landing-hero-grid {
+  background-image: radial-gradient(circle at center, color-mix(in oklch, var(--foreground) 16%, transparent) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 70% 60% at 62% 42%, black 10%, transparent 75%);
+}
+
+/* Soft light behind the sphere. */
+.landing-hero-glow {
+  background:
+    radial-gradient(closest-side, color-mix(in oklch, var(--agreed) 16%, transparent), transparent 72%),
+    radial-gradient(closest-side at 30% 60%, color-mix(in oklch, var(--personal) 10%, transparent), transparent 70%);
+}
+
+/* Frosted cards over the sphere. */
+.landing-glass {
+  background-color: color-mix(in oklch, var(--card) 74%, transparent);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  box-shadow:
+    inset 0 1px 0 0 color-mix(in oklch, white 55%, transparent),
+    0 30px 70px -36px color-mix(in oklch, var(--primary) 45%, transparent);
+}
+
+.dark .landing-glass {
+  background-color: color-mix(in oklch, var(--card) 62%, transparent);
+  box-shadow:
+    inset 0 1px 0 0 color-mix(in oklch, white 10%, transparent),
+    0 30px 70px -30px rgb(0 0 0 / 0.7);
+}
+
+/* The motto: a slow sheen across the letters. */
+.landing-sheen {
+  background: linear-gradient(100deg, var(--primary) 40%, color-mix(in oklch, var(--primary) 35%, var(--background)) 50%, var(--primary) 60%) 0 0 / 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Header ───────────────────────────────────────────────────────────────────────────── */
+
+.landing-header {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    backdrop-filter 0.35s ease;
+}
+
+/* At the very top the header melts into the page; it gains its surface once the page moves.
+   (Without JavaScript the attribute is never set, and the header keeps its surface.) */
+html[data-at-top] .landing-header {
+  background-color: transparent;
+  border-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+html:not([data-at-top]) .landing-header {
+  box-shadow: 0 12px 32px -26px color-mix(in oklch, var(--foreground) 55%, transparent);
+}
+
+/* ── Hover details ────────────────────────────────────────────────────────────────────── */
+
+.landing-cta svg[data-icon="inline-end"] {
+  transition: translate 0.3s var(--landing-ease);
+}
+
+.landing-cta:hover svg[data-icon="inline-end"],
+.landing-cta:focus-visible svg[data-icon="inline-end"] {
+  translate: 3px 0;
+}
+
+.landing-lift {
+  transition-property: opacity, translate, filter, transform, box-shadow, border-color;
+  transition-duration: 0.9s, 1s, 0.9s, 0.45s, 0.45s, 0.45s;
+  transition-timing-function: var(--landing-ease);
+  transition-delay: var(--reveal-delay, 0ms), var(--reveal-delay, 0ms), var(--reveal-delay, 0ms), 0s, 0s, 0s;
+}
+
+@media (hover: hover) {
+  .landing-lift:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in oklch, var(--primary) 30%, var(--border));
+    box-shadow: 0 22px 44px -30px color-mix(in oklch, var(--primary) 55%, transparent);
+  }
+}
+
+/* ── Motion ───────────────────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: no-preference) {
+  .landing-rise {
+    animation: landing-rise 1s var(--landing-ease) both;
+    animation-delay: var(--rise-delay, 0ms);
+  }
+
+  .landing-grow-x {
+    transform-origin: left center;
+    animation: landing-grow-x 1.5s var(--landing-ease) both;
+    animation-delay: var(--grow-delay, 700ms);
+  }
+
+  .landing-float {
+    animation: landing-float 7s ease-in-out infinite;
+  }
+
+  .landing-sheen {
+    animation: landing-sheen 7s ease-in-out 1.2s infinite;
+  }
+
+  /* Scroll reveal (see landing-effects.tsx). */
+  [data-reveal]:not(.landing-lift) {
+    transition:
+      opacity 0.9s var(--landing-ease) var(--reveal-delay, 0ms),
+      translate 1s var(--landing-ease) var(--reveal-delay, 0ms),
+      filter 0.9s var(--landing-ease) var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal="pending"] {
+    opacity: 0;
+    translate: 0 34px;
+    filter: blur(6px);
+  }
+
+  /* Progress bars and rules fill in once their block is revealed. */
+  [data-reveal] .landing-bar {
+    transform-origin: left center;
+    transition: transform 1.4s var(--landing-ease) calc(var(--reveal-delay, 0ms) + 250ms);
+  }
+
+  [data-reveal="pending"] .landing-bar {
+    transform: scaleX(0);
+  }
+
+  /* Cards lean towards the pointer, with a soft glare (fine pointers only). */
+  @media (hover: hover) and (pointer: fine) {
+    [data-tilt] {
+      transform: perspective(1100px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+      transition: transform 0.7s var(--landing-ease);
+    }
+
+    [data-tilt][data-tilting] {
+      transition-duration: 0.15s;
+    }
+
+    [data-tilt]::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background: radial-gradient(26rem circle at var(--glare-x, 50%) var(--glare-y, 0%), color-mix(in oklch, white 26%, transparent), transparent 46%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .dark [data-tilt]::after {
+      background: radial-gradient(26rem circle at var(--glare-x, 50%) var(--glare-y, 0%), color-mix(in oklch, white 7%, transparent), transparent 46%);
+    }
+
+    [data-tilt][data-tilting]::after {
+      opacity: 1;
+    }
+  }
+
+  /* Progressive enhancement: the two ways of keeping a debt slide towards each other as the
+     section scrolls into view. Only side by side, so it can never push the page wider. */
+  @supports (animation-timeline: view()) {
+    @media (min-width: 1024px) {
+      .landing-converge-left,
+      .landing-converge-right {
+        animation: linear both;
+        animation-timeline: view();
+        animation-range: entry 5% cover 42%;
+      }
+
+      .landing-converge-left {
+        animation-name: landing-converge-left;
+      }
+
+      .landing-converge-right {
+        animation-name: landing-converge-right;
+      }
+    }
+  }
+}

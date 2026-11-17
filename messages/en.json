@@ -1158,8 +1158,29 @@
     "support": {
       "title": "Finding Symmetry Debt useful? Help us keep it free.",
       "text": "It is free and open source. If it helps you, you can support its development with a voluntary contribution. No feature depends on it.",
-      "button": "Support the project",
-      "external": "Donations are made on the platform you choose. Symmetry Debt does not process payments or store card details."
+      "external": "Donations are made on the platform you choose. Symmetry Debt does not process payments or store card details.",
+      "textFree": "It is free and open source, and no feature depends on a payment. If it helps you, you can help back without spending anything:",
+      "donateTitle": "Voluntary contribution",
+      "newTab": "opens in a new tab",
+      "ways": {
+        "star": {
+          "title": "Give it a star",
+          "text": "On GitHub, so more people can find it."
+        },
+        "share": {
+          "title": "Share it",
+          "text": "With anyone who keeps accounts with family or friends."
+        },
+        "improve": {
+          "title": "Help improve it",
+          "text": "Report a bug or suggest an improvement."
+        }
+      },
+      "share": {
+        "title": "Symmetry Debt",
+        "text": "Clear debts and agreements between two people. Free, private and open source.",
+        "copied": "Link copied"
+      }
     },
     "faq": {
       "eyebrow": "Frequently asked questions",

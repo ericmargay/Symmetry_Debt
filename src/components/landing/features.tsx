@@ -36,6 +36,12 @@ function useMoney() {
   return (minor: bigint) => formatMoney(minor, CURRENCY, intlLocale);
 }
 
+/** Attributes that make an amount count up when its card is revealed (see landing-effects.tsx). */
+function useCountUp() {
+  const intlLocale = intlLocales[useLocale() as Locale] ?? intlLocales.es;
+  return (minor: bigint) => ({ "data-countup": minor.toString(), "data-currency": CURRENCY, "data-locale": intlLocale });
+}
+
 /** Text on one side, illustration on the other; stacked on small screens (text first). */
 function Split({ reverse = false, children }: { reverse?: boolean; children: [React.ReactNode, React.ReactNode] }) {
   return (
@@ -53,6 +59,7 @@ function Split({ reverse = false, children }: { reverse?: boolean; children: [Re
 export function PersonalTracking() {
   const t = useTranslations("landing.personal");
   const money = useMoney();
+  const countUp = useCountUp();
   const total = 120_000n;
   const paid = 35_000n;
 
@@ -67,14 +74,19 @@ export function PersonalTracking() {
             <FeatureItem icon={StickyNote} title={t("p3.title")} text={t("p3.text")} />
             <FeatureItem icon={PencilLine} title={t("p4.title")} text={t("p4.text")} />
           </ul>
-          <p className="mt-8 flex gap-3 rounded-2xl bg-personal-soft px-4 py-3.5 text-[0.95rem] leading-relaxed">
+          <p data-reveal className="mt-8 flex gap-3 rounded-2xl bg-personal-soft px-4 py-3.5 text-[0.95rem] leading-relaxed">
             <SymmetryMark state="one" className="mt-1 size-5 text-personal" />
             {t("note")}
           </p>
         </div>
 
-        <div className="mx-auto w-full max-w-md">
-          <div role="img" aria-label={t("card.label")} className="rounded-3xl border border-border bg-card p-6 shadow-[0_24px_60px_-32px] shadow-personal/60 sm:p-7">
+        <div data-reveal className="mx-auto w-full max-w-md">
+          <div
+            role="img"
+            aria-label={t("card.label")}
+            data-tilt="6"
+            className="relative rounded-3xl border border-border bg-card p-6 shadow-[0_24px_60px_-32px] shadow-personal/60 sm:p-7"
+          >
             <div className="flex items-center justify-between gap-3">
               <span className="flex items-center gap-2 text-xs font-semibold tracking-[0.14em] text-personal uppercase">
                 <SymmetryMark state="one" className="size-4" />
@@ -87,10 +99,12 @@ export function PersonalTracking() {
 
             <div className="mt-6 flex items-end justify-between gap-4">
               <span className="text-sm text-muted-foreground">{t("card.balance")}</span>
-              <span className="tabular font-display text-3xl leading-none font-medium text-owe">{money(total - paid)}</span>
+              <span className="tabular font-display text-3xl leading-none font-medium text-owe" {...countUp(total - paid)}>
+                {money(total - paid)}
+              </span>
             </div>
             <div className="mt-4 h-2 overflow-hidden rounded-full bg-muted">
-              <div className="h-full rounded-full bg-personal" style={{ width: `${percentOf(paid, total)}%` }} />
+              <div className="landing-bar h-full rounded-full bg-personal" style={{ width: `${percentOf(paid, total)}%` }} />
             </div>
 
             <ul className="mt-6 space-y-3 border-t border-border pt-5 text-sm">
@@ -137,12 +151,12 @@ export function SharedAgreements() {
 
       <ol aria-label={t("stepsLabel")} className="mt-12 grid gap-5 lg:grid-cols-3">
         {STEPS.map((step, index) => (
-          <li key={step.key} className="relative rounded-3xl border border-border bg-background p-7">
+          <li key={step.key} data-reveal className="landing-lift group relative rounded-3xl border border-border bg-background p-7">
             <div className="flex items-center justify-between gap-3">
               <span className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
                 {t("step", { number: index + 1 })}
               </span>
-              <SymmetryMark state={step.mark} className={cn("size-10", step.color)} />
+              <SymmetryMark state={step.mark} className={cn("size-10 transition-transform duration-500 group-hover:scale-110", step.color)} />
             </div>
             <h3 className="mt-5 font-display text-2xl leading-tight font-medium">{t(`${step.key}.title`)}</h3>
             <p className="mt-3 leading-relaxed text-muted-foreground">{t(`${step.key}.text`)}</p>
@@ -162,7 +176,7 @@ export function SharedAgreements() {
 
 function Note({ icon: Icon, children }: { icon: typeof GitCompareArrows; children: React.ReactNode }) {
   return (
-    <li className="flex gap-3.5 text-[0.95rem] leading-relaxed">
+    <li data-reveal className="flex gap-3.5 text-[0.95rem] leading-relaxed">
       <Icon className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden />
       <span>{children}</span>
     </li>
@@ -183,9 +197,12 @@ export function Payments() {
       <Split reverse>
         <div>
           <SectionHeading id="payments" index="05" eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
-          <ul aria-label={t("methodsLabel")} className="mt-7 flex flex-wrap gap-2">
+          <ul data-reveal aria-label={t("methodsLabel")} className="mt-7 flex flex-wrap gap-2">
             {METHODS.map((method) => (
-              <li key={method} className="rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-medium">
+              <li
+                key={method}
+                className="rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-medium transition-[border-color,background-color,translate] duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-agreed-soft"
+              >
                 {t(`methods.${method}`)}
               </li>
             ))}
@@ -198,8 +215,8 @@ export function Payments() {
           </ul>
         </div>
 
-        <div className="mx-auto w-full max-w-md">
-          <div className="rounded-3xl border border-border bg-card p-6 sm:p-8">
+        <div data-reveal className="mx-auto w-full max-w-md">
+          <div data-tilt="5" className="relative rounded-3xl border border-border bg-card p-6 sm:p-8">
             <h3 className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">{t("track.title")}</h3>
             <ol className="mt-6">
               <TrackStep mark="waiting" color="text-waiting" title={t("track.s1.title")} text={t("track.s1.text")} />
@@ -281,8 +298,8 @@ export function Installments() {
           </ul>
         </div>
 
-        <div className="mx-auto w-full max-w-md">
-          <div role="img" aria-label={t("card.label")} className="rounded-3xl border border-border bg-background p-6 sm:p-7">
+        <div data-reveal className="mx-auto w-full max-w-md">
+          <div role="img" aria-label={t("card.label")} data-tilt="5" className="relative rounded-3xl border border-border bg-background p-6 sm:p-7">
             <div className="flex items-end justify-between gap-4">
               <div>
                 <p className="font-display text-2xl leading-tight font-medium">{t("card.title")}</p>
@@ -291,7 +308,7 @@ export function Installments() {
               <p className="tabular text-right text-sm font-medium">{t("card.progress", { paid: money(paid), total: money(total) })}</p>
             </div>
             <div className="mt-4 h-2 overflow-hidden rounded-full bg-muted">
-              <div className="h-full rounded-full bg-primary" style={{ width: `${percentOf(paid, total)}%` }} />
+              <div className="landing-bar h-full rounded-full bg-primary" style={{ width: `${percentOf(paid, total)}%` }} />
             </div>
 
             <ul className="mt-6 space-y-4">
@@ -309,7 +326,7 @@ export function Installments() {
                   <div className="mt-2 flex items-center gap-3">
                     <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
                       <div
-                        className={cn("h-full rounded-full", row.state === "overdue" ? "bg-owe" : "bg-primary")}
+                        className={cn("landing-bar h-full rounded-full", row.state === "overdue" ? "bg-owe" : "bg-primary")}
                         style={{ width: `${percentOf(row.paid, each)}%` }}
                       />
                     </div>
@@ -335,6 +352,7 @@ export function Installments() {
 export function Receipts() {
   const t = useTranslations("landing.receipts");
   const money = useMoney();
+  const countUp = useCountUp();
 
   return (
     <Section id="receipts">
@@ -348,14 +366,21 @@ export function Receipts() {
           </ul>
         </div>
 
-        <div className="mx-auto w-full max-w-md">
-          <div role="img" aria-label={t("card.label")} className="rounded-3xl border border-border bg-card p-6 shadow-[0_24px_60px_-34px] shadow-waiting/60 sm:p-7">
+        <div data-reveal className="mx-auto w-full max-w-md">
+          <div
+            role="img"
+            aria-label={t("card.label")}
+            data-tilt="6"
+            className="relative rounded-3xl border border-border bg-card p-6 shadow-[0_24px_60px_-34px] shadow-waiting/60 sm:p-7"
+          >
             <div className="flex items-center justify-between gap-3">
               <span className="flex items-center gap-2.5 font-medium">
                 <SymmetryMark state="waiting" className="size-5 text-waiting" />
                 {t("card.payment")}
               </span>
-              <span className="tabular font-display text-2xl leading-none font-medium">{money(250_000n)}</span>
+              <span className="tabular font-display text-2xl leading-none font-medium" {...countUp(250_000n)}>
+                {money(250_000n)}
+              </span>
             </div>
             <div className="mt-3">
               <Chip tone="waiting">{t("card.status")}</Chip>

@@ -10,7 +10,7 @@ import { Container } from "./section";
 const linkClass =
   "inline-flex min-h-10 items-center gap-2 rounded-md text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring";
 
-export function LandingFooter({ repoUrl, hasSupport }: { repoUrl: string; hasSupport: boolean }) {
+export function LandingFooter({ repoUrl }: { repoUrl: string }) {
   const t = useTranslations("landing");
 
   return (
@@ -49,13 +49,11 @@ export function LandingFooter({ repoUrl, hasSupport }: { repoUrl: string; hasSup
                   </a>
                 </li>
                 <li className="flex min-h-10 items-center text-muted-foreground">{t("footer.license")}</li>
-                {hasSupport && (
-                  <li>
-                    <a href="#support" className={linkClass}>
-                      {t("footer.support")}
-                    </a>
-                  </li>
-                )}
+                <li>
+                  <a href="#support" className={linkClass}>
+                    {t("footer.support")}
+                  </a>
+                </li>
               </ul>
             </div>
           </nav>

@@ -30,10 +30,10 @@ export function Security() {
   return (
     <Section id="security" tone="band">
       <SectionHeading id="security" index="08" eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
-      <ul className="mt-12 grid gap-px overflow-hidden rounded-3xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+      <ul data-reveal className="mt-12 grid gap-px overflow-hidden rounded-3xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
         {ITEMS.map(({ key, icon: Icon }) => (
-          <li key={key} className="bg-background p-6 sm:p-7">
-            <span className="grid size-10 place-items-center rounded-xl bg-secondary text-secondary-foreground">
+          <li key={key} className="group bg-background p-6 transition-colors duration-300 hover:bg-card sm:p-7">
+            <span className="grid size-10 place-items-center rounded-xl bg-secondary text-secondary-foreground transition-[background-color,color,translate] duration-300 group-hover:-translate-y-0.5 group-hover:bg-agreed-soft group-hover:text-agreed">
               <Icon className="size-5" aria-hidden />
             </span>
             <h3 className="mt-5 leading-snug font-medium">{t(`${key}.title`)}</h3>

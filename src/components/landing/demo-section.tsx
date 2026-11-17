@@ -8,7 +8,9 @@ export function DemoSection({ children }: { children: React.ReactNode }) {
   return (
     <Section id="demo">
       <SectionHeading id="demo" index="02" eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
-      <div className="mt-12">{children}</div>
+      <div data-reveal className="mt-12">
+        {children}
+      </div>
     </Section>
   );
 }

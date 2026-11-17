@@ -1,4 +1,5 @@
 import { getLocale } from "next-intl/server";
+import "./landing.css";
 import { Closing } from "@/components/landing/closing";
 import { Demo } from "@/components/landing/demo";
 import { Faq } from "@/components/landing/faq";
@@ -6,6 +7,7 @@ import { Installments, Payments, PersonalTracking, Receipts, SharedAgreements } 
 import { LandingFooter } from "@/components/landing/footer";
 import { LandingHeader } from "@/components/landing/header";
 import { Hero } from "@/components/landing/hero";
+import { LandingEffects } from "@/components/landing/landing-effects";
 import { LanguageHint } from "@/components/landing/language-hint";
 import { OpenSource } from "@/components/landing/open-source";
 import { Product } from "@/components/landing/product";
@@ -22,8 +24,11 @@ import { getActor } from "@/server/session";
  * Public landing page.
  *
  * Sections, in order: product · interactive demo · personal tracking · shared agreements ·
- * payments · instalments · receipts · security & privacy · open source · donations (only when
- * the instance has links configured) · FAQ.
+ * payments · instalments · receipts · security & privacy · open source · support (donation links
+ * when the instance has them, otherwise ways to help that cost nothing) · FAQ.
+ *
+ * Motion (the 3D hero, scroll reveals, tilting cards) comes from `LandingEffects`, `HeroScene`
+ * and app/landing.css, and stays out of the way of visitors who prefer reduced motion.
  */
 export default async function LandingPage() {
   // The landing page must still render if the database is unreachable.
@@ -64,11 +69,12 @@ export default async function LandingPage() {
         <Receipts />
         <Security />
         <OpenSource repoUrl={repo} />
-        <Support links={links} />
+        <Support links={links} repoUrl={repo} />
         <Faq />
         <Closing signedIn={signedIn} />
       </main>
-      <LandingFooter repoUrl={repo} hasSupport={links.length > 0} />
+      <LandingFooter repoUrl={repo} />
+      <LandingEffects />
     </>
   );
 }
