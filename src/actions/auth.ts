@@ -4,12 +4,14 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { safeInternalPath, withBasePath } from "@/lib/base-path";
 import { signIn, signOut } from "@/server/auth";
+import { signInConfigured } from "@/server/env";
 import { isAppError } from "@/server/errors";
 import { clientIp, LIMITS } from "@/server/rate-limit";
 
 /** Starts Google sign-in and comes back to `next` (always a path inside this app). */
 export async function signInWithGoogleAction(formData: FormData): Promise<void> {
   const next = safeInternalPath(formData.get("next")?.toString(), "/app");
+  if (!signInConfigured()) redirect(`/login?error=NotConfigured&next=${encodeURIComponent(next)}`);
 
   try {
     await LIMITS.signIn(clientIp(await headers()));

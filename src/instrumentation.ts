@@ -27,6 +27,11 @@ export async function register() {
       "[symmetry-debt] AUTH_GOOGLE_ISSUER is set: sign-in is NOT going through Google. This is meant for local development and tests only.",
     );
   }
+  if (!config.AUTH_GOOGLE_ID || !config.AUTH_GOOGLE_SECRET) {
+    console.warn(
+      "[symmetry-debt] AUTH_GOOGLE_ID / AUTH_GOOGLE_SECRET are not set: the site runs, but nobody can sign in until they are (scripts/google-oauth.sh).",
+    );
+  }
   if (!config.DATA_ENCRYPTION_KEY) {
     console.warn("[symmetry-debt] DATA_ENCRYPTION_KEY is not set: bank accounts cannot be saved until it is.");
   }

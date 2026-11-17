@@ -5,10 +5,10 @@ import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 
 /** Submit button of the sign-in form, following Google's guidance for the mark and wording. */
-export function GoogleButton({ label, pendingLabel }: { label: string; pendingLabel: string }) {
+export function GoogleButton({ label, pendingLabel, disabled = false }: { label: string; pendingLabel: string; disabled?: boolean }) {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" size="lg" variant="outline" className="w-full justify-center gap-3 bg-card" disabled={pending} aria-busy={pending}>
+    <Button type="submit" size="lg" variant="outline" className="w-full justify-center gap-3 bg-card" disabled={pending || disabled} aria-busy={pending}>
       {pending ? (
         <Loader2 className="size-5 animate-spin" aria-hidden />
       ) : (

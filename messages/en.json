@@ -68,7 +68,12 @@
       "AccessDenied": "Google did not confirm your email address, or access was not granted. Try another account.",
       "OAuthAccountNotLinked": "That email address is already linked to a different Google account on Symmetry Debt. Sign in with the account you used the first time.",
       "Configuration": "Sign-in is not set up correctly on this server. Let whoever runs it know.",
-      "RateLimited": "Too many attempts. Wait a few minutes and try again."
+      "RateLimited": "Too many attempts. Wait a few minutes and try again.",
+      "NotConfigured": "Google sign-in is not set up on this server yet."
+    },
+    "notConfigured": {
+      "title": "Sign-in is not active yet",
+      "text": "This server does not have Google sign-in set up yet. You can browse the page and the demo; signing in will work as soon as it is configured."
     }
   },
   "common": {
@@ -561,7 +566,15 @@
       "paypal": "PayPal"
     },
     "opensNewTab": "Opens in a new tab",
-    "thanks": "Thank you for helping keep it free."
+    "thanks": "Thank you for helping keep it free.",
+    "ways": {
+      "title": "Other ways to help",
+      "titleOnly": "How to help",
+      "star": "Star it on GitHub",
+      "issue": "Report a problem or suggest an improvement",
+      "contribute": "Contribute code",
+      "opensNewTab": "Opens in a new tab"
+    }
   },
   "emails": {
     "open": "Open in Symmetry Debt",

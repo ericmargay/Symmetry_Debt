@@ -15,7 +15,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const unread = await unreadNotificationCount(actor);
 
   return (
-    <SupportProvider links={donationLinks()}>
+    <SupportProvider links={donationLinks()} repoUrl={repoUrl()}>
       <AppShell
         user={{ name: actor.name?.trim() || actor.email.split("@")[0], email: actor.email, image: actor.image }}
         unread={unread}

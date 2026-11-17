@@ -4,7 +4,7 @@ import { GithubIcon } from "@/components/brand/github-icon";
 import { DeleteAccountButton, ExportButton, SessionsButton } from "@/components/settings/danger-zone";
 import { PreferencesForm } from "@/components/settings/preferences-form";
 import { PageHeader, Section } from "@/components/shared/page-header";
-import { SupportLinks } from "@/components/shared/support-links";
+import { SupportLinks, SupportWays } from "@/components/shared/support-links";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { defaultLocale, intlLocales, isLocale, type Locale } from "@/i18n/config";
 import { donationLinks, repoUrl } from "@/lib/site";
@@ -88,16 +88,20 @@ export default async function SettingsPage() {
             {t("about.source")}
           </a>
 
-          {links.length > 0 && (
-            <div className="mt-6 border-t border-border pt-5">
-              <h3 className="text-sm font-semibold">{t("about.supportTitle")}</h3>
-              <p className="mt-1 mb-3 text-sm leading-relaxed text-muted-foreground">
-                {donate("lead")} {donate("optional")}
-              </p>
-              <SupportLinks links={links} />
-              <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{donate("external")}</p>
-            </div>
-          )}
+          <div className="mt-6 border-t border-border pt-5">
+            <h3 className="text-sm font-semibold">{t("about.supportTitle")}</h3>
+            <p className="mt-1 mb-3 text-sm leading-relaxed text-muted-foreground">
+              {donate("lead")} {donate("optional")}
+            </p>
+            {links.length > 0 && (
+              <>
+                <SupportLinks links={links} />
+                <p className="mt-3 mb-5 text-xs leading-relaxed text-muted-foreground">{donate("external")}</p>
+              </>
+            )}
+            <p className="mb-2 text-sm font-medium">{links.length > 0 ? donate("ways.title") : donate("ways.titleOnly")}</p>
+            <SupportWays repoUrl={repoUrl()} className="max-w-md" />
+          </div>
         </Section>
       </div>
     </>

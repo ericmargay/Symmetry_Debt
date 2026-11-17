@@ -46,8 +46,12 @@ const schema = z.object({
   APP_URL: optionalUrl,
 
   AUTH_SECRET: z.string().min(32, "must be at least 32 characters (openssl rand -base64 32)"),
-  AUTH_GOOGLE_ID: z.string().min(1, "is required"),
-  AUTH_GOOGLE_SECRET: z.string().min(1, "is required"),
+  /**
+   * Google OAuth client. Without it the app still runs (landing page, health check) but nobody
+   * can sign in: the login page says so instead of sending people to a broken Google screen.
+   */
+  AUTH_GOOGLE_ID: optionalString,
+  AUTH_GOOGLE_SECRET: optionalString,
   /** Development and tests only: points Google sign-in at the local mock issuer. */
   AUTH_GOOGLE_ISSUER: optionalUrl,
 
@@ -132,6 +136,12 @@ export function env(): Env {
 
   cached = value;
   return value;
+}
+
+/** Whether Google sign-in has a client configured (or the local mock issuer is in use). */
+export function signInConfigured(): boolean {
+  const value = env();
+  return Boolean(value.AUTH_GOOGLE_ID && value.AUTH_GOOGLE_SECRET);
 }
 
 /** For tests that change process.env between cases. */

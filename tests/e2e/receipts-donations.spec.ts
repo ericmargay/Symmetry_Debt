@@ -38,17 +38,27 @@ test("receipts: attach, open, keep private — and they confirm nothing", async 
   await other.context.close();
 });
 
-test("without donation links the app shows no support UI anywhere, and works", async ({ page }) => {
+test("without donation links there is still a calm way to help, and no donation platform anywhere", async ({ page }) => {
+  const platforms = /Ko-fi|PayPal|GitHub Sponsors|Buy Me a Coffee/;
   await page.goto(APP);
-  await expect(page.getByText("Apoyar el proyecto")).toHaveCount(0);
+  await expect(page.getByRole("link", { name: platforms })).toHaveCount(0);
+
   await signIn(page, person("Sin Donaciones"));
-  await expect(page.getByText(/Apoyar/)).toHaveCount(0);
+  // Nothing opens by itself; the quiet link opens the ways to help that cost nothing.
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await page.getByRole("button", { name: "Apoyar Symmetry Debt" }).first().click();
+  const dialog = page.getByRole("dialog");
+  await expect(dialog.getByText("Cómo ayudar")).toBeVisible();
+  await expect(dialog.getByRole("link", { name: /Dale una estrella en GitHub/ })).toHaveAttribute("href", /^https:\/\/github\.com\//);
+  await expect(dialog.getByRole("link", { name: platforms })).toHaveCount(0);
+  await page.keyboard.press("Escape");
+
   await createPersonalDebt(page, { direction: "owe", person: "Marta", amount: "50", concept: "Sin enlaces" });
   await recordPayment(page, "50", "Guardar");
   await expect(page.getByText("Deuda liquidada").first()).toBeVisible();
-  await expect(page.getByText(/Apoyar|apoyar su desarrollo/)).toHaveCount(0);
   await page.goto(`${APP}/app/settings`);
-  await expect(page.getByText("Apoyar el proyecto")).toHaveCount(0);
+  await expect(page.getByRole("link", { name: /Reporta un problema/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: platforms })).toHaveCount(0);
 });
 
 test("with donation links the invitation is present but never in the way", async ({ page }) => {

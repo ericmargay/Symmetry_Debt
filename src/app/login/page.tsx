@@ -8,6 +8,7 @@ import { Logo } from "@/components/brand/logo";
 import { GoogleButton } from "@/components/shared/google-button";
 import { LanguageSwitch } from "@/components/shared/language-switch";
 import { safeInternalPath } from "@/lib/base-path";
+import { signInConfigured } from "@/server/env";
 import { getActor } from "@/server/session";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -15,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t("metaTitle"), robots: { index: false } };
 }
 
-const KNOWN_ERRORS = ["AccessDenied", "OAuthAccountNotLinked", "Configuration", "RateLimited"] as const;
+const KNOWN_ERRORS = ["AccessDenied", "OAuthAccountNotLinked", "Configuration", "RateLimited", "NotConfigured"] as const;
 
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ next?: string; error?: string }> }) {
   const [{ next: rawNext, error }, t, actor] = await Promise.all([searchParams, getTranslations("auth"), getActor()]);
@@ -25,6 +26,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   const errorKey = error ? (KNOWN_ERRORS.find((known) => known === error) ?? "Default") : null;
   const invited = next.startsWith("/invite/");
   const usesMockIssuer = Boolean(process.env.AUTH_GOOGLE_ISSUER);
+  const configured = signInConfigured();
 
   return (
     <div className="flex min-h-dvh flex-col">
@@ -40,6 +42,16 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
           <h1 className="font-display text-3xl leading-tight font-semibold">{t("title")}</h1>
           <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">{invited ? t("invited") : t("subtitle")}</p>
 
+          {!configured && errorKey !== "NotConfigured" && (
+            <div role="status" className="mt-6 flex gap-3 rounded-xl border border-waiting/40 bg-waiting-soft p-4 text-sm">
+              <TriangleAlert className="mt-0.5 size-4 shrink-0 text-waiting" aria-hidden />
+              <div>
+                <p className="font-medium">{t("notConfigured.title")}</p>
+                <p className="mt-1 text-foreground/80">{t("notConfigured.text")}</p>
+              </div>
+            </div>
+          )}
+
           {errorKey && (
             <div role="alert" className="mt-6 flex gap-3 rounded-xl border border-destructive/30 bg-destructive/5 p-4 text-sm">
               <TriangleAlert className="mt-0.5 size-4 shrink-0 text-destructive" aria-hidden />
@@ -52,7 +64,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
 
           <form action={signInWithGoogleAction} className="mt-7">
             <input type="hidden" name="next" value={next} />
-            <GoogleButton label={t("google")} pendingLabel={t("redirecting")} />
+            <GoogleButton label={t("google")} pendingLabel={t("redirecting")} disabled={!configured} />
           </form>
 
           {usesMockIssuer && (
