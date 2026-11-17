@@ -1,0 +1,40 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+*.tsbuildinfo
+
+# generated Prisma client (recreated by `prisma generate` on install and on build)
+/src/generated/
+
+# local data: uploaded receipts, database dumps
+/.data/
+/backups/
+
+# environment files — never commit secrets. The example file is the only exception.
+.env
+.env.*
+!.env.example
+
+# tests
+/coverage
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/tests/e2e/.auth/
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+.vercel
+
+# editor / assistant settings that are specific to one machine
+.claude/
+.idea/
+.vscode/*
+!.vscode/extensions.json

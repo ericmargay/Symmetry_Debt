@@ -1,0 +1,30 @@
+name: Idea or improvement · Idea o mejora
+description: Something Symmetry Debt could do better. · Algo que Symmetry Debt podría hacer mejor.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        You can write in English or in Spanish. · Puedes escribir en español o en inglés.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do? · ¿Qué intentas hacer?
+      description: The situation, not the solution. · La situación, no la solución.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would help? · ¿Qué te ayudaría?
+    validations:
+      required: true
+  - type: checkboxes
+    id: principles
+    attributes:
+      label: Principles · Principios
+      description: Symmetry Debt keeps a few promises. · Symmetry Debt mantiene algunas promesas.
+      options:
+        - label: It keeps a personal record clearly apart from something both sides confirmed. · Mantiene claramente separado un registro personal de algo confirmado por ambas partes.
+        - label: It does not expose anybody's private data to someone else. · No expone datos privados de una persona a otra.
+        - label: It does not put any feature behind a payment. · No condiciona ninguna función a un pago.

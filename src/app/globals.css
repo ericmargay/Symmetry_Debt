@@ -1,0 +1,243 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./shadcn.css";
+@import "@fontsource-variable/fraunces/opsz.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Symmetry Debt — visual identity
+ *
+ * Paper and ink, one deep teal, and two semantic pairs that carry the product's meaning:
+ *
+ *   owe / owed          which direction the money goes
+ *   personal / agreed   how much weight a figure carries (one person's record vs. both sides)
+ *
+ * Everything else in the interface stays neutral so those two distinctions are never lost.
+ */
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-heading: "Fraunces Variable", ui-serif, Georgia, "Times New Roman", serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Direction of the money */
+  --color-owe: var(--owe);
+  --color-owe-soft: var(--owe-soft);
+  --color-owed: var(--owed);
+  --color-owed-soft: var(--owed-soft);
+
+  /* Weight of a figure */
+  --color-personal: var(--personal);
+  --color-personal-soft: var(--personal-soft);
+  --color-agreed: var(--agreed);
+  --color-agreed-soft: var(--agreed-soft);
+  --color-waiting: var(--waiting);
+  --color-waiting-soft: var(--waiting-soft);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  --background: oklch(0.985 0.004 85);
+  --foreground: oklch(0.22 0.012 250);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.012 250);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.012 250);
+  --primary: oklch(0.42 0.072 192);
+  --primary-foreground: oklch(0.985 0.008 190);
+  --secondary: oklch(0.955 0.012 190);
+  --secondary-foreground: oklch(0.3 0.05 192);
+  --muted: oklch(0.958 0.006 85);
+  --muted-foreground: oklch(0.48 0.014 250);
+  --accent: oklch(0.948 0.018 85);
+  --accent-foreground: oklch(0.26 0.014 250);
+  --destructive: oklch(0.55 0.2 27);
+  --border: oklch(0.905 0.008 85);
+  --input: oklch(0.87 0.01 85);
+  --ring: oklch(0.6 0.07 192);
+
+  --owe: oklch(0.55 0.15 38);
+  --owe-soft: oklch(0.955 0.03 45);
+  --owed: oklch(0.5 0.11 160);
+  --owed-soft: oklch(0.955 0.035 160);
+
+  --personal: oklch(0.5 0.03 255);
+  --personal-soft: oklch(0.955 0.01 255);
+  --agreed: oklch(0.42 0.072 192);
+  --agreed-soft: oklch(0.95 0.025 192);
+  --waiting: oklch(0.6 0.13 75);
+  --waiting-soft: oklch(0.96 0.045 85);
+
+  --chart-1: oklch(0.42 0.072 192);
+  --chart-2: oklch(0.55 0.15 38);
+  --chart-3: oklch(0.5 0.11 160);
+  --chart-4: oklch(0.6 0.13 75);
+  --chart-5: oklch(0.5 0.03 255);
+
+  --sidebar: oklch(0.975 0.006 85);
+  --sidebar-foreground: oklch(0.22 0.012 250);
+  --sidebar-primary: oklch(0.42 0.072 192);
+  --sidebar-primary-foreground: oklch(0.985 0.008 190);
+  --sidebar-accent: oklch(0.94 0.012 85);
+  --sidebar-accent-foreground: oklch(0.22 0.012 250);
+  --sidebar-border: oklch(0.905 0.008 85);
+  --sidebar-ring: oklch(0.6 0.07 192);
+}
+
+.dark {
+  --background: oklch(0.165 0.012 250);
+  --foreground: oklch(0.95 0.006 85);
+  --card: oklch(0.205 0.014 250);
+  --card-foreground: oklch(0.95 0.006 85);
+  --popover: oklch(0.225 0.014 250);
+  --popover-foreground: oklch(0.95 0.006 85);
+  --primary: oklch(0.78 0.09 190);
+  --primary-foreground: oklch(0.19 0.03 195);
+  --secondary: oklch(0.27 0.025 195);
+  --secondary-foreground: oklch(0.9 0.04 190);
+  --muted: oklch(0.25 0.014 250);
+  --muted-foreground: oklch(0.72 0.012 250);
+  --accent: oklch(0.275 0.016 250);
+  --accent-foreground: oklch(0.95 0.006 85);
+  --destructive: oklch(0.7 0.18 24);
+  --border: oklch(1 0 0 / 11%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.65 0.08 190);
+
+  --owe: oklch(0.76 0.13 45);
+  --owe-soft: oklch(0.3 0.05 40);
+  --owed: oklch(0.78 0.12 160);
+  --owed-soft: oklch(0.29 0.045 160);
+
+  --personal: oklch(0.76 0.03 255);
+  --personal-soft: oklch(0.28 0.02 255);
+  --agreed: oklch(0.78 0.09 190);
+  --agreed-soft: oklch(0.29 0.04 192);
+  --waiting: oklch(0.82 0.13 85);
+  --waiting-soft: oklch(0.31 0.05 80);
+
+  --chart-1: oklch(0.78 0.09 190);
+  --chart-2: oklch(0.76 0.13 45);
+  --chart-3: oklch(0.78 0.12 160);
+  --chart-4: oklch(0.82 0.13 85);
+  --chart-5: oklch(0.76 0.03 255);
+
+  --sidebar: oklch(0.19 0.013 250);
+  --sidebar-foreground: oklch(0.95 0.006 85);
+  --sidebar-primary: oklch(0.78 0.09 190);
+  --sidebar-primary-foreground: oklch(0.19 0.03 195);
+  --sidebar-accent: oklch(0.26 0.015 250);
+  --sidebar-accent-foreground: oklch(0.95 0.006 85);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.65 0.08 190);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  /* Native date and number inputs follow the theme. */
+  input[type="date"] {
+    color-scheme: light;
+  }
+  .dark input[type="date"] {
+    color-scheme: dark;
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--primary) 22%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Amounts line up in columns. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum", "ss01";
+  }
+
+  .font-display {
+    font-family: var(--font-heading);
+    font-optical-sizing: auto;
+    letter-spacing: -0.015em;
+  }
+
+  /* Room for the bottom navigation and the home indicator on phones. */
+  .pb-safe {
+    padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
+  }
+}

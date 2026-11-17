@@ -1,0 +1,45 @@
+# Keep the build context small and — above all — free of secrets and local data.
+
+# version control and tooling
+.git
+.github
+.claude
+.idea
+.vscode
+
+# dependencies and build output (rebuilt inside the image)
+node_modules
+.next
+out
+src/generated
+next-env.d.ts
+*.tsbuildinfo
+
+# secrets and local data: never part of an image
+.env
+.env.*
+!.env.example
+.data
+backups
+*.pem
+
+# tests and their output
+tests
+coverage
+test-results
+playwright-report
+blob-report
+playwright
+
+# documentation and deployment files the app does not need at run time
+docs
+deploy
+*.md
+LICENSE
+Dockerfile
+.dockerignore
+docker-compose*.yml
+railway.json
+
+.DS_Store
+npm-debug.log*

@@ -1,0 +1,62 @@
+# Symmetry Debt — standalone installation: the app, PostgreSQL and a volume for receipts.
+#
+#   ./scripts/setup.sh            # creates .env and generates the secrets (run once)
+#   docker compose up -d --build  # http://localhost:3000/debt
+#
+# Put a reverse proxy with HTTPS in front of it for anything beyond your own machine
+# (docs/en/SELF_HOSTING.md · docs/es/SELF_HOSTING.md).
+#
+# Developing instead? Use docker-compose.dev.yml: it only starts the services around `npm run dev`.
+name: symmetry-debt
+
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-symmetry}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is not set. Run ./scripts/setup.sh to create .env}
+      POSTGRES_DB: ${POSTGRES_DB:-symmetry_debt}
+    # Not published to the host: only the app talks to the database.
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    build:
+      context: .
+      args:
+        # Build-time settings: changing them requires `docker compose build`.
+        NEXT_PUBLIC_BASE_PATH: ${NEXT_PUBLIC_BASE_PATH:-/debt}
+        MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-10}
+    image: symmetry-debt:${IMAGE_TAG:-local}
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    # Everything in .env reaches the app. ENV_FILE lets you point at another file.
+    env_file:
+      - path: ${ENV_FILE:-.env}
+        required: true
+    environment:
+      # These always win over .env, which may hold values meant for `npm run dev`.
+      DATABASE_URL: postgresql://${POSTGRES_USER:-symmetry}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-symmetry_debt}
+      STORAGE_LOCAL_DIR: /data/uploads
+      NODE_ENV: production
+      PORT: "3000"
+      HOSTNAME: 0.0.0.0
+    # APP_BIND=127.0.0.1 keeps the port private to this machine (use it behind a reverse proxy).
+    ports:
+      - "${APP_BIND:-0.0.0.0}:${APP_PORT:-3000}:3000"
+    volumes:
+      - uploads:/data
+
+volumes:
+  # `docker compose down -v` deletes BOTH volumes: every debt and every receipt. Back up first
+  # (scripts/backup.sh --compose).
+  db-data:
+  uploads:

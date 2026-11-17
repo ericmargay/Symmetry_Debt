@@ -1,0 +1,20 @@
+{
+  "myRole": "DEBTOR",
+  "counterparty": { "kind": "new", "name": "Alex Example", "email": null, "phone": null },
+  "concept": "Example loan",
+  "currency": "MXN",
+  "amount": "12000.00",
+  "originDate": "2026-01-15",
+  "schedule": {
+    "type": "CUSTOM",
+    "installments": [
+      { "dueDate": "2026-02-15", "amount": "4000.00" },
+      { "dueDate": "2026-03-15", "amount": "4000.00" },
+      { "dueDate": "2026-04-15", "amount": "4000.00" }
+    ]
+  },
+  "plannedMethod": "BANK_TRANSFER",
+  "previousPayments": [{ "amount": "1500.00", "effectiveDate": "2026-02-10", "method": "CASH", "note": "First payment" }],
+  "privateNotes": "Fictional data. Amounts are text with a dot as the decimal separator; dates are YYYY-MM-DD.",
+  "receivingAccountId": null
+}

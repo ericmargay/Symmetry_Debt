@@ -1,0 +1,24 @@
+# Symmetry Debt on your own server with Caddy: automatic HTTPS, one file.
+#
+# Replace debt.example.org with your domain and point its DNS at this server.
+# Caddy obtains and renews the certificate by itself.
+
+# ── A. The app at the ROOT of a (sub)domain ───────────────────────────────────────────────────
+# Build the image with NEXT_PUBLIC_BASE_PATH=/ and set APP_URL=https://debt.example.org
+debt.example.org {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:3000
+}
+
+# ── B. The app under a PATH of a site that serves other things ────────────────────────────────
+# Build with NEXT_PUBLIC_BASE_PATH=/debt (the default) and set APP_URL=https://example.org/debt
+# example.org {
+# 	@debt path /debt /debt/*
+# 	handle @debt {
+# 		reverse_proxy 127.0.0.1:3000
+# 	}
+#
+# 	handle {
+# 		# …the rest of your site…
+# 	}
+# }

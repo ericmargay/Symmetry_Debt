@@ -1,0 +1,53 @@
+# Development services — only the things the app needs around it while you run `npm run dev`.
+#
+#   docker compose -f docker-compose.dev.yml up -d                     # PostgreSQL
+#   docker compose -f docker-compose.dev.yml --profile extras up -d    # + Mailpit (email inbox) and MinIO (S3)
+#
+# Ports are bound to 127.0.0.1 only. Change them with DB_PORT / MAIL_UI_PORT / S3_PORT if they collide.
+name: symmetry-debt-dev
+
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: symmetry
+      POSTGRES_PASSWORD: symmetry
+      POSTGRES_DB: symmetry_debt
+    ports:
+      - "127.0.0.1:${DB_PORT:-54329}:5432"
+    volumes:
+      - dev-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U symmetry -d symmetry_debt"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  # Catches every email the app sends. Inbox: http://localhost:8025
+  mailpit:
+    image: axllent/mailpit:latest
+    profiles: ["extras"]
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${MAIL_SMTP_PORT:-1025}:1025"
+      - "127.0.0.1:${MAIL_UI_PORT:-8025}:8025"
+
+  # S3-compatible storage for receipts. Console: http://localhost:9001 (symmetry / symmetry-secret)
+  minio:
+    image: minio/minio:latest
+    profiles: ["extras"]
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: symmetry
+      MINIO_ROOT_PASSWORD: symmetry-secret
+    ports:
+      - "127.0.0.1:${S3_PORT:-9000}:9000"
+      - "127.0.0.1:${S3_CONSOLE_PORT:-9001}:9001"
+    volumes:
+      - dev-s3:/data
+
+volumes:
+  dev-db:
+  dev-s3:

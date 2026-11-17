@@ -1,0 +1,24 @@
+# Symmetry Debt behind Caddy, served under /debt.
+#
+# This is the block for the official instance, https://aminoacid.com.mx/debt. Paste it INSIDE
+# the site block of the Caddyfile that serves the domain (repository `aminoacid-studio`), next to
+# the existing `handle /artech_designer* { … }` and before the final catch-all `handle { … }`.
+# Nothing else in that Caddyfile changes.
+#
+#   - The matcher is exact: /debt and everything below /debt/, but not /debtors or /debt-free.
+#   - The path is NOT stripped. The app is built with the base path "/debt" and expects to see it.
+#   - `symmetry-debt` is the name of the Railway service; `.railway.internal` is the project's
+#     private network, so the app needs no public domain of its own.
+#   - Railway terminates TLS before Caddy, which therefore sees plain HTTP. Forwarding
+#     X-Forwarded-Proto https tells the app what the visitor really used.
+#   - Caddy keeps the original Host header and adds X-Forwarded-Host and X-Forwarded-For by
+#     itself; the app needs nothing else.
+#
+# Self-hosting on another domain or path? See docs/en/SELF_HOSTING.md (docs/es/SELF_HOSTING.md).
+
+@debt path /debt /debt/*
+handle @debt {
+	reverse_proxy symmetry-debt.railway.internal:3000 {
+		header_up X-Forwarded-Proto https
+	}
+}

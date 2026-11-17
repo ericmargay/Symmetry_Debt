@@ -1,0 +1,15 @@
+# Funding links shown by GitHub's "Sponsor" button.
+#
+# Everything is commented out on purpose: GitHub rejects accounts that do not exist, and this
+# file must not point at somebody else's. To enable a platform, uncomment its line and put YOUR
+# account there. Use the same accounts as in the app's DONATE_* settings (.env.example) so the
+# repository and the running instance agree.
+#
+# Donations are voluntary. Nothing in Symmetry Debt is locked behind them.
+
+# github: [your-github-username]          # GitHub Sponsors (must be enrolled first)
+# ko_fi: your-kofi-name
+# buy_me_a_coffee: your-bmc-name
+# open_collective: your-collective
+# liberapay: your-liberapay-name
+# custom: ["https://paypal.me/your-account", "https://example.org/donate"]

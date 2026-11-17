@@ -1,0 +1,1769 @@
+{
+  "accounts": {
+    "metaTitle": "Bank accounts",
+    "title": "My bank accounts",
+    "subtitle": "The accounts where you can receive payments. They are private: nobody sees them unless you explicitly share one in an agreement.",
+    "add": "Add an account",
+    "preferred": "Preferred",
+    "makePreferred": "Make preferred",
+    "sharedIn": "{count, plural, one {Shared in # agreement} other {Shared in # agreements}}",
+    "notShared": "Not shared",
+    "holder": "Account holder",
+    "clabe": "CLABE",
+    "account": "Account number",
+    "show": "Show full details",
+    "hide": "Hide",
+    "copyClabe": "Copy CLABE",
+    "copyAccount": "Copy account number",
+    "copyAll": "Copy transfer details",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteTitle": "Delete this account",
+    "deleteConfirm": "It will be deleted for good. If you shared it in an agreement, the other person will no longer see it.",
+    "empty": {
+      "title": "You have no saved accounts yet",
+      "text": "Save your CLABE to copy it in one tap or share it when somebody is going to pay you."
+    },
+    "security": "We keep only what is needed to receive a transfer, encrypted. We never ask for or store passwords, PINs, CVVs or online-banking credentials.",
+    "form": {
+      "createTitle": "Add an account",
+      "editTitle": "Edit account",
+      "alias": "Alias",
+      "aliasHint": "A name to recognise it by. Only you can see it.",
+      "aliasPlaceholder": "For example, Salary",
+      "bank": "Bank",
+      "holder": "Account holder",
+      "clabe": "CLABE (18 digits)",
+      "clabeValid": "Valid CLABE",
+      "clabeBank": "Bank detected: {bank}",
+      "accountNumber": "Account number",
+      "accountHint": "Optional if you have already entered the CLABE.",
+      "currency": "Currency",
+      "preferred": "Use it as my preferred account",
+      "saved": "Account saved.",
+      "loading": "Loading details…"
+    }
+  },
+  "app": {
+    "name": "Symmetry Debt",
+    "tagline": "Two sides. One agreement.",
+    "description": "Track what you owe, manage payments, and confirm agreements together. Free, private, and open source.",
+    "skipToContent": "Skip to content"
+  },
+  "auth": {
+    "metaTitle": "Sign in",
+    "title": "Sign in to Symmetry Debt",
+    "subtitle": "Use your Google account. If this is your first time, your profile is created automatically.",
+    "google": "Continue with Google",
+    "redirecting": "Opening Google…",
+    "privacyTitle": "What we use from your Google account",
+    "privacy": "Only your name, your email address and your picture, to know who you are. We do not read your mail or your contacts, and we keep no access to your Google account.",
+    "backHome": "Back to the home page",
+    "invited": "Sign in to review the invitation you received.",
+    "devNotice": "Local mode: sign-in uses the test issuer, not Google.",
+    "signedOut": "You signed out.",
+    "error": {
+      "title": "We could not sign you in",
+      "Default": "Something went wrong while signing in. Please try again.",
+      "AccessDenied": "Google did not confirm your email address, or access was not granted. Try another account.",
+      "OAuthAccountNotLinked": "That email address is already linked to a different Google account on Symmetry Debt. Sign in with the account you used the first time.",
+      "Configuration": "Sign-in is not set up correctly on this server. Let whoever runs it know.",
+      "RateLimited": "Too many attempts. Wait a few minutes and try again."
+    }
+  },
+  "common": {
+    "save": "Save",
+    "saveChanges": "Save changes",
+    "cancel": "Cancel",
+    "close": "Close",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "remove": "Remove",
+    "continue": "Continue",
+    "back": "Back",
+    "confirm": "Confirm",
+    "send": "Send",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyFailed": "Could not copy",
+    "open": "Open",
+    "view": "View",
+    "viewAll": "View all",
+    "download": "Download",
+    "retry": "Try again",
+    "loading": "Loading…",
+    "saving": "Saving…",
+    "sending": "Sending…",
+    "optional": "Optional",
+    "yes": "Yes",
+    "no": "No",
+    "none": "None",
+    "more": "More",
+    "search": "Search",
+    "you": "You",
+    "today": "Today",
+    "notSet": "Not set",
+    "learnMore": "Learn more",
+    "comment": "Comment",
+    "reason": "Reason",
+    "saved": "Saved",
+    "done": "Done",
+    "of": "of",
+    "showMore": "Show more",
+    "showLess": "Show less",
+    "requiredField": "Required",
+    "characters": "{count}/{max}",
+    "openMenu": "Open menu",
+    "goBack": "Go back",
+    "new": "New"
+  },
+  "convert": {
+    "metaTitle": "Invite to confirm this debt",
+    "title": "Invite to confirm this debt",
+    "intro": "You are about to propose to {name} that this record becomes a shared agreement. You choose which part of your history is included.",
+    "safe": "Your personal record does not change. If {name} does not accept, it stays exactly as it is.",
+    "record": "Your record",
+    "recordedBalance": "Balance according to your records",
+    "historyQuestion": "What do you want to share?",
+    "full": "The amount and the payments you choose",
+    "fullHint": "The other person will see the amount of the debt and the payments you select, to recognise them.",
+    "balanceOnly": "Only the current balance",
+    "balanceOnlyHint": "This proposes starting from what is left today ({amount}), without sharing any earlier payment.",
+    "payments": "Payments to recognise",
+    "paymentsHint": "Only the ones you tick become part of the proposal. They are not confirmed by themselves: they count once {name} accepts.",
+    "selectAll": "Tick all",
+    "selectNone": "Untick all",
+    "noPayments": "You have no payments recorded on this debt.",
+    "notSelectedWarning": "{count, plural, one {There is # payment you are not sharing} other {There are # payments you are not sharing}}: the proposed balance will be higher than the one in your record.",
+    "preview": "What {name} will see",
+    "previewAmount": "Amount",
+    "previewRecognised": "Payments to recognise",
+    "previewOpening": "Proposed opening balance",
+    "includeNotes": "Include my private notes as agreement notes",
+    "includeNotesHint": "By default your notes are not shared.",
+    "includeReceipts": "Copy the receipts of the debt and of the selected payments",
+    "includeReceiptsHint": "{count, plural, =0 {There are no receipts to copy.} one {# receipt will be copied.} other {# receipts will be copied.}}",
+    "email": "{name}’s email",
+    "submit": "Create proposal and get the link",
+    "doneTitle": "Invitation ready",
+    "doneText": "Send this link to {name}. Once they accept, the debt will be confirmed by both of you and your personal record will be kept as an archive.",
+    "goToProposal": "View the proposal",
+    "backToRecord": "Back to my record"
+  },
+  "dashboard": {
+    "metaTitle": "Home",
+    "greeting": "Hello, {name}",
+    "subtitle": "Here is what you owe, what you are owed and what is waiting for an answer.",
+    "filtersLabel": "What to show",
+    "filter": {
+      "all": "All my debts",
+      "personal": "Personal records",
+      "shared": "Shared agreements",
+      "pending": "Pending confirmation",
+      "settled": "Settled",
+      "archived": "Archived"
+    },
+    "totals": {
+      "iOwe": "Total I owe",
+      "owedToMe": "Total owed to me",
+      "net": "Net balance",
+      "netPositive": "In your favour",
+      "netNegative": "Against you",
+      "netZero": "Balanced",
+      "netHint": "What you are owed minus what you owe. Only what you recorded and what both sides confirmed counts.",
+      "recorded": "Personal records",
+      "confirmed": "Confirmed by both",
+      "awaiting": "Payments to be confirmed",
+      "awaitingHint": "Already recorded, but not counted in the balance yet.",
+      "proposed": "Proposed",
+      "proposedHint": "Terms the other side has not accepted yet.",
+      "breakdown": "What it is made of",
+      "noAmounts": "Nothing pending with this filter.",
+      "currency": "Amounts in {currency}",
+      "settledCount": "{count, plural, one {# settled debt} other {# settled debts}}"
+    },
+    "invitations": {
+      "title": "Invitations for you",
+      "item": "{name} invited you to review an agreement",
+      "expires": "Expires on {date}",
+      "review": "Review"
+    },
+    "needsMe": {
+      "title": "Waiting for your answer",
+      "empty": "There is nothing for you to answer."
+    },
+    "waiting": {
+      "title": "Waiting for the other side"
+    },
+    "upcoming": {
+      "title": "Upcoming payments",
+      "empty": "No payments in the next 30 days.",
+      "installment": "Instalment {sequence}"
+    },
+    "overdue": {
+      "title": "Overdue payments",
+      "count": "{count, plural, one {# overdue} other {# overdue}}"
+    },
+    "recent": {
+      "title": "Latest activity",
+      "empty": "The latest on your debts will show up here.",
+      "all": "View history"
+    },
+    "empty": {
+      "title": "Start with your first debt",
+      "text": "You can note it down just for yourself, or share it with the other person so you both confirm it. You decide each time.",
+      "action": "Record a debt"
+    },
+    "duePay": "You are due to pay {name}",
+    "dueCollect": "{name} is due to pay you"
+  },
+  "debts": {
+    "metaTitle": "My debts",
+    "title": "My debts",
+    "subtitle": "Your personal records and your shared agreements, each with how firmly it is confirmed.",
+    "new": "New debt",
+    "needsYou": "Waiting for you",
+    "pendingMovements": "{count, plural, one {# to be confirmed} other {# to be confirmed}}",
+    "nextDue": "Next payment:",
+    "proposedAmount": "Proposed amount",
+    "empty": {
+      "all": {
+        "title": "You have no debts on record yet",
+        "text": "Record what you owe or what you are owed. You can keep it to yourself or share it with the other person."
+      },
+      "personal": {
+        "title": "You have no personal records",
+        "text": "Personal records are yours alone: nobody else sees or approves them."
+      },
+      "shared": {
+        "title": "You have no shared agreements",
+        "text": "In a shared agreement, the terms and every payment count once both sides confirm them."
+      },
+      "pending": {
+        "title": "Nothing is pending confirmation",
+        "text": "Proposals and payments waiting for either side’s answer will show up here."
+      },
+      "settled": {
+        "title": "No settled debts yet",
+        "text": "When a debt has been fully paid it will show up here."
+      },
+      "archived": {
+        "title": "Nothing is archived",
+        "text": "Cancelled records and those that became shared agreements are kept here."
+      }
+    },
+    "legend": {
+      "title": "How to read the symbols",
+      "personal": "You wrote it down. Nobody else has confirmed it.",
+      "one_side": "One side recorded it; the other still has to confirm it.",
+      "both_sides": "Both sides agree.",
+      "proposal": "Terms nobody else has accepted yet."
+    }
+  },
+  "detail": {
+    "back": "My debts",
+    "moreActions": "More actions",
+    "balance": {
+      "outstanding": "Left to pay",
+      "proposedAmount": "Proposed amount",
+      "settled": "Settled",
+      "paidOf": "{paid} paid of {total}",
+      "recordedHint": "Balance according to your own records. The other person has not confirmed it.",
+      "confirmedHint": "Only what both sides have confirmed counts.",
+      "proposalHint": "This is not an agreement yet: both sides still have to accept the same terms.",
+      "pending": "To be confirmed",
+      "pendingHint": "Recorded by one side. It does not count towards the balance until the other confirms it.",
+      "ifConfirmed": "If everything is confirmed, {amount} would be left",
+      "adjustments": "Adjustments: {amount}",
+      "asOf": "Balance agreed as of {date}",
+      "overdue": "{amount} overdue"
+    },
+    "actions": {
+      "recordPayment": "Record a payment",
+      "recordAdjustment": "Record an adjustment",
+      "convert": "Invite to confirm this debt",
+      "edit": "Edit",
+      "cancel": "Cancel record",
+      "reopen": "Reopen record",
+      "delete": "Delete record",
+      "proposeChanges": "Propose changes",
+      "proposeNewTerms": "Propose new terms",
+      "openDispute": "Mark as disputed",
+      "requestCancellation": "Cancel agreement",
+      "withdrawProposal": "Withdraw proposal",
+      "addComment": "Comment"
+    },
+    "banner": {
+      "settledTitle": "Debt settled",
+      "settledPersonal": "According to your records, there is nothing left to pay.",
+      "settledShared": "Both sides confirmed every payment. All square.",
+      "converted": "This record became a shared agreement. It is kept here, untouched and for your eyes only, as an archive.",
+      "viewAgreement": "View the agreement",
+      "conversionPending": "You invited the other person to confirm this debt. While they answer, your record stays as it is and you can keep using it.",
+      "viewProposal": "View the proposal",
+      "cancelledPersonal": "You cancelled this record. It no longer counts in your totals.",
+      "cancelledShared": "{reason, select, rejected {The proposal was rejected.} withdrawn {The proposal was withdrawn.} mutual {The agreement was cancelled by mutual agreement.} account_deleted {The agreement was closed because one of the sides deleted their account.} other {This agreement was cancelled.}} It is kept as history.",
+      "fromRecord": "This proposal came from one of your personal records.",
+      "viewRecord": "View my record",
+      "draft": "This is a draft: only you can see it. Send it when it is ready.",
+      "editDraft": "Edit draft",
+      "sendDraft": "Send proposal",
+      "discardDraft": "Discard",
+      "discardConfirm": "Discard this draft? This cannot be undone.",
+      "waitingLink": "Waiting for {name} to open the link and answer.",
+      "linkSentTo": "Invitation sent to {email}.",
+      "linkExpires": "The link expires on {date}.",
+      "linkExpired": "The link has expired. Generate a new one so they can answer.",
+      "newLink": "Generate a new link",
+      "newLinkConfirm": "A new link will be created and the previous one will stop working.",
+      "newLinkEmail": "The other person’s email (optional)",
+      "newLinkSend": "Email it as well",
+      "identityTitle": "Is this the right person?",
+      "identityText": "{name} joined through the invitation link. Confirm this is the person you have this agreement with. It does not take effect until you do.",
+      "identityEmail": "Account: {email}",
+      "identityConfirm": "Yes, this is the person",
+      "identityReject": "This is not the person",
+      "identityRejectConfirm": "Their access will be removed, their answer discarded, and you will get a new link to send to the right person.",
+      "awaitingIdentity": "You joined through the link. {name} still has to confirm that you are the person they have this agreement with; after that you can take part.",
+      "changesRequested": "Changes to the terms were requested.",
+      "disputeTitle": "Agreement in dispute",
+      "disputeByMe": "You marked this agreement as disputed.",
+      "disputeByOther": "{name} marked this agreement as disputed.",
+      "resolveDispute": "Mark as resolved",
+      "resolveNote": "Note (optional)",
+      "cancelTitle": "Cancellation request",
+      "cancelByMe": "You proposed cancelling the agreement. Waiting for {name}.",
+      "cancelByOther": "{name} proposes cancelling the agreement.",
+      "cancelAccept": "Accept the cancellation",
+      "cancelDecline": "Do not cancel",
+      "cancelWithdraw": "Withdraw the request",
+      "amendmentOpen": "Changes have been proposed. Until they are accepted, the current terms still apply."
+    },
+    "proposal": {
+      "title": "Proposed terms",
+      "version": "Version {number}",
+      "byMe": "Proposed by you",
+      "byOther": "Proposed by {name}",
+      "changes": "What changes",
+      "field": {
+        "concept": "What it is for",
+        "principal": "Amount",
+        "originDate": "Start date",
+        "schedule": "Payment schedule",
+        "plannedMethod": "Planned method",
+        "sharedNotes": "Notes",
+        "historicalPayments": "Earlier payments recognised"
+      },
+      "note": "Message",
+      "accept": "Accept terms",
+      "acceptHint": "By accepting, these terms take effect for both of you.",
+      "requestChanges": "Ask for changes",
+      "reject": "Reject",
+      "waiting": "Waiting for {name} to answer.",
+      "requestChangesTitle": "What should change?",
+      "rejectTitle": "Reject the proposal",
+      "rejectInitialHint": "The proposal will be closed. You can create another one whenever you like.",
+      "rejectAmendmentHint": "The current terms remain in force.",
+      "withdrawConfirmInitial": "The proposal will be withdrawn and the agreement cancelled.",
+      "withdrawConfirmAmendment": "The proposed changes will be withdrawn. The current terms remain in force.",
+      "answers": "Answers",
+      "decision": {
+        "ACCEPTED": "Accepted",
+        "REJECTED": "Rejected",
+        "CHANGES_REQUESTED": "Asked for changes"
+      },
+      "history": "Versions of the terms",
+      "current": "In force"
+    },
+    "terms": {
+      "title": "Terms",
+      "amount": "Amount",
+      "balanceAsOf": "Agreed balance",
+      "concept": "What it is for",
+      "originDate": "Start date",
+      "dueDate": "Due date",
+      "noDueDate": "No due date",
+      "plan": "Payment plan",
+      "method": "Planned method",
+      "notes": "Agreement notes",
+      "privateNotes": "Private notes",
+      "privateNote": "My private note",
+      "privateNoteHint": "Only you can see it.",
+      "privateNotePlaceholder": "Something you want to remember about this agreement…",
+      "receivingAccount": "Account where you expect to be paid",
+      "person": "Other party",
+      "viewPerson": "View person",
+      "notJoined": "Has not joined yet",
+      "historical": "Earlier payments to recognise",
+      "historicalHint": "They will count as confirmed only if both sides accept these terms.",
+      "openingBalance": "Opening balance",
+      "installments": "{count, plural, one {# payment} other {# payments}}"
+    },
+    "schedule": {
+      "title": "Payment schedule",
+      "due": "Due",
+      "scheduled": "Scheduled",
+      "paid": "Paid",
+      "remaining": "Pending",
+      "unscheduled": "Unscheduled",
+      "unscheduledHint": "An amount that was added to the debt and has no date yet.",
+      "basisRecorded": "Progress according to your records.",
+      "basisConfirmed": "Progress according to the payments both sides confirmed.",
+      "proposed": "Proposed schedule"
+    },
+    "movements": {
+      "title": "Movements",
+      "empty": "No payments have been recorded yet.",
+      "recordedBy": "Recorded by {name}",
+      "recordedByMe": "Recorded by you",
+      "historical": "Earlier payment recognised when the agreement was accepted",
+      "effective": "Effective date",
+      "method": "Method",
+      "reference": "Reference",
+      "place": "Where it was handed over",
+      "originBank": "Sending bank",
+      "destination": "Destination account",
+      "trackingKey": "Tracking key",
+      "notes": "Notes",
+      "reversed": "Reversed",
+      "reversalPending": "Reversal waiting",
+      "reverses": "Reverses an earlier payment",
+      "waitingOther": "Waiting for {name} to confirm",
+      "waitingYou": "Waiting for you to confirm",
+      "needsClarification": "{name} asked for a clarification",
+      "youAsked": "You asked for a clarification",
+      "answers": "Conversation",
+      "decision": {
+        "APPROVED": "{by, select, me {You confirmed} other {{name} confirmed}}",
+        "REJECTED": "{by, select, me {You rejected} other {{name} rejected}}",
+        "CLARIFICATION_REQUESTED": "{by, select, me {You asked for a clarification} other {{name} asked for a clarification}}",
+        "CLARIFIED": "{by, select, me {You answered} other {{name} answered}}",
+        "WITHDRAWN": "{by, select, me {You withdrew it} other {{name} withdrew it}}"
+      },
+      "approve": "Confirm",
+      "approveConfirmTitle": "Confirm this movement",
+      "approveConfirm": "Once you confirm, {amount} will count in the agreed balance. A confirmed movement cannot be edited or deleted: it can only be corrected with a reversal or an adjustment that you both approve.",
+      "reject": "Reject",
+      "ask": "Ask for clarification",
+      "clarify": "Answer",
+      "withdraw": "Withdraw",
+      "withdrawConfirm": "The movement will be marked as withdrawn and will not count.",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteConfirm": "Delete this movement? The balance will be recalculated.",
+      "reverse": "Propose a reversal",
+      "rejectTitle": "Reject the movement",
+      "rejectHint": "Explain why. The movement will not count towards the balance.",
+      "askTitle": "Ask for a clarification",
+      "askHint": "Ask whatever you need to know before deciding.",
+      "clarifyTitle": "Answer the question",
+      "commentLabel": "Message"
+    },
+    "form": {
+      "paymentTitle": "Record a payment",
+      "editTitle": "Edit movement",
+      "adjustmentTitle": "Record an adjustment",
+      "reversalTitle": "Propose reversing a payment",
+      "personalNote": "It is saved as a personal record and changes your balance straight away.",
+      "sharedNote": "It will be waiting for confirmation: the agreed balance changes when {name} confirms it.",
+      "amount": "Amount",
+      "maxAmount": "At most: {amount}",
+      "payAll": "Everything pending",
+      "effectiveDate": "Effective date",
+      "effectiveDateHint": "When the money moved (not when you record it).",
+      "method": "Method used",
+      "reference": "Reference",
+      "notes": "Notes",
+      "reason": "Reason",
+      "reasonHint": "Explain why. The other side will see it.",
+      "place": "Where it was handed over",
+      "originBank": "Sending bank",
+      "destination": "Destination account",
+      "destinationOther": "Another one (type it)",
+      "destinationText": "Describe the account",
+      "destinationTextPlaceholder": "For example, BBVA ending in 1234",
+      "trackingKey": "Tracking key",
+      "kind": "Kind of adjustment",
+      "increase": "Increases the debt",
+      "increaseHint": "For example, an agreed surcharge.",
+      "decrease": "Reduces the debt",
+      "decreaseHint": "For example, a discount or part of the debt being forgiven.",
+      "reversalNote": "This proposes reversing the whole payment of {amount}. The original payment is not modified.",
+      "receipt": "Receipt",
+      "receiptHint": "Optional. It supports the payment, but does not confirm it by itself.",
+      "submitPersonal": "Save",
+      "submitShared": "Record and ask for confirmation",
+      "saved": "Movement saved.",
+      "sent": "Recorded. {name} still has to confirm it."
+    },
+    "bank": {
+      "title": "Payment details",
+      "sharedWithYou": "{name} shared these details to receive payments.",
+      "bank": "Bank",
+      "holder": "Account holder",
+      "clabe": "CLABE",
+      "account": "Account number",
+      "copyAll": "Copy details",
+      "myShares": "Accounts you share here",
+      "share": "Share an account",
+      "shareTitle": "Share bank details",
+      "shareText": "{name} will see the bank, the holder and the CLABE or account number of the account you choose, for this agreement only and only while it is active. You can stop sharing it whenever you like.",
+      "shareConfirm": "Share",
+      "stop": "Stop sharing",
+      "noAccounts": "You have no saved accounts.",
+      "addAccount": "Add an account",
+      "visibleWhenActive": "They will see them once the agreement is active."
+    },
+    "attachments": {
+      "title": "Receipts",
+      "empty": "No receipts.",
+      "add": "Attach",
+      "uploading": "Uploading…",
+      "uploaded": "Receipt attached.",
+      "delete": "Delete {name}",
+      "deleteConfirm": "Delete this receipt?",
+      "open": "Open {name}",
+      "download": "Download {name}",
+      "notProof": "A receipt supports a payment, but does not confirm it by itself."
+    },
+    "timeline": {
+      "title": "History",
+      "commentPlaceholder": "Write a comment…",
+      "commentHintShared": "{name} will see it.",
+      "commentHintPersonal": "For your eyes only.",
+      "post": "Comment",
+      "showAll": "View the whole history ({count})"
+    },
+    "confirm": {
+      "cancelPersonal": "The record will stop counting in your totals. You can reopen it later.",
+      "deletePersonal": "The record will be deleted with its payments and receipts. This cannot be undone.",
+      "deletePersonalTitle": "Delete this record",
+      "disputeTitle": "Mark the agreement as disputed",
+      "disputeText": "Use this when you disagree about the state of the debt. The agreement stays marked until you say it is resolved.",
+      "cancelSharedTitle": "Cancel the agreement",
+      "cancelSharedActive": "An agreement in force is only cancelled if both sides agree. {name} will be asked to accept.",
+      "cancelSharedNegotiating": "There is no agreement in force yet: the proposal will be closed."
+    }
+  },
+  "donate": {
+    "title": "Support the project",
+    "sidebar": "Support Symmetry Debt",
+    "short": "Support",
+    "lead": "Symmetry Debt is free and open source. If you find it useful, consider supporting its development.",
+    "contextual": "Symmetry Debt is free and open source. If you find it useful, you can support its development.",
+    "optional": "It is entirely optional: no feature depends on it.",
+    "external": "Donations are made on the platform you choose. Symmetry Debt does not process payments or store card details.",
+    "platform": {
+      "github": "GitHub Sponsors",
+      "kofi": "Ko-fi",
+      "buymeacoffee": "Buy Me a Coffee",
+      "paypal": "PayPal"
+    },
+    "opensNewTab": "Opens in a new tab",
+    "thanks": "Thank you for helping keep it free."
+  },
+  "emails": {
+    "open": "Open in Symmetry Debt",
+    "whyActionRequired": "You are receiving this email because somebody is waiting for your answer in Symmetry Debt.",
+    "whyOptional": "You are receiving this email because you turned these notices on.",
+    "preferences": "You can choose which emails you receive in Settings: {url}",
+    "invitation": {
+      "subject": "{inviter} invites you to confirm an agreement on Symmetry Debt",
+      "heading": "{inviter} would like to confirm an agreement with you",
+      "intro": "{inviter} recorded an agreement on Symmetry Debt and invites you to review it. It only takes effect if you accept it too.",
+      "how": "Open the link and sign in with Google to see the terms. You can accept them, reject them or ask for changes.",
+      "cta": "Review the agreement",
+      "expires": "The link expires on {date}.",
+      "ignore": "If you do not know this person, ignore this message: nothing will happen."
+    }
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "network": "We could not connect. Check your connection and try again.",
+    "unauthenticated": "Your session has ended. Please sign in again.",
+    "forbidden": "You are not allowed to do this.",
+    "not_found": "We could not find that, or you do not have access to it.",
+    "validation": "Check the highlighted fields.",
+    "rate_limited": "Too many attempts. Wait {seconds} seconds and try again.",
+    "conflict": "This could not be completed because there is already a request in progress.",
+    "stale": "The terms changed while you were reading them. Read them again before you answer.",
+    "invalid_state": "This action is no longer available in the current state.",
+    "exceeds_balance": "The amount is more than what is left to pay.",
+    "nothing_to_pay": "There is nothing left to pay (counting what is waiting to be confirmed).",
+    "reversal_target_invalid": "That movement cannot be reversed.",
+    "reversal_already_exists": "There is already a reversal in progress for that payment.",
+    "reversal_amount_mismatch": "A reversal must be for the full amount of the payment.",
+    "schedule_invalid": "Check the payment schedule.",
+    "terms_invalid": "Check the terms: some of the details do not add up.",
+    "terms_locked_fields": "In an active agreement the amount cannot be changed by rewriting the terms. Use an adjustment, which the other side must also approve.",
+    "terms_unchanged": "Nothing has changed compared with the current terms.",
+    "own_proposal": "You cannot accept your own proposal: it is the other side’s turn.",
+    "own_movement": "You cannot confirm a movement you recorded yourself: it is the other side’s turn.",
+    "not_your_turn": "This answer is for the other side to give.",
+    "invitation_invalid": "This invitation link is not valid or is no longer available.",
+    "invitation_expired": "This invitation link has expired. Ask whoever invited you for a new one.",
+    "invitation_self": "You sent this invitation. Share it with the other person.",
+    "invitation_used": "This link has already been used.",
+    "identity_unconfirmed": "Whoever invited you still has to confirm that you are the right person.",
+    "contact_in_use": "This person has debts on record. You can archive them, but not delete them.",
+    "contact_not_found": "We could not find that person in your list.",
+    "bank_account_not_found": "We could not find that bank account.",
+    "bank_account_needs_number": "Enter the CLABE or the account number.",
+    "clabe_invalid": "The CLABE is not valid.",
+    "encryption_unavailable": "Bank details are unavailable because the server’s encryption key has not been configured.",
+    "file_too_large": "The file is too large ({max} MB at most).",
+    "file_type_not_allowed": "Only PDF, JPG, PNG or WebP files are accepted.",
+    "file_empty": "The file is empty.",
+    "attachment_locked": "This receipt is already part of a confirmed record and cannot be deleted.",
+    "already_converted": "This record has already become a shared agreement.",
+    "conversion_pending": "There is already a shared agreement proposed from this record.",
+    "currency_mismatch": "The currency does not match.",
+    "account_has_active_agreements": "You have {count, plural, one {# active agreement} other {# active agreements}} with a balance pending. Settle or cancel them before deleting your account.",
+    "confirmation_mismatch": "The confirmation text does not match.",
+    "page": {
+      "notFoundTitle": "Page not found",
+      "notFoundText": "The link may be mistyped, or you may not have access to this.",
+      "errorTitle": "Something went wrong",
+      "errorText": "We had a problem showing this page. Your data is safe.",
+      "goHome": "Go to the start"
+    }
+  },
+  "footer": {
+    "openSource": "Open source, MIT licence",
+    "source": "Source code",
+    "support": "Support the project",
+    "privacy": "Your personal records are yours alone.",
+    "rights": "Symmetry Debt is free software. Use it, study it and improve it."
+  },
+  "invite": {
+    "metaTitle": "Invitation",
+    "heading": "{name} invites you to confirm this agreement",
+    "roleDebtor": "According to this proposal, you owe {name}.",
+    "roleCreditor": "According to this proposal, {name} owes you.",
+    "from": "Proposed by {name}",
+    "fromEmail": "Account: {email}",
+    "sentOn": "Sent on {date}",
+    "expires": "You can answer until {date}.",
+    "signedInAs": "You are answering as {email}.",
+    "switchAccount": "Use another account",
+    "receipts": "Receipts attached to the proposal",
+    "identity": {
+      "matches": "The invitation was sent to your email address: if you accept, the agreement takes effect straight away.",
+      "different_account": "The invitation was sent to another address ({hint}). You can answer with this account, but {name} will have to confirm you are the right person before the agreement takes effect.",
+      "not_specified": "You came in through a link. If you accept, {name} will have to confirm you are the right person before the agreement takes effect."
+    },
+    "what": {
+      "title": "What accepting means",
+      "a": "The terms are agreed by both of you and neither can change them alone.",
+      "b": "Each payment counts once the other side confirms it.",
+      "c": "You will only see what is in this agreement. Nothing else from your account is shared."
+    },
+    "accept": "Accept terms",
+    "requestChanges": "Ask for changes",
+    "reject": "Reject",
+    "requestChangesTitle": "What should change?",
+    "rejectTitle": "Reject the proposal",
+    "rejectHint": "You will not be linked to this agreement. {name} will see that you rejected it.",
+    "accepted": "You accepted the terms.",
+    "acceptedWaiting": "You accepted. {name} still has to confirm that you are the right person.",
+    "changesSent": "Your request for changes was sent.",
+    "rejected": "You rejected the proposal.",
+    "state": {
+      "invalidTitle": "This invitation is not available",
+      "invalid": "The link is not valid, or it is not meant for your account. Check that it is complete or ask whoever invited you for a new one.",
+      "expiredTitle": "The invitation has expired",
+      "expired": "Ask whoever invited you to send you a new link.",
+      "revokedTitle": "This link no longer works",
+      "revoked": "It was replaced by a new one or the proposal was withdrawn. Ask whoever invited you for the current link.",
+      "usedTitle": "This link has already been used",
+      "used": "Each link works once. If it was meant for you, ask whoever invited you for a new one.",
+      "declinedTitle": "This proposal was rejected",
+      "declined": "If that was a mistake, ask whoever invited you to send a new one.",
+      "closedTitle": "The proposal is no longer waiting for an answer",
+      "closed": "The terms changed or the agreement was closed.",
+      "ownTitle": "You sent this invitation",
+      "own": "Share the link with the other person so they can answer.",
+      "goToDebt": "Go to the agreement",
+      "goToApp": "Go to my dashboard"
+    }
+  },
+  "labels": {
+    "mode": {
+      "PERSONAL": "Personal record",
+      "SHARED": "Shared agreement",
+      "personalShort": "Personal",
+      "sharedShort": "Shared"
+    },
+    "role": {
+      "DEBTOR": "Debtor",
+      "CREDITOR": "Creditor",
+      "iOwe": "I owe",
+      "owedToMe": "Owed to me",
+      "youOwe": "You owe {name}",
+      "owesYou": "{name} owes you"
+    },
+    "status": {
+      "DRAFT": "Draft",
+      "PENDING_APPROVAL": "Pending approval",
+      "CHANGES_REQUESTED": "Changes requested",
+      "ACTIVE": "Active",
+      "DISPUTED": "In dispute",
+      "SETTLED": "Settled",
+      "CANCELLED": "Cancelled",
+      "CONVERTED": "Converted to agreement"
+    },
+    "movementStatus": {
+      "PERSONAL_RECORD": "Personal record",
+      "PENDING": "To be confirmed",
+      "CLARIFICATION": "Being clarified",
+      "CONFIRMED": "Confirmed by both",
+      "REJECTED": "Rejected",
+      "WITHDRAWN": "Withdrawn"
+    },
+    "movementKind": {
+      "PAYMENT": "Payment",
+      "ADJUSTMENT_INCREASE": "Adjustment: increases the debt",
+      "ADJUSTMENT_DECREASE": "Adjustment: reduces the debt",
+      "REVERSAL": "Reversal of a payment"
+    },
+    "versionStatus": {
+      "DRAFT": "Draft",
+      "PROPOSED": "Waiting for an answer",
+      "ACCEPTED": "Accepted by both",
+      "REJECTED": "Rejected",
+      "CHANGES_REQUESTED": "Changes requested",
+      "SUPERSEDED": "Replaced",
+      "WITHDRAWN": "Withdrawn"
+    },
+    "method": {
+      "CASH": "Cash",
+      "BANK_TRANSFER": "Bank transfer",
+      "BANK_DEPOSIT": "Bank deposit",
+      "CARD": "Card (manual record)",
+      "OTHER": "Other",
+      "none": "Not specified"
+    },
+    "schedule": {
+      "NONE": "No due date",
+      "SINGLE": "A single date",
+      "WEEKLY": "Weekly payments",
+      "MONTHLY": "Monthly payments",
+      "CUSTOM": "Custom instalments"
+    },
+    "installmentState": {
+      "PAID": "Paid",
+      "PARTIAL": "Partly paid",
+      "OVERDUE": "Overdue",
+      "DUE_TODAY": "Due today",
+      "UPCOMING": "Upcoming",
+      "WAIVED": "Not applicable"
+    },
+    "weight": {
+      "personal": "Personal record",
+      "personalHint": "You wrote this down. Nobody else has confirmed it.",
+      "one_side": "One side",
+      "one_sideHint": "Recorded by one side. The other has not confirmed it yet.",
+      "both_sides": "Confirmed by both",
+      "both_sidesHint": "Both sides agree.",
+      "proposal": "Proposal",
+      "proposalHint": "Nobody else has accepted these terms yet.",
+      "neutral": "Informational"
+    },
+    "level": {
+      "RECORDED": "Recorded balance",
+      "CONFIRMED": "Confirmed balance"
+    }
+  },
+  "landing": {
+    "fictional": "Fictional data · Demo",
+    "example": "Example with fictional data",
+    "people": {
+      "ana": "Ana",
+      "luis": "Luis"
+    },
+    "header": {
+      "home": "Symmetry Debt, go to the top of the page",
+      "navLabel": "Page sections",
+      "nav": {
+        "product": "How it works",
+        "demo": "Demo",
+        "features": "Features",
+        "security": "Privacy",
+        "openSource": "Open source",
+        "faq": "FAQ"
+      },
+      "signIn": "Sign in",
+      "dashboard": "Dashboard"
+    },
+    "hero": {
+      "motto": "Two sides. One agreement.",
+      "title": "Keep your debts clear and your agreements balanced.",
+      "subtitle": "Track what you owe, manage payments, and confirm agreements together. Free, private, and open source.",
+      "primaryCta": "Get Started",
+      "githubCta": "View on GitHub",
+      "note": "Sign in with your Google account. You do not need to invite anyone to get started.",
+      "points": {
+        "free": "Free",
+        "private": "Private",
+        "open": "Open source"
+      },
+      "visual": {
+        "label": "Illustration with fictional data: a shared agreement that Ana and Luis both accepted, with its confirmed balance and a payment waiting to be confirmed, next to a personal record that only its owner can see.",
+        "agreement": "Shared agreement",
+        "concept": "Loan for the laptop",
+        "status": "Active",
+        "accepted": "Accepted",
+        "confirmedBalance": "Confirmed balance",
+        "progress": "{paid} of {total} confirmed",
+        "awaiting": "To be confirmed",
+        "personal": "Personal record",
+        "personalConcept": "Friday dinner",
+        "personalWho": "You owe Marta",
+        "onlyYou": "Only you can see it"
+      }
+    },
+    "product": {
+      "eyebrow": "The product",
+      "title": "Two ways to keep track of a debt. You choose.",
+      "lead": "Start by writing your debts down just for yourself. When both sides are ready, turn them into an agreement that you both confirm.",
+      "personal": {
+        "kicker": "Just for me",
+        "title": "Personal record",
+        "text": "Write down what you owe and what you are owed. Nobody else takes part or needs an account: the balance is the one you record.",
+        "p1": "No invitations, no approvals.",
+        "p2": "Edit and correct it whenever you like.",
+        "p3": "Always labelled as a personal record."
+      },
+      "shared": {
+        "kicker": "With the other person",
+        "title": "Shared agreement",
+        "text": "You propose the terms and share a link. The other person accepts them, rejects them or asks for changes. Only what you both confirm counts.",
+        "p1": "Both sides accept the very same version.",
+        "p2": "Every payment is confirmed by the other side.",
+        "p3": "What is confirmed can no longer be altered."
+      },
+      "bridge": "And you can move from one to the other: invite someone to confirm a personal record whenever you like, without losing what you already had."
+    },
+    "legend": {
+      "title": "One symbol that tells you how much weight a figure carries",
+      "lead": "Each half is one of the two sides. A filled half means that side stands behind it.",
+      "one": {
+        "name": "Personal record",
+        "text": "You wrote it down. Nobody else has confirmed it."
+      },
+      "waiting": {
+        "name": "To be confirmed",
+        "text": "One side recorded it. The other has not answered yet."
+      },
+      "both": {
+        "name": "Confirmed by both",
+        "text": "Both sides agree."
+      },
+      "none": {
+        "name": "Proposal",
+        "text": "Terms that nobody else has accepted yet."
+      }
+    },
+    "demo": {
+      "eyebrow": "Demo",
+      "title": "Try it without signing up",
+      "lead": "A sample debt: Luis owes Ana. Switch between the two modes and watch what happens to the balance.",
+      "concept": "Loan for the laptop",
+      "summary": "Luis owes Ana {total}",
+      "mode": {
+        "label": "How the debt is managed",
+        "personal": "Personal record",
+        "shared": "Shared agreement"
+      },
+      "movements": "Movements",
+      "empty": "No movements yet.",
+      "payment": "Payment of {amount}",
+      "recordedBy": "Recorded by {name}",
+      "status": {
+        "personal": "Personal record",
+        "pending": "To be confirmed",
+        "confirmed": "Confirmed by both",
+        "rejected": "Rejected · does not count"
+      },
+      "personal": {
+        "intro": "This is how Ana keeps it, just for herself. Luis takes no part and is not notified.",
+        "balanceLabel": "Recorded balance",
+        "balanceHint": "According to what Ana wrote down.",
+        "paid": "{paid} paid according to her record",
+        "record": "Record a payment of {amount}",
+        "remove": "Delete the payment of {amount}",
+        "coach": {
+          "start": "Record a payment: the balance changes at once, without asking anybody.",
+          "recorded": "Done. The balance dropped straight away because this is Ana’s own record: nobody else had to confirm it.",
+          "removed": "Ana can correct or delete her own records whenever she likes.",
+          "settled": "Settled, according to Ana’s record."
+        }
+      },
+      "shared": {
+        "intro": "Ana and Luis accepted the same terms. From then on, every payment needs the other side’s confirmation.",
+        "viewAs": "View as",
+        "asLuis": "Luis · owes",
+        "asAna": "Ana · is owed",
+        "balanceLabel": "Confirmed balance",
+        "balanceHint": "Only what both confirmed counts.",
+        "paid": "{paid} confirmed by both",
+        "awaitingLabel": "To be confirmed",
+        "awaitingHint": "It does not count until the other side answers.",
+        "recordPaid": "Record a payment of {amount}",
+        "recordReceived": "Record that I received {amount}",
+        "confirm": "Confirm",
+        "reject": "Reject",
+        "confirmLabel": "Confirm the payment of {amount}",
+        "rejectLabel": "Reject the payment of {amount}",
+        "waitingFor": "Waiting for {name} to answer",
+        "noRoom": "Nothing left to pay, counting what is waiting to be confirmed.",
+        "coach": {
+          "start": "Record a payment and keep an eye on the confirmed balance: it will not change yet.",
+          "ownPending": "It is waiting to be confirmed and the confirmed balance did not change. Switch to {name} to answer.",
+          "theirPending": "Your turn: confirm or reject what {name} recorded.",
+          "confirmed": "Confirmed by both: now the confirmed balance has gone down.",
+          "rejected": "Rejected: it stays in the history, but it does not count towards the balance.",
+          "settled": "Settled: the confirmed balance reached zero."
+        }
+      },
+      "reset": "Reset the demo",
+      "disclaimer": "Everything happens in your browser: nothing is saved or sent."
+    },
+    "personal": {
+      "eyebrow": "Personal tracking",
+      "title": "Your records, for your eyes only",
+      "lead": "Record what you owe and what you are owed without asking anything of anybody. The other person does not even need an account.",
+      "p1": {
+        "title": "What you owe and what you are owed",
+        "text": "Organised by person, with concept, amount, start date and due date."
+      },
+      "p2": {
+        "title": "Payments and partial payments",
+        "text": "Every payment updates the balance you keep on record."
+      },
+      "p3": {
+        "title": "Notes, receipts and reminders",
+        "text": "Due-date reminders reach you and nobody else."
+      },
+      "p4": {
+        "title": "Correct it whenever you like",
+        "text": "They are your records: edit or delete them without anybody’s approval, and every change stays in your history."
+      },
+      "note": "A personal record is never presented as something the other side has confirmed.",
+      "card": {
+        "label": "Illustration with fictional data: a personal record with its recorded balance, a payment written down and a reminder.",
+        "tag": "Personal record",
+        "concept": "Friday dinner",
+        "who": "You owe Marta",
+        "balance": "Recorded balance",
+        "payment": "Cash payment",
+        "reminder": "Reminder for you: due on Friday",
+        "private": "Marta needs no account and is not notified"
+      }
+    },
+    "shared": {
+      "eyebrow": "Shared agreements",
+      "title": "When you both want it in writing",
+      "lead": "Turn a debt into an agreement that both sides confirm. It all starts with a link.",
+      "stepsLabel": "How a shared agreement comes together",
+      "step": "Step {number}",
+      "s1": {
+        "title": "Propose the terms",
+        "text": "Amount, dates and how it will be paid. You can start from a personal record: the original stays untouched."
+      },
+      "s2": {
+        "title": "Share the link",
+        "text": "Send it by WhatsApp, email or any way you like. The other person opens it and signs in with Google."
+      },
+      "s3": {
+        "title": "You both answer",
+        "text": "They can accept, reject or ask for changes. The agreement only takes effect when both of you accept the very same version."
+      },
+      "n1": "Every important change creates a new version that both must accept.",
+      "n2": "If somebody you did not expect opens the link, you decide: confirm they are the right person, or turn them away before the agreement becomes active.",
+      "n3": "When you convert a personal record, your earlier payments are not taken as confirmed: the other person explicitly accepts the ones you want recognised.",
+      "n4": "Disagreements have their place: you can flag a dispute, or cancel by mutual agreement."
+    },
+    "payments": {
+      "eyebrow": "Payment management",
+      "title": "Every payment, with how and when",
+      "lead": "Cash, transfer, deposit or card: write it down the way it happened. Symmetry Debt does not move money; it only keeps count.",
+      "methodsLabel": "Payment methods you can record",
+      "methods": {
+        "cash": "Cash",
+        "transfer": "Transfer",
+        "deposit": "Deposit",
+        "card": "Card (manual record)",
+        "other": "Other"
+      },
+      "p1": {
+        "title": "Two dates, no confusion",
+        "text": "It keeps when it was paid and when it was recorded."
+      },
+      "p2": {
+        "title": "As much detail as you need",
+        "text": "Reference and tracking key for transfers; where it was handed over for cash."
+      },
+      "p3": {
+        "title": "Mistakes are corrected, not erased",
+        "text": "A payment that is already confirmed is corrected with an adjustment or a reversal that both approve."
+      },
+      "p4": {
+        "title": "Your bank accounts stay private",
+        "text": "Save your CLABE (it is validated as you type) and share the details to receive a payment only when you authorise it."
+      },
+      "track": {
+        "title": "The path of a payment in a shared agreement",
+        "s1": {
+          "title": "One side records it",
+          "text": "Whoever pays or whoever receives, it makes no difference."
+        },
+        "s2": {
+          "title": "It waits to be confirmed",
+          "text": "The confirmed balance does not change yet."
+        },
+        "s3": {
+          "title": "The other side answers",
+          "text": "They confirm, reject or ask for a clarification."
+        },
+        "result": "Once confirmed, it counts towards the confirmed balance.",
+        "alt": "If it is rejected, it stays in the history and does not count."
+      }
+    },
+    "installments": {
+      "eyebrow": "Instalment plans",
+      "title": "Instalments, without losing count",
+      "lead": "A single date, weekly or monthly payments, or instalments of your own. For each one you see how much is scheduled, paid and pending.",
+      "p1": "Early and partial payments are applied to the instalments in order.",
+      "p2": "Overdue instalments stay in plain sight.",
+      "p3": "You can reschedule: in a shared agreement, both accept the new calendar.",
+      "p4": "Progress is worked out from your records or, in a shared agreement, from confirmed payments only.",
+      "card": {
+        "label": "Illustration with fictional data: a plan of four monthly instalments, one paid, one overdue with a partial payment and two upcoming.",
+        "title": "Payment plan",
+        "kind": "4 monthly payments",
+        "progress": "{paid} of {total}",
+        "installment": "Instalment {number}",
+        "remaining": "{amount} left",
+        "d1": "Jan 15",
+        "d2": "Feb 15",
+        "d3": "Mar 15",
+        "d4": "Apr 15",
+        "state": {
+          "paid": "Paid",
+          "overdue": "Overdue",
+          "upcoming": "Upcoming"
+        }
+      }
+    },
+    "receipts": {
+      "eyebrow": "Receipts",
+      "title": "Receipts within reach",
+      "lead": "Attach a PDF or a photo to a debt, a payment or an adjustment. They are always optional.",
+      "p1": {
+        "title": "PDF, JPG, PNG and WebP",
+        "text": "The file is checked to be what it claims to be, with a size limit."
+      },
+      "p2": {
+        "title": "Private storage",
+        "text": "Only those who can see the debt can open them. With preview and download."
+      },
+      "p3": {
+        "title": "Evidence, not confirmation",
+        "text": "A receipt does not confirm a payment by itself: in a shared agreement, the other side still has to confirm it."
+      },
+      "card": {
+        "label": "Illustration with fictional data: a payment waiting to be confirmed, with a PDF receipt attached.",
+        "payment": "Transfer",
+        "file": "march-transfer.pdf",
+        "attached": "Receipt attached",
+        "status": "To be confirmed",
+        "note": "The receipt goes with the payment. The confirmation comes from the other side."
+      }
+    },
+    "security": {
+      "eyebrow": "Security and privacy",
+      "title": "Private by design",
+      "lead": "What you write down for yourself stays with you. What you share is up to you.",
+      "i1": {
+        "title": "Your personal records are yours alone",
+        "text": "Nobody else can see them, not even the person they mention."
+      },
+      "i2": {
+        "title": "An email address opens no doors",
+        "text": "Somebody knowing your email or your name does not let them see or claim your records."
+      },
+      "i3": {
+        "title": "Agreements between two, and only two",
+        "text": "A shared agreement is visible only to the two people who are part of it."
+      },
+      "i4": {
+        "title": "Encrypted bank details",
+        "text": "Your CLABE and account number are stored encrypted. We never ask for passwords, PINs or CVVs."
+      },
+      "i5": {
+        "title": "What is confirmed is not rewritten",
+        "text": "What both confirmed is never edited or deleted: it is corrected with a new movement, in plain sight of both."
+      },
+      "i6": {
+        "title": "Your data, whenever you want it",
+        "text": "Download all your data or delete your account from Settings."
+      },
+      "i7": {
+        "title": "Google sign-in, no passwords",
+        "text": "We store no passwords or Google account credentials, and you can sign out on all your devices."
+      },
+      "i8": {
+        "title": "No ads, no trackers",
+        "text": "The app includes no advertising and no third-party tracking services."
+      }
+    },
+    "openSource": {
+      "eyebrow": "Open source",
+      "title": "Open, so you can trust it",
+      "lead": "Symmetry Debt is free software under the MIT licence. Anyone can read the code, suggest improvements or install it on their own server.",
+      "p1": {
+        "title": "Genuinely free",
+        "text": "No paid plans, no locked features."
+      },
+      "p2": {
+        "title": "Host it yourself",
+        "text": "It includes what you need to run it with Docker on your own domain and database."
+      },
+      "p3": {
+        "title": "No lock-in",
+        "text": "Your data exports in an open format you can read without the app."
+      },
+      "p4": {
+        "title": "In Spanish and in English",
+        "text": "The app, the documentation and the emails."
+      },
+      "cta": "See the code on GitHub",
+      "stackLabel": "Technology and licence of the project"
+    },
+    "support": {
+      "title": "Finding Symmetry Debt useful? Help us keep it free.",
+      "text": "It is free and open source. If it helps you, you can support its development with a voluntary contribution. No feature depends on it.",
+      "button": "Support the project",
+      "external": "Donations are made on the platform you choose. Symmetry Debt does not process payments or store card details."
+    },
+    "faq": {
+      "eyebrow": "Frequently asked questions",
+      "title": "What people usually ask",
+      "q1": {
+        "q": "Do I have to invite the other person to use it?",
+        "a": "No. You can keep your debts as personal records, just for yourself. The other person needs no account and is not notified."
+      },
+      "q2": {
+        "q": "What is the difference between a personal record and a shared agreement?",
+        "a": "A personal record is what you write down: it helps you stay organised, but nobody else has confirmed it. In a shared agreement both sides accept the same terms and every payment is confirmed by the other side. The app never presents one as if it were the other."
+      },
+      "q3": {
+        "q": "How does the other person find out about an agreement?",
+        "a": "Creating the agreement generates a link that you send them any way you like. They open it, sign in with Google, review the terms and decide whether to accept them, reject them or ask for changes."
+      },
+      "q4": {
+        "q": "Can I turn a personal record into a shared agreement?",
+        "a": "Yes. You choose what to share and a proposal is created. Your earlier payments are not taken as confirmed: the other person has to explicitly accept the ones you want recognised. If they do not accept, your personal record stays exactly as it was."
+      },
+      "q5": {
+        "q": "Does Symmetry Debt move money or connect to my bank?",
+        "a": "No. It only keeps the record of debts and payments. You pay the way you always do (cash, transfer or deposit) and write it down here."
+      },
+      "q6": {
+        "q": "What if we disagree about a payment?",
+        "a": "The other side can reject it or ask for a clarification. A rejected payment does not count towards the confirmed balance, and everything stays in the history. If the disagreement is bigger, the agreement can be flagged as disputed."
+      },
+      "q7": {
+        "q": "Who can see my data?",
+        "a": "Your personal records: only you. A shared agreement: only the two people who are part of it. Your bank accounts are private, and the other side sees the details to pay you only if you authorise it."
+      },
+      "q8": {
+        "q": "How much does it cost?",
+        "a": "Nothing. It is free and open source, under the MIT licence. There are no paid plans and no locked features."
+      },
+      "q9": {
+        "q": "Can I install it on my own server?",
+        "a": "Yes. The code includes what you need to install it with Docker on your own domain, with your own database."
+      },
+      "q10": {
+        "q": "Can I export or delete my data?",
+        "a": "Yes. From Settings you can download all your data and delete your account."
+      }
+    },
+    "closing": {
+      "title": "Start with one debt. The rest follows.",
+      "text": "Write it down in a minute. Share it when you are both ready."
+    },
+    "footer": {
+      "description": "Personal debts and agreements between two people, with the accounts kept clear.",
+      "navLabel": "Footer links",
+      "sections": "Sections",
+      "project": "Project",
+      "source": "Source code",
+      "license": "MIT licence",
+      "support": "Support the project",
+      "preferences": "Language and appearance",
+      "free": "Symmetry Debt is free software: use it, study it and improve it.",
+      "backToTop": "Back to top"
+    }
+  },
+  "locale": {
+    "label": "Language",
+    "switchTo": "Change language",
+    "es": "Español",
+    "en": "English",
+    "short": {
+      "es": "ES",
+      "en": "EN"
+    },
+    "hint": {
+      "text": "This site is also available in English.",
+      "action": "Switch to English",
+      "dismiss": "No, thanks"
+    }
+  },
+  "nav": {
+    "primary": "Main navigation",
+    "dashboard": "Home",
+    "debts": "My debts",
+    "newDebt": "New debt",
+    "people": "People",
+    "accounts": "Bank accounts",
+    "activity": "History",
+    "notifications": "Notifications",
+    "notificationsUnread": "{count, plural, one {# unread notification} other {# unread notifications}}",
+    "settings": "Settings",
+    "menu": "Menu",
+    "signOut": "Sign out",
+    "signIn": "Sign in",
+    "goToApp": "Go to my dashboard",
+    "account": "Your account",
+    "support": "Support Symmetry Debt",
+    "github": "Source on GitHub",
+    "home": "Home page"
+  },
+  "notifications": {
+    "types": {
+      "INVITATION_RECEIVED": {
+        "title": "{actor} invited you to review an agreement",
+        "body": "Open the invitation to see the terms and decide whether you accept them."
+      },
+      "PROPOSAL_RECEIVED": {
+        "title": "{actor} sent you a proposal",
+        "body": "Review the terms of “{concept}” and answer whenever you like."
+      },
+      "CHANGES_REQUESTED": {
+        "title": "{actor} asked for changes",
+        "body": "About “{concept}”: {comment}"
+      },
+      "PROPOSAL_REJECTED": {
+        "title": "{actor} rejected the proposal",
+        "body": "The terms of “{concept}” were not accepted. {comment}"
+      },
+      "IDENTITY_CONFIRMATION_NEEDED": {
+        "title": "Confirm who joined your agreement",
+        "body": "{actor} ({email}) opened the link for “{concept}”. Confirm this is the right person so the agreement can become active."
+      },
+      "PAYMENT_TO_CONFIRM": {
+        "title": "{kind, select, PAYMENT {{actor} recorded a payment of {amount}} REVERSAL {{actor} proposes reversing a payment of {amount}} ADJUSTMENT_INCREASE {{actor} proposes increasing the debt by {amount}} other {{actor} proposes reducing the debt by {amount}}}",
+        "body": "In “{concept}”. It does not count towards the confirmed balance until you answer."
+      },
+      "PAYMENT_REJECTED": {
+        "title": "{actor} rejected a movement of {amount}",
+        "body": "In “{concept}”: {comment}"
+      },
+      "PAYMENT_CLARIFICATION_REQUESTED": {
+        "title": "{actor} is asking for a clarification",
+        "body": "About the movement of {amount} in “{concept}”: {comment}"
+      },
+      "PAYMENT_CLARIFIED": {
+        "title": "{actor} answered your question",
+        "body": "About the movement of {amount} in “{concept}”: {comment}"
+      },
+      "CANCELLATION_REQUESTED": {
+        "title": "{actor} proposes cancelling the agreement",
+        "body": "“{concept}”: {comment}"
+      },
+      "DISPUTE_OPENED": {
+        "title": "{actor} marked the agreement as disputed",
+        "body": "“{concept}”: {comment}"
+      },
+      "PROPOSAL_ACCEPTED": {
+        "title": "{actor} accepted the terms",
+        "body": "“{concept}” is now agreed by both sides."
+      },
+      "PROPOSAL_WITHDRAWN": {
+        "title": "{actor} withdrew their proposal",
+        "body": "The proposal for “{concept}” is no longer on the table."
+      },
+      "AGREEMENT_ACTIVE": {
+        "title": "Agreement active: {concept}",
+        "body": "You and {counterparty} accepted the same terms."
+      },
+      "AMENDMENT_APPLIED": {
+        "title": "Terms updated: {concept}",
+        "body": "You and {counterparty} accepted the changes."
+      },
+      "IDENTITY_CONFIRMED": {
+        "title": "{actor} confirmed it is you",
+        "body": "You can now take part in “{concept}”."
+      },
+      "PARTICIPANT_REMOVED": {
+        "title": "You are no longer part of an agreement",
+        "body": "{actor} said the invitation for “{concept}” was meant for somebody else."
+      },
+      "PAYMENT_CONFIRMED": {
+        "title": "{actor} confirmed a movement of {amount}",
+        "body": "In “{concept}”. It now counts towards the confirmed balance."
+      },
+      "PAYMENT_WITHDRAWN": {
+        "title": "{actor} withdrew a movement of {amount}",
+        "body": "In “{concept}”."
+      },
+      "DISPUTE_RESOLVED": {
+        "title": "{actor} marked the dispute as resolved",
+        "body": "“{concept}” is active again."
+      },
+      "AGREEMENT_CANCELLED": {
+        "title": "Agreement cancelled: {concept}",
+        "body": "{actor} closed the agreement. {comment}"
+      },
+      "CANCELLATION_DECLINED": {
+        "title": "{actor} did not agree to cancel",
+        "body": "“{concept}” is still active."
+      },
+      "DEBT_SETTLED": {
+        "title": "Debt settled: {concept}",
+        "body": "{role, select, DEBTOR {You finished paying {counterparty}.} other {{counterparty} finished paying you.}} Total: {amount}."
+      },
+      "COMMENT_ADDED": {
+        "title": "{actor} commented on “{concept}”",
+        "body": "{comment}"
+      },
+      "BANK_DETAILS_SHARED": {
+        "title": "{actor} shared bank details",
+        "body": "You can now see which account to pay into for “{concept}”."
+      },
+      "INSTALLMENT_DUE_SOON": {
+        "title": "{role, select, DEBTOR {Payment coming up: {amount}} other {Payment expected: {amount}}}",
+        "body": "{role, select, DEBTOR {Due on {date}: “{concept}”, with {counterparty}.} other {{counterparty} is due to pay you on {date}: “{concept}”.}}"
+      },
+      "INSTALLMENT_DUE_TODAY": {
+        "title": "{role, select, DEBTOR {A payment of {amount} is due today} other {A payment of {amount} is expected today}}",
+        "body": "“{concept}”, with {counterparty}."
+      },
+      "INSTALLMENT_OVERDUE": {
+        "title": "{role, select, DEBTOR {Overdue payment: {amount}} other {Overdue payment owed to you: {amount}}}",
+        "body": "It was due on {date}: “{concept}”, with {counterparty}."
+      }
+    }
+  },
+  "pages": {
+    "activity": {
+      "metaTitle": "History",
+      "title": "History",
+      "subtitle": "Everything that has happened on your debts and your account, most recent first.",
+      "empty": {
+        "title": "Nothing has happened yet",
+        "text": "Every change will be recorded here: who did what and when."
+      },
+      "older": "Show older",
+      "legendPersonal": "Personal record",
+      "legendOne": "One side",
+      "legendBoth": "Confirmed by both"
+    },
+    "inbox": {
+      "metaTitle": "Notifications",
+      "title": "Notifications",
+      "subtitle": "Notices about what is waiting for your answer and what has happened in your agreements.",
+      "markAll": "Mark all as read",
+      "empty": {
+        "title": "You have no notifications",
+        "text": "We will let you know here when somebody invites you, records a payment or answers a proposal."
+      },
+      "unread": "Unread",
+      "category": {
+        "ACTION_REQUIRED": "Needs your answer",
+        "ACTIVITY": "Activity",
+        "REMINDER": "Reminder"
+      },
+      "preferences": "Choose which notices to receive"
+    },
+    "settings": {
+      "metaTitle": "Settings",
+      "title": "Settings",
+      "profile": {
+        "title": "Profile",
+        "text": "These details come from your Google account.",
+        "name": "Name",
+        "email": "Email",
+        "memberSince": "On Symmetry Debt since {date}"
+      },
+      "region": {
+        "title": "Language and region",
+        "language": "Language",
+        "languageHint": "Used in the app and in the emails you receive.",
+        "timeZone": "Time zone",
+        "timeZoneHint": "To know what day “today” is for due dates and reminders.",
+        "detect": "Use this device’s",
+        "currency": "Default currency",
+        "currencyHint": "The one suggested when you create a debt."
+      },
+      "notifications": {
+        "title": "Notifications",
+        "inApp": "Anything that needs your answer always shows up inside the app.",
+        "reminders": "Due-date reminders",
+        "remindersHint": "Notices before a payment date, on the day, and once it is overdue.",
+        "emailTitle": "By email",
+        "emailDisabled": "This server is not set up to send email.",
+        "emailActionRequired": "When somebody is waiting for my answer",
+        "emailActionRequiredHint": "Invitations, proposals, payments to confirm and rejections.",
+        "emailActivity": "Activity on my agreements",
+        "emailActivityHint": "Confirmed payments, settlements and comments.",
+        "emailReminders": "Due-date reminders"
+      },
+      "save": "Save preferences",
+      "saved": "Preferences saved.",
+      "security": {
+        "title": "Sessions",
+        "text": "If you used Symmetry Debt on a device you no longer control, sign out of the other sessions.",
+        "revoke": "Sign out on other devices",
+        "revoked": "{count, plural, =0 {There were no other open sessions.} one {# session was closed.} other {# sessions were closed.}}"
+      },
+      "data": {
+        "title": "Your data",
+        "exportTitle": "Export",
+        "exportText": "Download everything Symmetry Debt holds about you as a JSON file.",
+        "export": "Export my data",
+        "deleteTitle": "Delete my account",
+        "deleteText": "Your profile, personal records, contacts and bank accounts are erased. Shared agreements are kept for the other person, with your name but no longer linked to your account. This cannot be undone.",
+        "delete": "Delete my account",
+        "deleteConfirmLabel": "Type your email address ({email}) to confirm",
+        "deleteBlocked": "First you have to settle or cancel the active agreements that have a balance pending."
+      },
+      "about": {
+        "title": "About",
+        "text": "Symmetry Debt is free software under the MIT licence. You can read the code, install it on your own server and suggest improvements.",
+        "version": "Version {version}",
+        "source": "View the code on GitHub",
+        "supportTitle": "Support the project"
+      }
+    }
+  },
+  "people": {
+    "metaTitle": "People",
+    "title": "People",
+    "subtitle": "Who you have accounts with. What you owe each person and what they owe you are shown separately, never offset.",
+    "add": "Add a person",
+    "showArchived": "Show archived",
+    "hideArchived": "Hide archived",
+    "linked": "Linked user",
+    "linkedHint": "Linked when an invitation was accepted. You share at least one agreement.",
+    "private": "Private contact",
+    "privateHint": "It only exists in your list. It is not linked to any account.",
+    "archived": "Archived",
+    "iOwe": "I owe them",
+    "owesMe": "They owe me",
+    "nothingOpen": "No open balances",
+    "counts": "{personal, plural, =0 {} one {# personal record} other {# personal records}}{both, select, yes { · } other {}}{shared, plural, =0 {} one {# shared agreement} other {# shared agreements}}",
+    "pending": "{count, plural, one {# pending} other {# pending}}",
+    "empty": {
+      "title": "You have no people yet",
+      "text": "They are added automatically when you record a debt, or you can create them here."
+    },
+    "form": {
+      "createTitle": "Add a person",
+      "editTitle": "Edit person",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "notes": "Notes",
+      "notesHint": "Only you can see them.",
+      "privacy": "This contact is private. Saving an email address here does not link it to any account or give anybody access to anything.",
+      "saved": "Person saved."
+    },
+    "detail": {
+      "newDebt": "New debt with {name}",
+      "edit": "Edit",
+      "archive": "Archive",
+      "unarchive": "Unarchive",
+      "delete": "Delete",
+      "deleteConfirm": "Delete {name} from your list? This cannot be undone.",
+      "archiveConfirm": "They will no longer appear in your list. Their debts are kept.",
+      "debts": "Debts with {name}",
+      "noDebts": "There are no debts with this person yet.",
+      "history": "History",
+      "noHistory": "Nothing has happened yet.",
+      "contact": "Contact",
+      "noContact": "No contact details.",
+      "notes": "Notes",
+      "sideBySide": "Both directions are shown separately: they are not offset automatically.",
+      "recorded": "personal records",
+      "confirmed": "confirmed by both"
+    }
+  },
+  "share": {
+    "title": "Invitation link",
+    "label": "Link to share",
+    "copy": "Copy link",
+    "whatsapp": "Send on WhatsApp",
+    "email": "Send by email",
+    "native": "Share…",
+    "message": "Hi. I recorded our agreement on Symmetry Debt so we both keep things clear. Review it and confirm it here:",
+    "emailSubject": "Our agreement on Symmetry Debt",
+    "onceNotice": "Save or send the link now: for security it is not shown again. If you lose it, you can generate a new one from the agreement.",
+    "expires": "It expires on {date}. It can be used once.",
+    "emailed": "We also emailed it to {email}.",
+    "privacy": "Anybody with the link can see the proposal after signing in. Send it only to the person it is meant for."
+  },
+  "shell": {
+    "signedInAs": "Signed in as {email}",
+    "newDebt": "New debt",
+    "more": "More options",
+    "footerNote": "Symmetry Debt · free and open source",
+    "closeMenu": "Close menu",
+    "userMenu": "User menu"
+  },
+  "termsForm": {
+    "metaEdit": "Edit record",
+    "metaDraft": "Edit draft",
+    "metaPropose": "Propose terms",
+    "titlePersonal": "Edit record",
+    "titleDraft": "Edit draft",
+    "titleCounter": "Propose new terms",
+    "titleAmendment": "Propose changes to the agreement",
+    "introPersonal": "It is your own record: changes apply straight away and are noted in your history.",
+    "introDraft": "It has not been sent yet. Nobody else can see it.",
+    "introCounter": "A new version of the terms will be sent. It replaces the previous proposal and {name} will have to accept it.",
+    "introAmendment": "The current terms remain in force until {name} accepts the changes. The amount is not changed here: that is done with an adjustment, which both sides also approve.",
+    "lockedAmount": "Amount of the agreement",
+    "direction": "Who owes?",
+    "changeNote": "Message for {name}",
+    "changeNoteHint": "Explain what changes and why.",
+    "previousTitle": "Earlier payments to recognise",
+    "save": "Save changes",
+    "saveDraft": "Save draft",
+    "send": "Send proposal",
+    "saved": "Changes saved.",
+    "sent": "Proposal sent. Waiting for {name} to answer."
+  },
+  "theme": {
+    "label": "Appearance",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "Match system",
+    "toggle": "Change appearance"
+  },
+  "timeline": {
+    "title": "History",
+    "empty": "Nothing has happened yet.",
+    "recordedOn": "Recorded on {date}",
+    "system": "System",
+    "event": {
+      "DEBT_CREATED": "{by, select, me {You created {scope, select, personal {this record} other {this agreement}}} other {{actor} created this agreement}} for {amount}",
+      "DEBT_UPDATED": "{by, select, me {You edited the details} other {{actor} edited the details}}",
+      "SCHEDULE_UPDATED": "{by, select, me {You changed the payment schedule} other {{actor} changed the payment schedule}}",
+      "DEBT_SETTLED": "The debt was settled",
+      "DEBT_REOPENED": "The debt is open again",
+      "DEBT_CANCELLED": "{reason, select, rejected {The proposal was rejected} withdrawn {The proposal was withdrawn} mutual {The agreement was cancelled by mutual agreement} account_deleted {The agreement was closed because one of the sides deleted their account} owner {You cancelled this record} other {It was cancelled}}",
+      "PAYMENT_RECORDED": "{by, select, me {You recorded} other {{actor} recorded}} {kind, select, PAYMENT {a payment of {amount}} ADJUSTMENT_INCREASE {an adjustment increasing the debt by {amount}} ADJUSTMENT_DECREASE {an adjustment reducing the debt by {amount}} other {the reversal of a payment of {amount}}}",
+      "PAYMENT_UPDATED": "{by, select, me {You edited a movement} other {{actor} edited a movement}}: it is now {amount}",
+      "PAYMENT_DELETED": "{by, select, me {You deleted a movement} other {{actor} deleted a movement}} of {amount}",
+      "PAYMENT_CONFIRMED": "{by, select, me {You confirmed} other {{actor} confirmed}} the {kind, select, PAYMENT {payment} REVERSAL {reversal} other {adjustment}} of {amount}",
+      "PAYMENT_REJECTED": "{by, select, me {You rejected} other {{actor} rejected}} the movement of {amount}",
+      "PAYMENT_CLARIFICATION_REQUESTED": "{by, select, me {You asked} other {{actor} asked}} for a clarification about the movement of {amount}",
+      "PAYMENT_CLARIFIED": "{by, select, me {You answered} other {{actor} answered}} the question about the movement of {amount}",
+      "PAYMENT_WITHDRAWN": "{by, select, me {You withdrew} other {{actor} withdrew}} the movement of {amount}",
+      "VERSION_PROPOSED": "{by, select, me {You proposed} other {{actor} proposed}} terms (version {version})",
+      "VERSION_ACCEPTED": "{by, select, me {You accepted} other {{actor} accepted}} the terms (version {version})",
+      "VERSION_REJECTED": "{by, select, me {You rejected} other {{actor} rejected}} the terms (version {version})",
+      "VERSION_CHANGES_REQUESTED": "{by, select, me {You asked} other {{actor} asked}} for changes to the terms (version {version})",
+      "VERSION_WITHDRAWN": "{by, select, me {You withdrew} other {{actor} withdrew}} the proposal (version {version})",
+      "AGREEMENT_ACTIVATED": "The agreement took effect: both sides accepted version {version}",
+      "AMENDMENT_APPLIED": "Both sides accepted the changes (version {version})",
+      "INVITATION_CREATED": "An invitation link was created",
+      "INVITATION_REVOKED": "The previous invitation link stopped working",
+      "PARTICIPANT_JOINED": "{by, select, me {You joined} other {{name} joined}} through the invitation link",
+      "IDENTITY_CONFIRMED": "{by, select, me {You confirmed that {name} is the right person} other {{actor} confirmed that you are the right person}}",
+      "PARTICIPANT_REMOVED": "You said {name} was not the right person",
+      "DISPUTE_OPENED": "{by, select, me {You marked} other {{actor} marked}} the agreement as disputed",
+      "DISPUTE_RESOLVED": "{by, select, me {You marked} other {{actor} marked}} the dispute as resolved",
+      "CANCELLATION_REQUESTED": "{by, select, me {You proposed} other {{actor} proposed}} cancelling the agreement",
+      "CANCELLATION_DECLINED": "{by, select, me {You did not agree} other {{actor} did not agree}} to cancel the agreement",
+      "CANCELLATION_WITHDRAWN": "{by, select, me {You withdrew} other {{actor} withdrew}} the cancellation request",
+      "CONVERSION_PROPOSED": "You invited the other person to confirm this debt: a shared agreement was proposed",
+      "CONVERSION_COMPLETED": "The other person accepted: this record became a shared agreement",
+      "CONVERSION_CLOSED": "The proposed shared agreement did not go ahead. Your record is as it was.",
+      "COMMENT_ADDED": "{by, select, me {You commented} other {{actor} commented}}",
+      "ATTACHMENT_ADDED": "{by, select, me {You attached} other {{actor} attached}} “{fileName}”",
+      "ATTACHMENT_REMOVED": "{by, select, me {You removed} other {{actor} removed}} “{fileName}”",
+      "BANK_DETAILS_SHARED": "{by, select, me {You shared} other {{actor} shared}} bank details ({label})",
+      "BANK_DETAILS_REVOKED": "{by, select, me {You stopped} other {{actor} stopped}} sharing bank details ({label})",
+      "BANK_ACCOUNT_CREATED": "You added the account {label}",
+      "BANK_ACCOUNT_UPDATED": "You edited the account {label}",
+      "BANK_ACCOUNT_ARCHIVED": "You deleted the account {label}",
+      "DATA_EXPORTED": "You exported your data",
+      "SESSIONS_REVOKED": "You signed out on other devices",
+      "INSTALLMENT_OVERDUE": "Instalment {sequence} is overdue: {amount} still pending"
+    }
+  },
+  "validation": {
+    "required": "This field is required.",
+    "tooLong": "The text is too long.",
+    "invalid": "The value is not valid.",
+    "date": "Enter a valid date.",
+    "dateInFuture": "The date cannot be in the future.",
+    "dateBeforeOrigin": "The date cannot be earlier than the start of the debt.",
+    "email": "Enter a valid email address.",
+    "currency": "Choose a currency.",
+    "amountEmpty": "Enter an amount.",
+    "amountInvalid": "Enter a valid amount, for example 1,500.50.",
+    "amountDecimals": "This currency does not have that many decimals.",
+    "amountNotPositive": "The amount must be greater than zero.",
+    "amountTooLarge": "The amount is too large.",
+    "amountExceedsBalance": "The amount is more than what is left to pay.",
+    "amountBelowPaid": "The amount cannot be less than what has already been paid.",
+    "clabeLength": "A CLABE has 18 digits.",
+    "clabeDigits": "A CLABE only has numbers.",
+    "clabeChecksum": "The CLABE is not valid: check the digits.",
+    "accountNumber": "The account number must have between 4 and 34 letters or numbers.",
+    "needClabeOrAccount": "Enter the CLABE or the account number.",
+    "scheduleSum": "The instalments must add up to exactly the amount of the debt.",
+    "scheduleOrder": "Put the instalments in date order.",
+    "scheduleEmpty": "Add at least one due date.",
+    "scheduleCount": "Too many instalments (120 at most).",
+    "previousPaymentsTooMuch": "Previous payments must add up to less than the amount of the debt.",
+    "selfInvite": "You cannot invite yourself.",
+    "confirmText": "The text does not match."
+  },
+  "wizard": {
+    "metaTitle": "New debt",
+    "title": "New debt",
+    "stepOf": "Step {step} of {total}",
+    "steps": {
+      "mode": "Mode",
+      "who": "Who and how much",
+      "plan": "Payment plan",
+      "review": "Details and review"
+    },
+    "mode": {
+      "question": "How do you want to manage this debt?",
+      "help": "You can change your mind later: a personal record can be shared further on.",
+      "personal": {
+        "title": "Just for me",
+        "subtitle": "Personal tracking",
+        "points": {
+          "a": "You write it down; you need nobody else.",
+          "b": "You edit and correct it whenever you like.",
+          "c": "It is your own record: it does not count as confirmed by the other person."
+        }
+      },
+      "shared": {
+        "title": "Share with the other person",
+        "subtitle": "Shared agreement",
+        "points": {
+          "a": "You get a link to send them.",
+          "b": "It takes effect when you both accept the same terms.",
+          "c": "Each payment counts once the other side confirms it."
+        }
+      }
+    },
+    "who": {
+      "direction": "Who owes?",
+      "iOwe": "I owe",
+      "iOweHint": "You are the one paying.",
+      "owedToMe": "I am owed",
+      "owedToMeHint": "You are the one receiving.",
+      "person": "With whom?",
+      "personOwe": "Who do you owe?",
+      "personOwed": "Who owes you?",
+      "choosePerson": "Choose a person",
+      "newPerson": "Somebody else…",
+      "personName": "Name",
+      "personNamePlaceholder": "For example, Marta",
+      "personHintPersonal": "They do not need an account. Only you will see this contact.",
+      "personHintShared": "This is how you will see them in your list. Once they accept the invitation they will appear under their own name.",
+      "addContact": "Add an email or phone number (optional)",
+      "personEmail": "Email",
+      "personPhone": "Phone",
+      "amount": "Amount",
+      "currency": "Currency",
+      "concept": "What it is for",
+      "conceptPlaceholder": "For example, loan for the car",
+      "originDate": "Start date",
+      "originDateHint": "When the money was lent or the debt began."
+    },
+    "plan": {
+      "question": "How will it be paid?",
+      "firstDate": "First payment date",
+      "dueDate": "Payment date",
+      "count": "Number of payments",
+      "preview": "This is the schedule",
+      "editInstallments": "Adjust instalments by hand",
+      "installment": "Instalment {sequence}",
+      "installmentDate": "Date of instalment {sequence}",
+      "installmentAmount": "Amount of instalment {sequence}",
+      "addInstallment": "Add an instalment",
+      "removeInstallment": "Remove instalment {sequence}",
+      "assigned": "Assigned: {assigned} of {total}",
+      "remaining": "{amount} left to assign",
+      "exceeded": "{amount} too much",
+      "balanced": "The instalments add up to the total",
+      "needAmount": "Enter the amount of the debt first.",
+      "method": "Planned payment method",
+      "methodHint": "This is only the intention. Each payment records how it was actually made.",
+      "noMethod": "Not decided",
+      "receivingAccount": "Account where you expect to be paid",
+      "receivingAccountHint": "For your own reference only. Nobody else sees it.",
+      "noAccount": "None",
+      "shareAccount": "Share the details of an account so I can be paid",
+      "shareAccountHint": "The other person will see the bank, the holder and the CLABE or account number — of that account only — once the agreement is active. You can stop sharing it at any time.",
+      "chooseAccount": "Choose an account",
+      "addAccountFirst": "You have no saved accounts yet. You can add them later under Bank accounts."
+    },
+    "review": {
+      "previousTitle": "Have there been payments already?",
+      "previousHintPersonal": "Add the payments made so far. They are saved as personal records.",
+      "previousHintShared": "Add the payments made so far. They will count as confirmed only if the other person accepts these terms.",
+      "addPrevious": "Add a previous payment",
+      "previousAmount": "Amount of payment {index}",
+      "previousDate": "Date of payment {index}",
+      "previousMethod": "Method of payment {index}",
+      "previousNote": "Note for payment {index}",
+      "removePrevious": "Remove payment {index}",
+      "notePlaceholder": "Note (optional)",
+      "notesPersonal": "Private notes",
+      "notesPersonalHint": "Only you will see them.",
+      "notesShared": "Agreement notes",
+      "notesSharedHint": "They are part of the terms: the other person will see them.",
+      "receipts": "Receipts",
+      "receiptsHint": "PDF, JPG, PNG or WebP, up to {max} MB each. A receipt supports a payment, but does not confirm it by itself.",
+      "addReceipts": "Attach files",
+      "removeReceipt": "Remove {name}",
+      "inviteEmail": "The other person’s email",
+      "inviteEmailHint": "Optional. If they sign in with that same Google account, their identity is confirmed automatically. Either way you will get a link to share.",
+      "summary": "Summary",
+      "summaryPersonal": "Personal record · only you can see it",
+      "summaryShared": "Proposed agreement · needs the other person to accept",
+      "outstandingAfter": "Opening balance",
+      "acceptNotice": "By sending the proposal, you accept these terms. They take effect when the other person accepts exactly the same ones."
+    },
+    "submit": {
+      "personal": "Save record",
+      "shared": "Create and get the link",
+      "draft": "Save as draft",
+      "uploading": "Uploading receipts…",
+      "createdPersonal": "Record saved.",
+      "draftSaved": "Draft saved.",
+      "receiptsFailed": "The debt was saved, but {count, plural, one {one receipt could not be uploaded} other {# receipts could not be uploaded}}. You can attach them from the detail page."
+    },
+    "done": {
+      "title": "Proposal created",
+      "text": "Send this link to {name}. When they open it they can review the terms and accept them, reject them or ask for changes.",
+      "sentDirect": "{name} already shares agreements with you: they received the proposal directly in their account.",
+      "goToDebt": "Go to the agreement"
+    }
+  }
+}

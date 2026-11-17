@@ -1,0 +1,35 @@
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 10
+    groups:
+      # Patch and minor updates arrive together; majors come one by one so they get read.
+      minor-and-patch:
+        update-types: ["minor", "patch"]
+    ignore:
+      # The Prisma CLI, client and driver adapter must move together and each release may need
+      # a migration check: update them by hand (see CONTRIBUTING.md).
+      - dependency-name: prisma
+      - dependency-name: "@prisma/client"
+      - dependency-name: "@prisma/adapter-pg"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    ignore:
+      # Stay on the Node.js release line declared in .nvmrc; moving to a new major is a decision.
+      - dependency-name: node
+        update-types: ["version-update:semver-major"]

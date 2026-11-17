@@ -1,0 +1,183 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+# Nothing here needs to write to the repository.
+permissions:
+  contents: read
+
+# A newer push to the same branch or pull request replaces the run in progress.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NEXT_TELEMETRY_DISABLED: "1"
+  PRISMA_HIDE_UPDATE_MESSAGE: "1"
+
+jobs:
+  checks:
+    name: Lint · types · unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      # Also generates the Prisma client (postinstall).
+      - run: npm ci
+      - run: npm run lint
+      # Route types (PageProps, LayoutProps…) are generated files; create them before checking.
+      - run: npx next typegen
+      - run: npm run typecheck
+      - run: npm run test
+
+  integration:
+    name: Integration tests (real PostgreSQL)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: symmetry
+          POSTGRES_PASSWORD: symmetry
+          POSTGRES_DB: symmetry_debt
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U symmetry -d symmetry_debt"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      # The tests refuse to run against a database whose name does not end in "_test"; they
+      # create it and apply the real migrations themselves (tests/integration/global-setup.ts).
+      TEST_DATABASE_URL: postgresql://symmetry:symmetry@localhost:5432/symmetry_debt_test
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run test:integration
+
+  build:
+    name: Production build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # Building needs no database and no secrets — only where the app will live.
+      NEXT_PUBLIC_BASE_PATH: /debt
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+  e2e:
+    name: End-to-end (Playwright)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: symmetry
+          POSTGRES_PASSWORD: symmetry
+          POSTGRES_DB: symmetry_debt
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U symmetry -d symmetry_debt"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      CI: "true"
+      # tests/e2e/prepare.ts drops and recreates this database (its name must end in "_test"),
+      # applies the migrations and builds the app once. Playwright then starts the mock sign-in
+      # issuer and the production server itself, with its own throw-away configuration
+      # (tests/e2e/env.ts) — no secrets and no other variables are needed here.
+      E2E_DATABASE_URL: postgresql://symmetry:symmetry@localhost:5432/symmetry_debt_e2e_test
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - name: Keep the Playwright report when something failed
+        if: ${{ !cancelled() && failure() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+
+  docker:
+    name: Docker image (build and smoke test, no push)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: symmetry
+          POSTGRES_PASSWORD: symmetry
+          POSTGRES_DB: symmetry_debt
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U symmetry -d symmetry_debt"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: docker/setup-buildx-action@v4
+      - uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: false
+          load: true
+          tags: symmetry-debt:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: The container migrates the database, starts and answers
+        run: |
+          docker run --detach --name app --network host \
+            -e DATABASE_URL=postgresql://symmetry:symmetry@localhost:5432/symmetry_debt \
+            -e APP_URL=http://localhost:3000/debt \
+            -e AUTH_SECRET=ci-only-secret-ci-only-secret-ci-only-secret \
+            -e AUTH_GOOGLE_ID=ci -e AUTH_GOOGLE_SECRET=ci \
+            symmetry-debt:ci
+          for _ in $(seq 1 30); do
+            if curl --silent --fail http://localhost:3000/debt/api/health; then
+              echo
+              curl --silent --fail --output /dev/null http://localhost:3000/debt
+              echo "landing page: ok"
+              exit 0
+            fi
+            sleep 2
+          done
+          docker logs app
+          exit 1
+      - name: Container logs
+        if: ${{ always() }}
+        run: docker logs app || true

@@ -1,0 +1,659 @@
+// Symmetry Debt — data model.
+//
+// Two ideas shape everything here:
+//
+//  1. A debt is managed in exactly one MODE. A PERSONAL record belongs to a single user and is
+//     never bilateral. A SHARED agreement belongs to its two participants and only what both of
+//     them accepted counts as confirmed. Converting a personal record never mutates it: the
+//     shared agreement is a new row that points back to its source.
+//
+//  2. Money is stored in minor units (cents) as BIGINT. There are no floats anywhere.
+//
+// Rules the schema language cannot express (CHECK constraints, immutability triggers) live in
+// the SQL of prisma/migrations and are described in docs/ARCHITECTURE.md.
+
+generator client {
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["partialIndexes"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Enums
+// ─────────────────────────────────────────────────────────────────────────────
+
+enum DebtMode {
+  PERSONAL // private record of one user
+  SHARED // agreement between two users, bilateral approvals
+}
+
+enum DebtStatus {
+  DRAFT // shared: being written, not sent yet
+  PENDING_APPROVAL // shared: proposal sent, waiting for acceptance
+  CHANGES_REQUESTED // shared: the other side asked for different terms
+  ACTIVE
+  DISPUTED // shared: one side flagged a disagreement
+  SETTLED
+  CANCELLED
+  CONVERTED // personal: superseded by an accepted shared agreement (read-only archive)
+}
+
+enum PartyRole {
+  DEBTOR
+  CREDITOR
+}
+
+enum ScheduleType {
+  NONE // no due date
+  SINGLE // one due date
+  WEEKLY
+  MONTHLY
+  CUSTOM
+}
+
+enum PaymentMethodType {
+  CASH
+  BANK_TRANSFER
+  BANK_DEPOSIT
+  CARD
+  OTHER
+}
+
+enum PaymentKind {
+  PAYMENT
+  ADJUSTMENT_INCREASE // the amount owed grows (e.g. agreed surcharge)
+  ADJUSTMENT_DECREASE // the amount owed shrinks (e.g. discount, forgiveness)
+  REVERSAL // undoes one confirmed/recorded payment
+}
+
+enum PaymentStatus {
+  PERSONAL_RECORD // personal mode: what the owner wrote down. Never a bilateral confirmation.
+  PENDING // shared: waiting for the other side
+  CLARIFICATION // shared: the other side asked a question before deciding
+  CONFIRMED // shared: both sides agree. Immutable from here on.
+  REJECTED // shared: the other side said no
+  WITHDRAWN // shared: taken back by whoever recorded it, before confirmation
+}
+
+enum PaymentOrigin {
+  RECORDED // entered as a movement
+  HISTORICAL // earlier payment recognised by both sides when they accepted the agreement
+}
+
+enum PaymentDecision {
+  APPROVED
+  REJECTED
+  CLARIFICATION_REQUESTED
+  CLARIFIED
+  WITHDRAWN
+}
+
+enum VersionKind {
+  INITIAL // terms negotiated before the agreement becomes active
+  AMENDMENT // change proposed to an active agreement
+}
+
+enum VersionStatus {
+  DRAFT
+  PROPOSED
+  ACCEPTED
+  REJECTED
+  CHANGES_REQUESTED
+  SUPERSEDED
+  WITHDRAWN
+}
+
+enum ApprovalDecision {
+  ACCEPTED
+  REJECTED
+  CHANGES_REQUESTED
+}
+
+enum InvitationStatus {
+  PENDING // link is live
+  USED // somebody joined with it
+  DECLINED // the invitee rejected the proposal
+  REVOKED // replaced or cancelled by the inviter
+}
+
+enum AuditScope {
+  PERSONAL // only the owner of the personal record may read it
+  SHARED // both participants may read it
+  ACCOUNT // about the user's own account (bank accounts, settings, sessions)
+}
+
+enum NotificationCategory {
+  ACTION_REQUIRED // somebody is waiting for this user
+  ACTIVITY // something happened, nothing to do
+  REMINDER // due dates
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Identity (Auth.js)
+// ─────────────────────────────────────────────────────────────────────────────
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts       Account[]
+  sessions       Session[]
+  preferences    UserPreferences?
+  contacts       Contact[]         @relation("ContactOwner")
+  linkedContacts Contact[]         @relation("ContactLinkedUser")
+  bankAccounts   BankAccount[]
+  ownedDebts     Debt[]            @relation("DebtOwner")
+  createdDebts   Debt[]            @relation("DebtCreator")
+  participations DebtParticipant[]
+  notifications  Notification[]
+  accountEvents  AuditEvent[]      @relation("AuditOwner")
+  actedEvents    AuditEvent[]      @relation("AuditActor")
+}
+
+/// OAuth identity. Provider tokens are deliberately NOT stored: we only need to know who signed in.
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+  @@index([userId])
+}
+
+/// Server-side session. `sessionToken` holds a SHA-256 hash, never the cookie value itself.
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expires])
+}
+
+model UserPreferences {
+  userId          String  @id
+  locale          String  @default("es")
+  timeZone        String  @default("America/Mexico_City")
+  defaultCurrency String  @default("MXN") @db.Char(3)
+  /// Due-date reminders (in-app). Non-critical, can be switched off.
+  remindersEnabled    Boolean @default(true)
+  /// Email when somebody is waiting for me (invitations, approvals).
+  emailActionRequired Boolean @default(true)
+  /// Email for informational activity (confirmed payments, settlements).
+  emailActivity       Boolean @default(false)
+  /// Email for due-date reminders.
+  emailReminders      Boolean @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// People
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// A counterparty as seen by ONE user. Private by default.
+/// `linkedUserId` is only ever set when that person joined an agreement through an invitation —
+/// never by matching a name or an email address.
+model Contact {
+  id           String    @id @default(cuid())
+  ownerId      String
+  name         String
+  email        String?
+  phone        String?
+  notes        String?
+  linkedUserId String?
+  linkedAt     DateTime?
+  archivedAt   DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  owner          User              @relation("ContactOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  linkedUser     User?             @relation("ContactLinkedUser", fields: [linkedUserId], references: [id], onDelete: SetNull)
+  personalDebts  Debt[]            @relation("PersonalDebtContact")
+  participations DebtParticipant[]
+
+  @@unique([ownerId, linkedUserId])
+  @@index([ownerId, archivedAt])
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Debts
+// ─────────────────────────────────────────────────────────────────────────────
+
+model Debt {
+  id     String     @id @default(cuid())
+  mode   DebtMode
+  status DebtStatus
+
+  /// PERSONAL only: the single user who may see and edit this record.
+  ownerId     String?
+  /// Who created the row (kept for provenance on shared agreements).
+  createdById String?
+
+  /// PERSONAL only: which side the owner is on, and who is on the other one.
+  ownerRole          PartyRole?
+  contactId          String?
+  /// PERSONAL only: private notes, and the owner's own account where money is expected.
+  privateNotes       String?
+  receivingAccountId String?
+
+  // Terms in effect. For a shared agreement that is not active yet these mirror the latest
+  // proposal and carry no weight until both sides accept it.
+  concept        String
+  currency       String             @db.Char(3)
+  principalMinor BigInt
+  originDate     DateTime           @db.Date
+  dueDate        DateTime?          @db.Date
+  scheduleType   ScheduleType       @default(NONE)
+  plannedMethod  PaymentMethodType?
+  sharedNotes    String?
+  /// When set, `principalMinor` is a balance both sides agreed on as of this date,
+  /// not the original amount of the debt.
+  balanceAsOf    DateTime?          @db.Date
+
+  /// SHARED: the accepted version currently in force.
+  currentVersionId String? @unique
+  /// SHARED: the personal record this agreement was proposed from.
+  sourceDebtId     String?
+
+  settledAt             DateTime?
+  cancelledAt           DateTime?
+  closedReason          String?
+  disputeOpenedByRole   PartyRole?
+  disputeOpenedAt       DateTime?
+  disputeReason         String?
+  cancelRequestedByRole PartyRole?
+  cancelRequestedAt     DateTime?
+  cancelRequestReason   String?
+
+  /// Optimistic concurrency counter, bumped on every state change.
+  lockVersion    Int      @default(0)
+  /// Client-generated key that makes "create" safe to retry.
+  idempotencyKey String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  owner            User?         @relation("DebtOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  createdBy        User?         @relation("DebtCreator", fields: [createdById], references: [id], onDelete: SetNull)
+  // NoAction (checked at the end of the statement) so that removing a user can cascade through
+  // contacts and debts together, while a contact that still has debts cannot be deleted on its own.
+  contact          Contact?      @relation("PersonalDebtContact", fields: [contactId], references: [id], onDelete: NoAction)
+  receivingAccount BankAccount?  @relation(fields: [receivingAccountId], references: [id], onDelete: SetNull)
+  currentVersion   DebtVersion?  @relation("CurrentVersion", fields: [currentVersionId], references: [id], onDelete: SetNull)
+  sourceDebt       Debt?         @relation("Conversion", fields: [sourceDebtId], references: [id], onDelete: SetNull)
+  derivedDebts     Debt[]        @relation("Conversion")
+
+  participants DebtParticipant[]
+  versions     DebtVersion[]      @relation("DebtVersions")
+  installments Installment[]
+  payments     Payment[]
+  attachments  Attachment[]
+  events       AuditEvent[]
+  invitations  Invitation[]
+  bankShares   BankAccountShare[]
+  notifications Notification[]
+
+  @@unique([createdById, idempotencyKey])
+  /// A personal record can back at most one live shared proposal/agreement.
+  @@unique([sourceDebtId], where: raw("\"sourceDebtId\" IS NOT NULL AND \"status\" <> 'CANCELLED'"), map: "Debt_one_live_conversion")
+  @@index([ownerId, status])
+  @@index([contactId])
+  @@index([sourceDebtId])
+}
+
+/// The two sides of a shared agreement. Exactly one row per role.
+model DebtParticipant {
+  id     String    @id @default(cuid())
+  debtId String
+  role   PartyRole
+  /// Null until somebody joins through the invitation (or after that user deleted their account).
+  userId String?
+  /// Name shown to the other side. Before joining it is what the proposer typed.
+  displayName           String
+  /// When the proposer confirmed that whoever joined is the intended person.
+  /// Set automatically if the invitation named the same verified email address.
+  identityConfirmedAt   DateTime?
+  /// This participant's own contact entry for the OTHER side.
+  counterpartyContactId String?
+  /// Notes only this participant can read.
+  privateNote           String?
+  joinedAt              DateTime?
+  createdAt             DateTime  @default(now())
+
+  debt                Debt     @relation(fields: [debtId], references: [id], onDelete: Cascade)
+  user                User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  counterpartyContact Contact? @relation(fields: [counterpartyContactId], references: [id], onDelete: SetNull)
+
+  @@unique([debtId, role])
+  @@unique([debtId, userId])
+  @@index([userId])
+}
+
+/// An immutable snapshot of terms that one side proposed. Both sides must accept the SAME
+/// version (same `termsHash`) for it to take effect.
+model DebtVersion {
+  id             String        @id @default(cuid())
+  debtId         String
+  number         Int
+  kind           VersionKind
+  status         VersionStatus
+  proposedByRole PartyRole
+  proposedById   String?
+  /// TermsSnapshot JSON — see src/domain/terms.ts.
+  terms          Json
+  /// SHA-256 of the canonical JSON of `terms`.
+  termsHash      String
+  changeNote     String?
+  idempotencyKey String?
+  createdAt      DateTime      @default(now())
+  decidedAt      DateTime?
+
+  debt      Debt           @relation("DebtVersions", fields: [debtId], references: [id], onDelete: Cascade)
+  currentOf Debt?          @relation("CurrentVersion")
+  approvals DebtApproval[]
+  payments  Payment[]
+
+  @@unique([debtId, number])
+  @@unique([debtId, idempotencyKey])
+  /// Only one proposal can be open at a time.
+  @@unique([debtId], where: raw("\"status\" = 'PROPOSED'"), map: "DebtVersion_one_open_proposal")
+}
+
+/// One side's explicit answer to one version.
+model DebtApproval {
+  id        String           @id @default(cuid())
+  versionId String
+  role      PartyRole
+  userId    String?
+  decision  ApprovalDecision
+  /// The hash this person had in front of them when they answered.
+  termsHash String
+  comment   String?
+  createdAt DateTime         @default(now())
+
+  version DebtVersion @relation(fields: [versionId], references: [id], onDelete: Cascade)
+
+  @@unique([versionId, role])
+}
+
+/// The schedule in effect. Replaced as a whole when the schedule changes.
+model Installment {
+  id          String   @id @default(cuid())
+  debtId      String
+  sequence    Int
+  dueDate     DateTime @db.Date
+  amountMinor BigInt
+
+  debt Debt @relation(fields: [debtId], references: [id], onDelete: Cascade)
+
+  @@unique([debtId, sequence])
+  @@index([dueDate])
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Movements
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// A movement on a debt: a payment, an adjustment or a reversal.
+/// Only PERSONAL_RECORD (personal mode) and CONFIRMED (shared mode) rows change a balance.
+model Payment {
+  id     String        @id @default(cuid())
+  debtId String
+  kind   PaymentKind
+  status PaymentStatus
+  origin PaymentOrigin @default(RECORDED)
+
+  amountMinor   BigInt
+  /// When the money actually moved.
+  effectiveDate DateTime @db.Date
+  /// When it was written down here. Kept separate on purpose.
+  recordedAt    DateTime @default(now())
+  recordedById  String?
+  recordedByRole PartyRole?
+
+  /// How it was really paid (the debt's `plannedMethod` is only the intention).
+  method    PaymentMethodType?
+  reference String?
+  notes     String?
+  /// Cash: where it was handed over.
+  place     String?
+
+  /// REVERSAL: the payment being undone.
+  reversesId String?
+  /// HISTORICAL: the version whose acceptance recognised this payment.
+  versionId  String?
+
+  confirmedAt    DateTime?
+  decidedAt      DateTime?
+  idempotencyKey String?
+  updatedAt      DateTime  @updatedAt
+
+  debt        Debt                @relation(fields: [debtId], references: [id], onDelete: Cascade)
+  reverses    Payment?            @relation("Reversal", fields: [reversesId], references: [id], onDelete: NoAction)
+  reversals   Payment[]           @relation("Reversal")
+  version     DebtVersion?        @relation(fields: [versionId], references: [id], onDelete: SetNull)
+  approvals   PaymentApproval[]
+  bankDetails PaymentBankDetails?
+  attachments Attachment[]
+
+  @@unique([debtId, idempotencyKey])
+  /// A payment can have one live reversal at most (a rejected or withdrawn one does not block a new attempt).
+  @@unique([reversesId], where: raw("\"reversesId\" IS NOT NULL AND \"status\" <> 'REJECTED' AND \"status\" <> 'WITHDRAWN'"), map: "Payment_one_live_reversal")
+  @@index([debtId, status])
+  @@index([debtId, effectiveDate])
+}
+
+/// Append-only log of what each side said about a movement.
+model PaymentApproval {
+  id        String          @id @default(cuid())
+  paymentId String
+  role      PartyRole
+  userId    String?
+  decision  PaymentDecision
+  comment   String?
+  createdAt DateTime        @default(now())
+
+  payment Payment @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+
+  @@index([paymentId, createdAt])
+}
+
+/// Extra details for bank transfers and deposits.
+model PaymentBankDetails {
+  paymentId            String  @id
+  originBank           String?
+  /// One of the recipient's saved accounts, when it was used.
+  destinationAccountId String?
+  /// Masked description kept even if the account is later removed (e.g. "BBVA ···· 1234").
+  destinationLabel     String?
+  /// SPEI tracking key ("clave de rastreo").
+  trackingKey          String?
+
+  payment            Payment      @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+  destinationAccount BankAccount? @relation(fields: [destinationAccountId], references: [id], onDelete: SetNull)
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Bank accounts
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Where a user can RECEIVE money. Private to its owner.
+/// CLABE and account number are encrypted at rest (AES-256-GCM, see src/server/crypto.ts).
+/// Passwords, PINs, CVVs or any banking credentials are never asked for or stored.
+model BankAccount {
+  id               String    @id @default(cuid())
+  userId           String
+  alias            String
+  bankName         String
+  holderName       String
+  clabeEnc         String?
+  clabeLast4       String?
+  accountNumberEnc String?
+  accountLast4     String?
+  currency         String    @default("MXN") @db.Char(3)
+  isPreferred      Boolean   @default(false)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  user           User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  shares         BankAccountShare[]
+  receivingDebts Debt[]
+  paymentDetails PaymentBankDetails[]
+
+  @@unique([userId], where: raw("\"isPreferred\""), map: "BankAccount_one_preferred")
+  @@index([userId])
+}
+
+/// Explicit permission, given by the account's owner, to show the details needed to pay into
+/// that account to the other participant of ONE shared agreement.
+model BankAccountShare {
+  id            String    @id @default(cuid())
+  bankAccountId String
+  debtId        String
+  sharedById    String
+  createdAt     DateTime  @default(now())
+  revokedAt     DateTime?
+
+  bankAccount BankAccount @relation(fields: [bankAccountId], references: [id], onDelete: Cascade)
+  debt        Debt        @relation(fields: [debtId], references: [id], onDelete: Cascade)
+
+  @@unique([bankAccountId, debtId])
+  @@index([debtId])
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Receipts
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// A receipt or supporting document. The file lives in private storage under `storageKey`.
+/// A receipt is evidence somebody attached — it never confirms a payment by itself.
+model Attachment {
+  id         String   @id @default(cuid())
+  debtId     String
+  paymentId  String?
+  uploaderId String?
+  storageKey String
+  fileName   String
+  mimeType   String
+  sizeBytes  Int
+  sha256     String
+  createdAt  DateTime @default(now())
+
+  debt    Debt     @relation(fields: [debtId], references: [id], onDelete: Cascade)
+  payment Payment? @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+
+  @@index([debtId])
+  @@index([paymentId])
+  @@index([storageKey])
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Invitations
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// A share link for the other side of a shared agreement.
+/// Only a hash of the link's token is stored. The link is single-use, expires and can be revoked.
+/// `email` is optional: when present and equal to the joining user's verified address, their
+/// identity is confirmed automatically; otherwise the inviter confirms who joined.
+model Invitation {
+  id          String           @id @default(cuid())
+  debtId      String
+  tokenHash   String           @unique
+  role        PartyRole
+  email       String?
+  invitedById String?
+  status      InvitationStatus @default(PENDING)
+  expiresAt   DateTime
+  usedById    String?
+  respondedAt DateTime?
+  lastSentAt  DateTime?
+  sendCount   Int              @default(0)
+  createdAt   DateTime         @default(now())
+
+  debt Debt @relation(fields: [debtId], references: [id], onDelete: Cascade)
+
+  @@unique([debtId], where: raw("\"status\" = 'PENDING'"), map: "Invitation_one_pending")
+  @@index([email, status])
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Notifications, audit trail, housekeeping
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// In-app notification. The text is rendered from `type` + `data` in the reader's language.
+model Notification {
+  id        String               @id @default(cuid())
+  userId    String
+  type      String
+  category  NotificationCategory
+  debtId    String?
+  data      Json
+  /// Makes scheduled reminders idempotent.
+  dedupeKey String?              @unique
+  readAt    DateTime?
+  /// An email still has to go out for this notification (decided from the recipient's preferences).
+  emailPending  Boolean  @default(false)
+  emailAttempts Int      @default(0)
+  emailedAt DateTime?
+  createdAt DateTime             @default(now())
+
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  debt Debt? @relation(fields: [debtId], references: [id], onDelete: Cascade)
+
+  @@index([userId, readAt, createdAt])
+  @@index([emailPending, createdAt])
+}
+
+/// Append-only history. Rows are never updated (enforced by a trigger).
+model AuditEvent {
+  id        String     @id @default(cuid())
+  scope     AuditScope
+  type      String
+  /// Debt the event belongs to (PERSONAL and SHARED scopes).
+  debtId    String?
+  /// Account the event belongs to (ACCOUNT scope).
+  userId    String?
+  actorId   String?
+  actorRole PartyRole?
+  paymentId String?
+  versionId String?
+  data      Json?
+  createdAt DateTime   @default(now())
+
+  debt  Debt? @relation(fields: [debtId], references: [id], onDelete: Cascade)
+  user  User? @relation("AuditOwner", fields: [userId], references: [id], onDelete: Cascade)
+  actor User? @relation("AuditActor", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([debtId, createdAt])
+  @@index([userId, createdAt])
+}
+
+/// Fixed-window counters for rate limiting (works across several app instances).
+model RateLimitBucket {
+  key         String
+  windowStart DateTime
+  count       Int      @default(0)
+
+  @@id([key, windowStart])
+  @@index([windowStart])
+}

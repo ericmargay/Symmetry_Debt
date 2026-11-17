@@ -1,0 +1,58 @@
+name: Bug report · Reporte de error
+description: Something does not work as it should. · Algo no funciona como debería.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time. You can write in English or in Spanish.
+        Gracias por tomarte el tiempo. Puedes escribir en español o en inglés.
+
+        **Do not paste real names, amounts, bank details or receipts.** Use made-up data.
+        **No pegues nombres, importes, datos bancarios ni comprobantes reales.** Usa datos inventados.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened? · ¿Qué pasó?
+      description: What you did, what you expected and what you got instead. · Qué hiciste, qué esperabas y qué obtuviste.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce · Pasos para reproducirlo
+      placeholder: |
+        1. …
+        2. …
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Where does it happen? · ¿Dónde ocurre?
+      options:
+        - Personal record · Registro personal
+        - Shared agreement · Acuerdo compartido
+        - Converting personal → shared · Conversión personal → compartido
+        - Sign-in · Inicio de sesión
+        - Bank accounts or receipts · Cuentas bancarias o comprobantes
+        - Installation or deployment · Instalación o despliegue
+        - Somewhere else · Otro lugar
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit · Versión o commit
+      description: "`git rev-parse --short HEAD`, or the date you installed it. · O la fecha en que lo instalaste."
+  - type: input
+    id: environment
+    attributes:
+      label: Environment · Entorno
+      description: Browser and device; and, if you host it yourself, how (Docker Compose, Railway…) and under which path. · Navegador y dispositivo; y, si lo alojas tú, cómo y bajo qué ruta.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Messages or logs · Mensajes o registros
+      description: Error text shown on screen, or server logs with secrets removed. · Texto del error en pantalla, o registros del servidor sin secretos.
+      render: text

@@ -1,0 +1,1769 @@
+{
+  "accounts": {
+    "metaTitle": "Cuentas bancarias",
+    "title": "Mis cuentas bancarias",
+    "subtitle": "Las cuentas donde puedes recibir pagos. Son privadas: nadie las ve a menos que compartas una, expresamente, en un acuerdo.",
+    "add": "Agregar cuenta",
+    "preferred": "Preferida",
+    "makePreferred": "Marcar como preferida",
+    "sharedIn": "{count, plural, one {Compartida en # acuerdo} other {Compartida en # acuerdos}}",
+    "notShared": "No compartida",
+    "holder": "Titular",
+    "clabe": "CLABE",
+    "account": "Número de cuenta",
+    "show": "Ver datos completos",
+    "hide": "Ocultar",
+    "copyClabe": "Copiar CLABE",
+    "copyAccount": "Copiar número de cuenta",
+    "copyAll": "Copiar datos para transferir",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "deleteTitle": "Eliminar esta cuenta",
+    "deleteConfirm": "Se eliminará de forma permanente. Si la compartiste en algún acuerdo, la otra persona dejará de verla.",
+    "empty": {
+      "title": "Aún no tienes cuentas guardadas",
+      "text": "Guarda tu CLABE para copiarla en un toque o compartirla cuando te vayan a pagar."
+    },
+    "security": "Guardamos solo lo necesario para recibir una transferencia, cifrado. Nunca pedimos ni almacenamos contraseñas, NIP, CVV ni claves de tu banca.",
+    "form": {
+      "createTitle": "Agregar cuenta",
+      "editTitle": "Editar cuenta",
+      "alias": "Alias",
+      "aliasHint": "Un nombre para reconocerla. Solo tú lo ves.",
+      "aliasPlaceholder": "Por ejemplo, Nómina",
+      "bank": "Banco",
+      "holder": "Titular",
+      "clabe": "CLABE (18 dígitos)",
+      "clabeValid": "CLABE válida",
+      "clabeBank": "Banco detectado: {bank}",
+      "accountNumber": "Número de cuenta",
+      "accountHint": "Opcional si ya indicaste la CLABE.",
+      "currency": "Moneda",
+      "preferred": "Usarla como cuenta preferida",
+      "saved": "Cuenta guardada.",
+      "loading": "Cargando datos…"
+    }
+  },
+  "app": {
+    "name": "Symmetry Debt",
+    "tagline": "Two sides. One agreement.",
+    "description": "Organiza tus deudas, lleva el control de tus pagos y confirma acuerdos con otras personas. Gratis, privado y de código abierto.",
+    "skipToContent": "Saltar al contenido"
+  },
+  "auth": {
+    "metaTitle": "Iniciar sesión",
+    "title": "Entra a Symmetry Debt",
+    "subtitle": "Usa tu cuenta de Google. Si es tu primera vez, tu perfil se crea automáticamente.",
+    "google": "Continuar con Google",
+    "redirecting": "Abriendo Google…",
+    "privacyTitle": "Qué usamos de tu cuenta de Google",
+    "privacy": "Solo tu nombre, tu correo y tu foto, para saber quién eres. No leemos tu correo ni tus contactos, y no guardamos acceso a tu cuenta de Google.",
+    "backHome": "Volver a la página de inicio",
+    "invited": "Inicia sesión para revisar la invitación que recibiste.",
+    "devNotice": "Modo local: el inicio de sesión usa el emisor de pruebas, no Google.",
+    "signedOut": "Cerraste sesión.",
+    "error": {
+      "title": "No pudimos iniciar tu sesión",
+      "Default": "Ocurrió un problema al iniciar sesión. Inténtalo de nuevo.",
+      "AccessDenied": "Google no confirmó tu correo, o no se concedió el acceso. Prueba con otra cuenta.",
+      "OAuthAccountNotLinked": "Ese correo ya está asociado a otra cuenta de Google en Symmetry Debt. Entra con la cuenta que usaste la primera vez.",
+      "Configuration": "El inicio de sesión no está bien configurado en este servidor. Avisa a quien lo administra.",
+      "RateLimited": "Demasiados intentos. Espera unos minutos y vuelve a intentarlo."
+    }
+  },
+  "common": {
+    "save": "Guardar",
+    "saveChanges": "Guardar cambios",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Agregar",
+    "remove": "Quitar",
+    "continue": "Continuar",
+    "back": "Atrás",
+    "confirm": "Confirmar",
+    "send": "Enviar",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "copyFailed": "No se pudo copiar",
+    "open": "Abrir",
+    "view": "Ver",
+    "viewAll": "Ver todo",
+    "download": "Descargar",
+    "retry": "Reintentar",
+    "loading": "Cargando…",
+    "saving": "Guardando…",
+    "sending": "Enviando…",
+    "optional": "Opcional",
+    "yes": "Sí",
+    "no": "No",
+    "none": "Ninguno",
+    "more": "Más",
+    "search": "Buscar",
+    "you": "Tú",
+    "today": "Hoy",
+    "notSet": "Sin definir",
+    "learnMore": "Saber más",
+    "comment": "Comentario",
+    "reason": "Motivo",
+    "saved": "Guardado",
+    "done": "Listo",
+    "of": "de",
+    "showMore": "Mostrar más",
+    "showLess": "Mostrar menos",
+    "requiredField": "Obligatorio",
+    "characters": "{count}/{max}",
+    "openMenu": "Abrir menú",
+    "goBack": "Volver",
+    "new": "Nuevo"
+  },
+  "convert": {
+    "metaTitle": "Invitar a confirmar esta deuda",
+    "title": "Invitar a confirmar esta deuda",
+    "intro": "Vas a proponerle a {name} convertir este registro en un acuerdo compartido. Tú eliges qué parte de tu historial se incluye.",
+    "safe": "Tu registro personal no cambia. Si {name} no acepta, se queda exactamente como está.",
+    "record": "Tu registro",
+    "recordedBalance": "Saldo según tus registros",
+    "historyQuestion": "¿Qué quieres compartir?",
+    "full": "El importe y los abonos que elijas",
+    "fullHint": "La otra persona verá el importe de la deuda y los pagos que selecciones, para reconocerlos.",
+    "balanceOnly": "Solo el saldo actual",
+    "balanceOnlyHint": "Se propone empezar desde lo que queda hoy ({amount}), sin compartir ningún pago anterior.",
+    "payments": "Abonos a reconocer",
+    "paymentsHint": "Solo los que marques formarán parte de la propuesta. No se confirman solos: contarán cuando {name} acepte.",
+    "selectAll": "Marcar todos",
+    "selectNone": "Quitar todos",
+    "noPayments": "No tienes abonos registrados en esta deuda.",
+    "notSelectedWarning": "{count, plural, one {Hay # abono que no compartes} other {Hay # abonos que no compartes}}: el saldo propuesto será mayor que el de tu registro.",
+    "preview": "Lo que verá {name}",
+    "previewAmount": "Importe",
+    "previewRecognised": "Abonos a reconocer",
+    "previewOpening": "Saldo inicial propuesto",
+    "includeNotes": "Incluir mis notas privadas como notas del acuerdo",
+    "includeNotesHint": "Por defecto tus notas no se comparten.",
+    "includeReceipts": "Copiar los comprobantes de la deuda y de los abonos seleccionados",
+    "includeReceiptsHint": "{count, plural, =0 {No hay comprobantes que copiar.} one {Se copiará # comprobante.} other {Se copiarán # comprobantes.}}",
+    "email": "Correo de {name}",
+    "submit": "Crear propuesta y obtener enlace",
+    "doneTitle": "Invitación lista",
+    "doneText": "Envía este enlace a {name}. Cuando acepte, la deuda quedará confirmada por ambos y tu registro personal se guardará como archivo.",
+    "goToProposal": "Ver la propuesta",
+    "backToRecord": "Volver a mi registro"
+  },
+  "dashboard": {
+    "metaTitle": "Inicio",
+    "greeting": "Hola, {name}",
+    "subtitle": "Esto es lo que debes, lo que te deben y lo que espera una respuesta.",
+    "filtersLabel": "Qué mostrar",
+    "filter": {
+      "all": "Todas mis deudas",
+      "personal": "Registros personales",
+      "shared": "Acuerdos compartidos",
+      "pending": "Pendientes de confirmación",
+      "settled": "Liquidadas",
+      "archived": "Archivadas"
+    },
+    "totals": {
+      "iOwe": "Total que debo",
+      "owedToMe": "Total que me deben",
+      "net": "Saldo neto",
+      "netPositive": "A tu favor",
+      "netNegative": "En tu contra",
+      "netZero": "En equilibrio",
+      "netHint": "Lo que te deben menos lo que debes. Solo cuenta lo registrado por ti y lo confirmado por ambos.",
+      "recorded": "Registros personales",
+      "confirmed": "Confirmado por ambos",
+      "awaiting": "Pagos por confirmar",
+      "awaitingHint": "Ya registrados, pero todavía no cuentan en el saldo.",
+      "proposed": "En propuesta",
+      "proposedHint": "Condiciones que la otra parte aún no acepta.",
+      "breakdown": "Cómo se compone",
+      "noAmounts": "Nada pendiente con este filtro.",
+      "currency": "Importes en {currency}",
+      "settledCount": "{count, plural, one {# deuda liquidada} other {# deudas liquidadas}}"
+    },
+    "invitations": {
+      "title": "Invitaciones para ti",
+      "item": "{name} te invitó a revisar un acuerdo",
+      "expires": "Vence el {date}",
+      "review": "Revisar"
+    },
+    "needsMe": {
+      "title": "Esperan tu respuesta",
+      "empty": "No tienes nada por responder."
+    },
+    "waiting": {
+      "title": "Esperando a la otra parte"
+    },
+    "upcoming": {
+      "title": "Pagos próximos",
+      "empty": "No hay pagos en los próximos 30 días.",
+      "installment": "Cuota {sequence}"
+    },
+    "overdue": {
+      "title": "Pagos vencidos",
+      "count": "{count, plural, one {# vencido} other {# vencidos}}"
+    },
+    "recent": {
+      "title": "Últimos movimientos",
+      "empty": "Aquí verás lo último que pase con tus deudas.",
+      "all": "Ver historial"
+    },
+    "empty": {
+      "title": "Empieza con tu primera deuda",
+      "text": "Puedes anotarla solo para ti, o compartirla con la otra persona para que ambos la confirmen. Tú decides en cada caso.",
+      "action": "Registrar una deuda"
+    },
+    "duePay": "Debes pagar a {name}",
+    "dueCollect": "{name} debe pagarte"
+  },
+  "debts": {
+    "metaTitle": "Mis deudas",
+    "title": "Mis deudas",
+    "subtitle": "Tus registros personales y tus acuerdos compartidos, cada uno con su nivel de confirmación.",
+    "new": "Nueva deuda",
+    "needsYou": "Espera tu respuesta",
+    "pendingMovements": "{count, plural, one {# por confirmar} other {# por confirmar}}",
+    "nextDue": "Próximo pago:",
+    "proposedAmount": "Importe propuesto",
+    "empty": {
+      "all": {
+        "title": "Aún no tienes deudas registradas",
+        "text": "Registra lo que debes o lo que te deben. Puedes llevarlo solo para ti o compartirlo con la otra persona."
+      },
+      "personal": {
+        "title": "No tienes registros personales",
+        "text": "Los registros personales son solo tuyos: nadie más los ve ni los aprueba."
+      },
+      "shared": {
+        "title": "No tienes acuerdos compartidos",
+        "text": "En un acuerdo compartido, las condiciones y cada pago cuentan cuando ambas partes los confirman."
+      },
+      "pending": {
+        "title": "Nada pendiente de confirmación",
+        "text": "Aquí aparecerán las propuestas y los pagos que esperan la respuesta de alguna de las partes."
+      },
+      "settled": {
+        "title": "Todavía no hay deudas liquidadas",
+        "text": "Cuando una deuda termine de pagarse aparecerá aquí."
+      },
+      "archived": {
+        "title": "No hay nada archivado",
+        "text": "Aquí se guardan los registros cancelados y los que se convirtieron en acuerdos compartidos."
+      }
+    },
+    "legend": {
+      "title": "Cómo leer los símbolos",
+      "personal": "Lo anotaste tú. Nadie más lo ha confirmado.",
+      "one_side": "Una parte lo registró; falta que la otra lo confirme.",
+      "both_sides": "Las dos partes están de acuerdo.",
+      "proposal": "Condiciones que todavía nadie más ha aceptado."
+    }
+  },
+  "detail": {
+    "back": "Mis deudas",
+    "moreActions": "Más acciones",
+    "balance": {
+      "outstanding": "Queda por pagar",
+      "proposedAmount": "Importe propuesto",
+      "settled": "Liquidada",
+      "paidOf": "{paid} pagado de {total}",
+      "recordedHint": "Saldo según tus propios registros. La otra persona no lo ha confirmado.",
+      "confirmedHint": "Solo cuenta lo que ambas partes han confirmado.",
+      "proposalHint": "Todavía no es un acuerdo: falta que ambas partes acepten las mismas condiciones.",
+      "pending": "Por confirmar",
+      "pendingHint": "Registrado por una de las partes. No cuenta en el saldo hasta que la otra lo confirme.",
+      "ifConfirmed": "Si todo se confirma, quedarían {amount}",
+      "adjustments": "Ajustes: {amount}",
+      "asOf": "Saldo acordado al {date}",
+      "overdue": "{amount} vencido"
+    },
+    "actions": {
+      "recordPayment": "Registrar pago",
+      "recordAdjustment": "Registrar ajuste",
+      "convert": "Invitar a confirmar esta deuda",
+      "edit": "Editar",
+      "cancel": "Cancelar registro",
+      "reopen": "Reabrir registro",
+      "delete": "Eliminar registro",
+      "proposeChanges": "Proponer cambios",
+      "proposeNewTerms": "Proponer nuevas condiciones",
+      "openDispute": "Marcar en disputa",
+      "requestCancellation": "Cancelar acuerdo",
+      "withdrawProposal": "Retirar propuesta",
+      "addComment": "Comentar"
+    },
+    "banner": {
+      "settledTitle": "Deuda liquidada",
+      "settledPersonal": "Según tus registros, ya no queda nada por pagar.",
+      "settledShared": "Ambas partes confirmaron todos los pagos. Cuentas claras.",
+      "converted": "Este registro se convirtió en un acuerdo compartido. Se conserva aquí, intacto y solo para ti, como archivo.",
+      "viewAgreement": "Ver el acuerdo",
+      "conversionPending": "Invitaste a confirmar esta deuda. Mientras la otra persona responde, tu registro sigue igual y puedes seguir usándolo.",
+      "viewProposal": "Ver la propuesta",
+      "cancelledPersonal": "Cancelaste este registro. Ya no cuenta en tus totales.",
+      "cancelledShared": "{reason, select, rejected {La propuesta fue rechazada.} withdrawn {La propuesta fue retirada.} mutual {El acuerdo se canceló de mutuo acuerdo.} account_deleted {El acuerdo se cerró porque una de las partes eliminó su cuenta.} other {Este acuerdo se canceló.}} Se conserva como historial.",
+      "fromRecord": "Esta propuesta salió de uno de tus registros personales.",
+      "viewRecord": "Ver mi registro",
+      "draft": "Es un borrador: solo tú lo ves. Envíalo cuando esté listo.",
+      "editDraft": "Editar borrador",
+      "sendDraft": "Enviar propuesta",
+      "discardDraft": "Descartar",
+      "discardConfirm": "¿Descartar este borrador? No se puede deshacer.",
+      "waitingLink": "Esperando a que {name} abra el enlace y responda.",
+      "linkSentTo": "Invitación enviada a {email}.",
+      "linkExpires": "El enlace vence el {date}.",
+      "linkExpired": "El enlace venció. Genera uno nuevo para que pueda responder.",
+      "newLink": "Generar nuevo enlace",
+      "newLinkConfirm": "Se creará un enlace nuevo y el anterior dejará de funcionar.",
+      "newLinkEmail": "Correo de la otra persona (opcional)",
+      "newLinkSend": "Enviarlo también por correo",
+      "identityTitle": "¿Es la persona correcta?",
+      "identityText": "{name} entró con el enlace de invitación. Confirma que es la persona con quien tienes este acuerdo. Hasta entonces no entra en vigor.",
+      "identityEmail": "Cuenta: {email}",
+      "identityConfirm": "Sí, es esta persona",
+      "identityReject": "No es esta persona",
+      "identityRejectConfirm": "Se le quitará el acceso, su respuesta se descartará y recibirás un enlace nuevo para enviárselo a la persona correcta.",
+      "awaitingIdentity": "Entraste con el enlace. Falta que {name} confirme que eres la persona con quien tiene este acuerdo; después podrás participar.",
+      "changesRequested": "Se pidieron cambios a las condiciones.",
+      "disputeTitle": "Acuerdo en disputa",
+      "disputeByMe": "Marcaste este acuerdo en disputa.",
+      "disputeByOther": "{name} marcó este acuerdo en disputa.",
+      "resolveDispute": "Dar por resuelta",
+      "resolveNote": "Nota (opcional)",
+      "cancelTitle": "Solicitud de cancelación",
+      "cancelByMe": "Propusiste cancelar el acuerdo. Esperando a {name}.",
+      "cancelByOther": "{name} propone cancelar el acuerdo.",
+      "cancelAccept": "Aceptar la cancelación",
+      "cancelDecline": "No cancelar",
+      "cancelWithdraw": "Retirar la solicitud",
+      "amendmentOpen": "Hay cambios propuestos. Mientras no se acepten, siguen valiendo las condiciones actuales."
+    },
+    "proposal": {
+      "title": "Condiciones propuestas",
+      "version": "Versión {number}",
+      "byMe": "Las propusiste tú",
+      "byOther": "Propuestas por {name}",
+      "changes": "Qué cambia",
+      "field": {
+        "concept": "Concepto",
+        "principal": "Importe",
+        "originDate": "Fecha de origen",
+        "schedule": "Calendario de pagos",
+        "plannedMethod": "Método previsto",
+        "sharedNotes": "Notas",
+        "historicalPayments": "Pagos previos reconocidos"
+      },
+      "note": "Mensaje",
+      "accept": "Aceptar condiciones",
+      "acceptHint": "Al aceptar, estas condiciones entran en vigor para ambos.",
+      "requestChanges": "Pedir cambios",
+      "reject": "Rechazar",
+      "waiting": "Esperando la respuesta de {name}.",
+      "requestChangesTitle": "¿Qué habría que cambiar?",
+      "rejectTitle": "Rechazar la propuesta",
+      "rejectInitialHint": "La propuesta se cerrará. Podrán crear otra cuando quieran.",
+      "rejectAmendmentHint": "Las condiciones actuales siguen en vigor.",
+      "withdrawConfirmInitial": "Se retirará la propuesta y el acuerdo quedará cancelado.",
+      "withdrawConfirmAmendment": "Se retirarán los cambios propuestos. Las condiciones actuales siguen en vigor.",
+      "answers": "Respuestas",
+      "decision": {
+        "ACCEPTED": "Aceptó",
+        "REJECTED": "Rechazó",
+        "CHANGES_REQUESTED": "Pidió cambios"
+      },
+      "history": "Versiones de las condiciones",
+      "current": "En vigor"
+    },
+    "terms": {
+      "title": "Condiciones",
+      "amount": "Importe",
+      "balanceAsOf": "Saldo acordado",
+      "concept": "Concepto",
+      "originDate": "Fecha de origen",
+      "dueDate": "Fecha límite",
+      "noDueDate": "Sin fecha límite",
+      "plan": "Plan de pago",
+      "method": "Método previsto",
+      "notes": "Notas del acuerdo",
+      "privateNotes": "Notas privadas",
+      "privateNote": "Mi nota privada",
+      "privateNoteHint": "Solo tú la ves.",
+      "privateNotePlaceholder": "Algo que quieras recordar sobre este acuerdo…",
+      "receivingAccount": "Cuenta donde esperas recibir",
+      "person": "Contraparte",
+      "viewPerson": "Ver persona",
+      "notJoined": "Aún no se une",
+      "historical": "Pagos previos a reconocer",
+      "historicalHint": "Contarán como confirmados solo si ambas partes aceptan estas condiciones.",
+      "openingBalance": "Saldo inicial",
+      "installments": "{count, plural, one {# pago} other {# pagos}}"
+    },
+    "schedule": {
+      "title": "Calendario de pagos",
+      "due": "Vence",
+      "scheduled": "Programado",
+      "paid": "Pagado",
+      "remaining": "Pendiente",
+      "unscheduled": "Sin programar",
+      "unscheduledHint": "Importe que se sumó a la deuda y todavía no tiene fecha.",
+      "basisRecorded": "Avance según tus registros.",
+      "basisConfirmed": "Avance según los pagos confirmados por ambos.",
+      "proposed": "Calendario propuesto"
+    },
+    "movements": {
+      "title": "Movimientos",
+      "empty": "Todavía no hay pagos registrados.",
+      "recordedBy": "Registrado por {name}",
+      "recordedByMe": "Registrado por ti",
+      "historical": "Pago previo reconocido al aceptar el acuerdo",
+      "effective": "Fecha efectiva",
+      "method": "Método",
+      "reference": "Referencia",
+      "place": "Lugar de entrega",
+      "originBank": "Banco de origen",
+      "destination": "Cuenta de destino",
+      "trackingKey": "Clave de rastreo",
+      "notes": "Notas",
+      "reversed": "Revertido",
+      "reversalPending": "Reverso en espera",
+      "reverses": "Revierte un pago anterior",
+      "waitingOther": "Esperando la confirmación de {name}",
+      "waitingYou": "Espera tu confirmación",
+      "needsClarification": "{name} pidió una aclaración",
+      "youAsked": "Pediste una aclaración",
+      "answers": "Conversación",
+      "decision": {
+        "APPROVED": "{by, select, me {Confirmaste} other {{name} confirmó}}",
+        "REJECTED": "{by, select, me {Rechazaste} other {{name} rechazó}}",
+        "CLARIFICATION_REQUESTED": "{by, select, me {Pediste una aclaración} other {{name} pidió una aclaración}}",
+        "CLARIFIED": "{by, select, me {Respondiste} other {{name} respondió}}",
+        "WITHDRAWN": "{by, select, me {Lo retiraste} other {{name} lo retiró}}"
+      },
+      "approve": "Confirmar",
+      "approveConfirmTitle": "Confirmar este movimiento",
+      "approveConfirm": "Al confirmar, {amount} contará en el saldo acordado. Una vez confirmado no se puede editar ni borrar: solo corregir con un reverso o un ajuste que ambos aprueben.",
+      "reject": "Rechazar",
+      "ask": "Pedir aclaración",
+      "clarify": "Responder",
+      "withdraw": "Retirar",
+      "withdrawConfirm": "El movimiento quedará como retirado y no contará.",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "deleteConfirm": "¿Eliminar este movimiento? El saldo se recalculará.",
+      "reverse": "Proponer reverso",
+      "rejectTitle": "Rechazar el movimiento",
+      "rejectHint": "Explica por qué. El movimiento no contará en el saldo.",
+      "askTitle": "Pedir una aclaración",
+      "askHint": "Pregunta lo que necesites saber antes de decidir.",
+      "clarifyTitle": "Responder la aclaración",
+      "commentLabel": "Mensaje"
+    },
+    "form": {
+      "paymentTitle": "Registrar pago",
+      "editTitle": "Editar movimiento",
+      "adjustmentTitle": "Registrar ajuste",
+      "reversalTitle": "Proponer el reverso de un pago",
+      "personalNote": "Se guarda como registro personal y cambia tu saldo de inmediato.",
+      "sharedNote": "Quedará por confirmar: cambiará el saldo acordado cuando {name} lo confirme.",
+      "amount": "Importe",
+      "maxAmount": "Máximo: {amount}",
+      "payAll": "Todo lo pendiente",
+      "effectiveDate": "Fecha efectiva",
+      "effectiveDateHint": "Cuándo se movió el dinero (no cuándo lo registras).",
+      "method": "Método utilizado",
+      "reference": "Referencia",
+      "notes": "Notas",
+      "reason": "Motivo",
+      "reasonHint": "Explica por qué. La otra parte lo verá.",
+      "place": "Lugar de entrega",
+      "originBank": "Banco de origen",
+      "destination": "Cuenta de destino",
+      "destinationOther": "Otra (escribirla)",
+      "destinationText": "Describe la cuenta",
+      "destinationTextPlaceholder": "Por ejemplo, BBVA terminación 1234",
+      "trackingKey": "Clave de rastreo",
+      "kind": "Tipo de ajuste",
+      "increase": "Aumenta la deuda",
+      "increaseHint": "Por ejemplo, un recargo acordado.",
+      "decrease": "Reduce la deuda",
+      "decreaseHint": "Por ejemplo, un descuento o una condonación.",
+      "reversalNote": "Se propondrá revertir el pago completo de {amount}. El pago original no se modifica.",
+      "receipt": "Comprobante",
+      "receiptHint": "Opcional. Acompaña al pago, pero no lo confirma por sí solo.",
+      "submitPersonal": "Guardar",
+      "submitShared": "Registrar y pedir confirmación",
+      "saved": "Movimiento guardado.",
+      "sent": "Registrado. Falta la confirmación de {name}."
+    },
+    "bank": {
+      "title": "Datos para pagar",
+      "sharedWithYou": "{name} compartió estos datos para recibir pagos.",
+      "bank": "Banco",
+      "holder": "Titular",
+      "clabe": "CLABE",
+      "account": "Número de cuenta",
+      "copyAll": "Copiar datos",
+      "myShares": "Cuentas que compartes aquí",
+      "share": "Compartir una cuenta",
+      "shareTitle": "Compartir datos bancarios",
+      "shareText": "{name} verá el banco, el titular y la CLABE o número de cuenta de la cuenta que elijas, solo para este acuerdo y solo mientras esté activo. Puedes dejar de compartirla cuando quieras.",
+      "shareConfirm": "Compartir",
+      "stop": "Dejar de compartir",
+      "noAccounts": "No tienes cuentas guardadas.",
+      "addAccount": "Agregar una cuenta",
+      "visibleWhenActive": "Los verá cuando el acuerdo esté activo."
+    },
+    "attachments": {
+      "title": "Comprobantes",
+      "empty": "Sin comprobantes.",
+      "add": "Adjuntar",
+      "uploading": "Subiendo…",
+      "uploaded": "Comprobante adjuntado.",
+      "delete": "Eliminar {name}",
+      "deleteConfirm": "¿Eliminar este comprobante?",
+      "open": "Abrir {name}",
+      "download": "Descargar {name}",
+      "notProof": "Un comprobante acompaña a un pago, pero no lo confirma por sí solo."
+    },
+    "timeline": {
+      "title": "Historial",
+      "commentPlaceholder": "Escribe un comentario…",
+      "commentHintShared": "{name} lo verá.",
+      "commentHintPersonal": "Solo para ti.",
+      "post": "Comentar",
+      "showAll": "Ver todo el historial ({count})"
+    },
+    "confirm": {
+      "cancelPersonal": "El registro dejará de contar en tus totales. Podrás reabrirlo después.",
+      "deletePersonal": "Se eliminará el registro con sus pagos y comprobantes. No se puede deshacer.",
+      "deletePersonalTitle": "Eliminar este registro",
+      "disputeTitle": "Marcar el acuerdo en disputa",
+      "disputeText": "Úsalo cuando no estén de acuerdo con el estado de la deuda. El acuerdo queda marcado hasta que tú lo des por resuelto.",
+      "cancelSharedTitle": "Cancelar el acuerdo",
+      "cancelSharedActive": "Un acuerdo en vigor solo se cancela si ambas partes están de acuerdo. Se le pedirá a {name} que lo acepte.",
+      "cancelSharedNegotiating": "Todavía no hay un acuerdo en vigor: la propuesta se cerrará."
+    }
+  },
+  "donate": {
+    "title": "Apoyar el proyecto",
+    "sidebar": "Apoyar Symmetry Debt",
+    "short": "Apoyar",
+    "lead": "Symmetry Debt es gratuito y de código abierto. Si te resulta útil, considera apoyar su desarrollo.",
+    "contextual": "Symmetry Debt es gratuito y de código abierto. Si te resulta útil, puedes apoyar su desarrollo.",
+    "optional": "Es totalmente opcional: ninguna función depende de ello.",
+    "external": "Las donaciones se hacen en la plataforma que elijas. Symmetry Debt no procesa pagos ni guarda datos de tarjetas.",
+    "platform": {
+      "github": "GitHub Sponsors",
+      "kofi": "Ko-fi",
+      "buymeacoffee": "Buy Me a Coffee",
+      "paypal": "PayPal"
+    },
+    "opensNewTab": "Se abre en una pestaña nueva",
+    "thanks": "Gracias por ayudar a mantenerlo gratuito."
+  },
+  "emails": {
+    "open": "Abrir en Symmetry Debt",
+    "whyActionRequired": "Recibes este correo porque alguien espera tu respuesta en Symmetry Debt.",
+    "whyOptional": "Recibes este correo porque activaste estos avisos.",
+    "preferences": "Puedes elegir qué correos recibes en Configuración: {url}",
+    "invitation": {
+      "subject": "{inviter} te invita a confirmar un acuerdo en Symmetry Debt",
+      "heading": "{inviter} quiere confirmar un acuerdo contigo",
+      "intro": "{inviter} registró un acuerdo en Symmetry Debt y te invita a revisarlo. Solo entrará en vigor si tú también lo aceptas.",
+      "how": "Abre el enlace e inicia sesión con Google para ver las condiciones. Podrás aceptarlas, rechazarlas o pedir cambios.",
+      "cta": "Revisar el acuerdo",
+      "expires": "El enlace vence el {date}.",
+      "ignore": "Si no conoces a esta persona, ignora este mensaje: no pasará nada."
+    }
+  },
+  "errors": {
+    "generic": "Algo salió mal. Inténtalo de nuevo.",
+    "network": "No pudimos conectar. Revisa tu conexión e inténtalo de nuevo.",
+    "unauthenticated": "Tu sesión terminó. Inicia sesión de nuevo.",
+    "forbidden": "No tienes permiso para hacer esto.",
+    "not_found": "No encontramos lo que buscas, o no tienes acceso.",
+    "validation": "Revisa los campos marcados.",
+    "rate_limited": "Demasiados intentos. Espera {seconds} segundos y vuelve a intentarlo.",
+    "conflict": "No se pudo completar porque ya hay una solicitud en curso.",
+    "stale": "Las condiciones cambiaron mientras las revisabas. Vuelve a leerlas antes de responder.",
+    "invalid_state": "Esta acción ya no está disponible en el estado actual.",
+    "exceeds_balance": "El importe supera lo que queda por pagar.",
+    "nothing_to_pay": "No queda nada por pagar (contando lo que está por confirmar).",
+    "reversal_target_invalid": "Ese movimiento no se puede revertir.",
+    "reversal_already_exists": "Ya hay un reverso en curso para ese pago.",
+    "reversal_amount_mismatch": "El reverso debe ser por el importe completo del pago.",
+    "schedule_invalid": "Revisa el calendario de pagos.",
+    "terms_invalid": "Revisa las condiciones: hay datos que no cuadran.",
+    "terms_locked_fields": "En un acuerdo activo no se puede cambiar el importe reescribiendo las condiciones. Usa un ajuste, que la otra parte también debe aprobar.",
+    "terms_unchanged": "No hay ningún cambio respecto a las condiciones actuales.",
+    "own_proposal": "No puedes aceptar tu propia propuesta: le toca a la otra parte.",
+    "own_movement": "No puedes confirmar un movimiento que tú registraste: le toca a la otra parte.",
+    "not_your_turn": "Esta respuesta le corresponde a la otra parte.",
+    "invitation_invalid": "Este enlace de invitación no es válido o ya no está disponible.",
+    "invitation_expired": "Este enlace de invitación venció. Pide uno nuevo a quien te invitó.",
+    "invitation_self": "Esta invitación la enviaste tú. Compártela con la otra persona.",
+    "invitation_used": "Este enlace ya fue utilizado.",
+    "identity_unconfirmed": "Quien te invitó todavía tiene que confirmar que eres la persona correcta.",
+    "contact_in_use": "Esta persona tiene deudas registradas. Puedes archivarla, pero no eliminarla.",
+    "contact_not_found": "No encontramos a esa persona en tu lista.",
+    "bank_account_not_found": "No encontramos esa cuenta bancaria.",
+    "bank_account_needs_number": "Indica la CLABE o el número de cuenta.",
+    "clabe_invalid": "La CLABE no es válida.",
+    "encryption_unavailable": "Los datos bancarios no están disponibles porque falta configurar la clave de cifrado del servidor.",
+    "file_too_large": "El archivo es demasiado grande (máximo {max} MB).",
+    "file_type_not_allowed": "Solo se admiten archivos PDF, JPG, PNG o WebP.",
+    "file_empty": "El archivo está vacío.",
+    "attachment_locked": "Este comprobante ya forma parte de un registro confirmado y no puede eliminarse.",
+    "already_converted": "Este registro ya se convirtió en un acuerdo compartido.",
+    "conversion_pending": "Ya hay una propuesta de acuerdo compartido para este registro.",
+    "currency_mismatch": "La moneda no coincide.",
+    "account_has_active_agreements": "Tienes {count, plural, one {# acuerdo activo} other {# acuerdos activos}} con saldo pendiente. Liquídalos o cancélalos antes de eliminar tu cuenta.",
+    "confirmation_mismatch": "El texto de confirmación no coincide.",
+    "page": {
+      "notFoundTitle": "Página no encontrada",
+      "notFoundText": "El enlace puede estar mal escrito, o quizá no tienes acceso a esto.",
+      "errorTitle": "Algo salió mal",
+      "errorText": "Tuvimos un problema al mostrar esta página. Tus datos están a salvo.",
+      "goHome": "Ir al inicio"
+    }
+  },
+  "footer": {
+    "openSource": "Código abierto, licencia MIT",
+    "source": "Código fuente",
+    "support": "Apoyar el proyecto",
+    "privacy": "Tus registros personales son solo tuyos.",
+    "rights": "Symmetry Debt es software libre. Úsalo, estúdialo y mejóralo."
+  },
+  "invite": {
+    "metaTitle": "Invitación",
+    "heading": "{name} te invita a confirmar este acuerdo",
+    "roleDebtor": "Según esta propuesta, tú le debes a {name}.",
+    "roleCreditor": "Según esta propuesta, {name} te debe a ti.",
+    "from": "Propuesta de {name}",
+    "fromEmail": "Cuenta: {email}",
+    "sentOn": "Enviada el {date}",
+    "expires": "Puedes responder hasta el {date}.",
+    "signedInAs": "Estás respondiendo como {email}.",
+    "switchAccount": "Usar otra cuenta",
+    "receipts": "Comprobantes adjuntos a la propuesta",
+    "identity": {
+      "matches": "La invitación se envió a tu correo: si aceptas, el acuerdo entra en vigor de inmediato.",
+      "different_account": "La invitación se envió a otra dirección ({hint}). Puedes responder con esta cuenta, pero {name} tendrá que confirmar que eres la persona correcta antes de que el acuerdo entre en vigor.",
+      "not_specified": "Entraste con un enlace. Si aceptas, {name} tendrá que confirmar que eres la persona correcta antes de que el acuerdo entre en vigor."
+    },
+    "what": {
+      "title": "Qué significa aceptar",
+      "a": "Las condiciones quedan acordadas por los dos y ninguno puede cambiarlas por su cuenta.",
+      "b": "Cada pago contará cuando la otra parte lo confirme.",
+      "c": "Solo verán lo que está en este acuerdo. Nada más de tu cuenta se comparte."
+    },
+    "accept": "Aceptar condiciones",
+    "requestChanges": "Pedir cambios",
+    "reject": "Rechazar",
+    "requestChangesTitle": "¿Qué habría que cambiar?",
+    "rejectTitle": "Rechazar la propuesta",
+    "rejectHint": "No quedarás vinculado a este acuerdo. {name} verá que la rechazaste.",
+    "accepted": "Aceptaste las condiciones.",
+    "acceptedWaiting": "Aceptaste. Falta que {name} confirme que eres la persona correcta.",
+    "changesSent": "Enviaste tu solicitud de cambios.",
+    "rejected": "Rechazaste la propuesta.",
+    "state": {
+      "invalidTitle": "Esta invitación no está disponible",
+      "invalid": "El enlace no es válido, o no corresponde a tu cuenta. Revisa que esté completo o pide uno nuevo a quien te invitó.",
+      "expiredTitle": "La invitación venció",
+      "expired": "Pide a quien te invitó que te envíe un enlace nuevo.",
+      "revokedTitle": "Este enlace ya no funciona",
+      "revoked": "Fue reemplazado por uno nuevo o la propuesta se retiró. Pide el enlace actual a quien te invitó.",
+      "usedTitle": "Este enlace ya fue utilizado",
+      "used": "Cada enlace sirve una sola vez. Si era para ti, pide uno nuevo a quien te invitó.",
+      "declinedTitle": "Esta propuesta fue rechazada",
+      "declined": "Si fue un error, pide a quien te invitó que te envíe una nueva.",
+      "closedTitle": "La propuesta ya no espera respuesta",
+      "closed": "Las condiciones cambiaron o el acuerdo se cerró.",
+      "ownTitle": "Esta invitación la enviaste tú",
+      "own": "Comparte el enlace con la otra persona para que pueda responder.",
+      "goToDebt": "Ir al acuerdo",
+      "goToApp": "Ir a mi panel"
+    }
+  },
+  "labels": {
+    "mode": {
+      "PERSONAL": "Registro personal",
+      "SHARED": "Acuerdo compartido",
+      "personalShort": "Personal",
+      "sharedShort": "Compartido"
+    },
+    "role": {
+      "DEBTOR": "Deudor",
+      "CREDITOR": "Acreedor",
+      "iOwe": "Yo debo",
+      "owedToMe": "Me deben",
+      "youOwe": "Le debes a {name}",
+      "owesYou": "{name} te debe"
+    },
+    "status": {
+      "DRAFT": "Borrador",
+      "PENDING_APPROVAL": "Pendiente de aprobación",
+      "CHANGES_REQUESTED": "Cambios solicitados",
+      "ACTIVE": "Activa",
+      "DISPUTED": "En disputa",
+      "SETTLED": "Liquidada",
+      "CANCELLED": "Cancelada",
+      "CONVERTED": "Convertida en acuerdo"
+    },
+    "movementStatus": {
+      "PERSONAL_RECORD": "Registro personal",
+      "PENDING": "Por confirmar",
+      "CLARIFICATION": "En aclaración",
+      "CONFIRMED": "Confirmado por ambos",
+      "REJECTED": "Rechazado",
+      "WITHDRAWN": "Retirado"
+    },
+    "movementKind": {
+      "PAYMENT": "Pago",
+      "ADJUSTMENT_INCREASE": "Ajuste: aumenta la deuda",
+      "ADJUSTMENT_DECREASE": "Ajuste: reduce la deuda",
+      "REVERSAL": "Reverso de un pago"
+    },
+    "versionStatus": {
+      "DRAFT": "Borrador",
+      "PROPOSED": "En espera de respuesta",
+      "ACCEPTED": "Aceptada por ambos",
+      "REJECTED": "Rechazada",
+      "CHANGES_REQUESTED": "Con cambios solicitados",
+      "SUPERSEDED": "Reemplazada",
+      "WITHDRAWN": "Retirada"
+    },
+    "method": {
+      "CASH": "Efectivo",
+      "BANK_TRANSFER": "Transferencia bancaria",
+      "BANK_DEPOSIT": "Depósito bancario",
+      "CARD": "Tarjeta (registro manual)",
+      "OTHER": "Otro",
+      "none": "Sin especificar"
+    },
+    "schedule": {
+      "NONE": "Sin fecha de pago",
+      "SINGLE": "Una sola fecha",
+      "WEEKLY": "Pagos semanales",
+      "MONTHLY": "Pagos mensuales",
+      "CUSTOM": "Cuotas personalizadas"
+    },
+    "installmentState": {
+      "PAID": "Pagada",
+      "PARTIAL": "Pago parcial",
+      "OVERDUE": "Vencida",
+      "DUE_TODAY": "Vence hoy",
+      "UPCOMING": "Próxima",
+      "WAIVED": "No aplica"
+    },
+    "weight": {
+      "personal": "Registro personal",
+      "personalHint": "Lo anotaste tú. Nadie más lo ha confirmado.",
+      "one_side": "Una parte",
+      "one_sideHint": "Lo registró una de las partes. Falta la confirmación de la otra.",
+      "both_sides": "Confirmado por ambos",
+      "both_sidesHint": "Las dos partes están de acuerdo.",
+      "proposal": "Propuesta",
+      "proposalHint": "Nadie más ha aceptado estas condiciones todavía.",
+      "neutral": "Informativo"
+    },
+    "level": {
+      "RECORDED": "Saldo registrado",
+      "CONFIRMED": "Saldo confirmado"
+    }
+  },
+  "landing": {
+    "fictional": "Datos ficticios · Demostración",
+    "example": "Ejemplo con datos ficticios",
+    "people": {
+      "ana": "Ana",
+      "luis": "Luis"
+    },
+    "header": {
+      "home": "Symmetry Debt, ir al inicio de la página",
+      "navLabel": "Secciones de la página",
+      "nav": {
+        "product": "Cómo funciona",
+        "demo": "Demostración",
+        "features": "Funciones",
+        "security": "Privacidad",
+        "openSource": "Código abierto",
+        "faq": "Preguntas"
+      },
+      "signIn": "Entrar",
+      "dashboard": "Mi panel"
+    },
+    "hero": {
+      "motto": "Two sides. One agreement.",
+      "title": "Las cuentas claras mantienen el equilibrio.",
+      "subtitle": "Organiza tus deudas, lleva el control de tus pagos y confirma acuerdos con otras personas. Gratis, privado y de código abierto.",
+      "primaryCta": "Comenzar gratis",
+      "githubCta": "Ver GitHub",
+      "note": "Entras con tu cuenta de Google. Para empezar no necesitas invitar a nadie.",
+      "points": {
+        "free": "Gratis",
+        "private": "Privado",
+        "open": "Código abierto"
+      },
+      "visual": {
+        "label": "Ilustración con datos ficticios: un acuerdo compartido que Ana y Luis aceptaron, con su saldo confirmado y un pago por confirmar, junto a un registro personal que solo ve su dueña.",
+        "agreement": "Acuerdo compartido",
+        "concept": "Préstamo para la laptop",
+        "status": "Activa",
+        "accepted": "Aceptó",
+        "confirmedBalance": "Saldo confirmado",
+        "progress": "{paid} de {total} confirmados",
+        "awaiting": "Por confirmar",
+        "personal": "Registro personal",
+        "personalConcept": "Cena del viernes",
+        "personalWho": "Le debes a Marta",
+        "onlyYou": "Solo tú lo ves"
+      }
+    },
+    "product": {
+      "eyebrow": "El producto",
+      "title": "Dos formas de llevar una deuda. Tú eliges cuál.",
+      "lead": "Empieza anotando tus deudas solo para ti. Cuando las dos partes quieran, conviértelas en un acuerdo que ambas confirman.",
+      "personal": {
+        "kicker": "Solo para mí",
+        "title": "Registro personal",
+        "text": "Anota lo que debes y lo que te deben. Nadie más participa ni necesita cuenta: el saldo es el que tú registras.",
+        "p1": "Sin invitaciones ni aprobaciones.",
+        "p2": "Editas y corriges cuando quieras.",
+        "p3": "Siempre identificado como registro personal."
+      },
+      "shared": {
+        "kicker": "Con la otra persona",
+        "title": "Acuerdo compartido",
+        "text": "Propones las condiciones y compartes un enlace. La otra persona las acepta, las rechaza o pide cambios. Solo cuenta lo que ambos confirman.",
+        "p1": "Las dos partes aceptan la misma versión.",
+        "p2": "Cada pago lo confirma la otra parte.",
+        "p3": "Lo confirmado ya no se puede alterar."
+      },
+      "bridge": "Y puedes pasar de uno a otro: invita a confirmar un registro personal cuando quieras, sin perder lo que ya tenías."
+    },
+    "legend": {
+      "title": "Un símbolo para saber cuánto pesa cada cifra",
+      "lead": "Cada mitad es una de las partes. Una mitad llena significa que esa parte lo respalda.",
+      "one": {
+        "name": "Registro personal",
+        "text": "Lo anotaste tú. Nadie más lo ha confirmado."
+      },
+      "waiting": {
+        "name": "Por confirmar",
+        "text": "Una parte lo registró. Falta la respuesta de la otra."
+      },
+      "both": {
+        "name": "Confirmado por ambos",
+        "text": "Las dos partes están de acuerdo."
+      },
+      "none": {
+        "name": "Propuesta",
+        "text": "Condiciones que nadie más ha aceptado todavía."
+      }
+    },
+    "demo": {
+      "eyebrow": "Demostración",
+      "title": "Pruébalo sin registrarte",
+      "lead": "Una deuda de ejemplo: Luis le debe a Ana. Cambia de modalidad y observa qué pasa con el saldo.",
+      "concept": "Préstamo para la laptop",
+      "summary": "Luis le debe a Ana {total}",
+      "mode": {
+        "label": "Modalidad de la deuda",
+        "personal": "Registro personal",
+        "shared": "Acuerdo compartido"
+      },
+      "movements": "Movimientos",
+      "empty": "Todavía no hay movimientos.",
+      "payment": "Pago de {amount}",
+      "recordedBy": "Lo registró {name}",
+      "status": {
+        "personal": "Registro personal",
+        "pending": "Por confirmar",
+        "confirmed": "Confirmado por ambos",
+        "rejected": "Rechazado · no cuenta"
+      },
+      "personal": {
+        "intro": "Así lo lleva Ana, solo para ella. Luis no participa ni recibe ningún aviso.",
+        "balanceLabel": "Saldo registrado",
+        "balanceHint": "Según lo que Ana anotó.",
+        "paid": "{paid} pagados según su registro",
+        "record": "Registrar un pago de {amount}",
+        "remove": "Eliminar el pago de {amount}",
+        "coach": {
+          "start": "Registra un pago: el saldo cambia al instante, sin pedirle nada a nadie.",
+          "recorded": "Listo. El saldo bajó de inmediato porque es el registro de Ana: nadie más tuvo que confirmarlo.",
+          "removed": "Ana puede corregir o eliminar sus propios registros cuando quiera.",
+          "settled": "Liquidada, según el registro de Ana."
+        }
+      },
+      "shared": {
+        "intro": "Ana y Luis aceptaron las mismas condiciones. Desde entonces, cada pago necesita la confirmación de la otra parte.",
+        "viewAs": "Ver como",
+        "asLuis": "Luis · debe",
+        "asAna": "Ana · le deben",
+        "balanceLabel": "Saldo confirmado",
+        "balanceHint": "Solo cuenta lo que ambos confirmaron.",
+        "paid": "{paid} confirmados por ambos",
+        "awaitingLabel": "Por confirmar",
+        "awaitingHint": "No cuenta hasta que la otra parte responda.",
+        "recordPaid": "Registrar un pago de {amount}",
+        "recordReceived": "Registrar que recibí {amount}",
+        "confirm": "Confirmar",
+        "reject": "Rechazar",
+        "confirmLabel": "Confirmar el pago de {amount}",
+        "rejectLabel": "Rechazar el pago de {amount}",
+        "waitingFor": "Esperando la respuesta de {name}",
+        "noRoom": "No queda nada por pagar, contando lo que está por confirmar.",
+        "coach": {
+          "start": "Registra un pago y fíjate en el saldo confirmado: todavía no va a cambiar.",
+          "ownPending": "Quedó por confirmar y el saldo confirmado no cambió. Cambia a {name} para responder.",
+          "theirPending": "Te toca: confirma o rechaza lo que registró {name}.",
+          "confirmed": "Confirmado por ambos: ahora sí bajó el saldo confirmado.",
+          "rejected": "Rechazado: queda en el historial, pero no cuenta en el saldo.",
+          "settled": "Liquidada: el saldo confirmado llegó a cero."
+        }
+      },
+      "reset": "Reiniciar demostración",
+      "disclaimer": "Todo ocurre en tu navegador: no se guarda ni se envía nada."
+    },
+    "personal": {
+      "eyebrow": "Seguimiento personal",
+      "title": "Tus cuentas, solo para ti",
+      "lead": "Registra lo que debes y lo que te deben sin pedirle nada a nadie. La otra persona ni siquiera necesita tener cuenta.",
+      "p1": {
+        "title": "Lo que debes y lo que te deben",
+        "text": "Ordenado por persona, con concepto, importe, fecha de origen y vencimiento."
+      },
+      "p2": {
+        "title": "Pagos y pagos parciales",
+        "text": "Cada abono actualiza el saldo que tú llevas registrado."
+      },
+      "p3": {
+        "title": "Notas, comprobantes y recordatorios",
+        "text": "Los recordatorios de vencimiento te llegan solo a ti."
+      },
+      "p4": {
+        "title": "Corriges cuando quieras",
+        "text": "Son tus registros: los editas o eliminas sin aprobación de nadie, y cada cambio queda en tu historial."
+      },
+      "note": "Un registro personal nunca se presenta como algo confirmado por la otra parte.",
+      "card": {
+        "label": "Ilustración con datos ficticios: un registro personal con su saldo registrado, un pago anotado y un recordatorio.",
+        "tag": "Registro personal",
+        "concept": "Cena del viernes",
+        "who": "Le debes a Marta",
+        "balance": "Saldo registrado",
+        "payment": "Abono en efectivo",
+        "reminder": "Recordatorio para ti: vence el viernes",
+        "private": "Marta no necesita cuenta ni recibe nada"
+      }
+    },
+    "shared": {
+      "eyebrow": "Acuerdos compartidos",
+      "title": "Cuando los dos quieren tenerlo por escrito",
+      "lead": "Convierte una deuda en un acuerdo que ambas partes confirman. Todo empieza con un enlace.",
+      "stepsLabel": "Cómo se forma un acuerdo compartido",
+      "step": "Paso {number}",
+      "s1": {
+        "title": "Propón las condiciones",
+        "text": "Importe, fechas y forma de pago. Puedes partir de un registro personal: el original queda intacto."
+      },
+      "s2": {
+        "title": "Comparte el enlace",
+        "text": "Envíalo por WhatsApp, correo o como prefieras. La otra persona lo abre e inicia sesión con Google."
+      },
+      "s3": {
+        "title": "Ambos responden",
+        "text": "Puede aceptar, rechazar o pedir cambios. El acuerdo entra en vigor solo cuando los dos aceptan la misma versión."
+      },
+      "n1": "Cada cambio importante crea una nueva versión que ambos deben aceptar.",
+      "n2": "Si entra con el enlace alguien que no esperabas, tú decides: confirmas que es la persona correcta o la descartas antes de que el acuerdo se active.",
+      "n3": "Al convertir un registro personal, tus pagos anteriores no se dan por confirmados: la otra persona acepta expresamente los que quieras reconocer.",
+      "n4": "Los desacuerdos tienen su lugar: se puede marcar una disputa o cancelar de mutuo acuerdo."
+    },
+    "payments": {
+      "eyebrow": "Gestión de pagos",
+      "title": "Cada pago, con su forma y su fecha",
+      "lead": "Efectivo, transferencia, depósito o tarjeta: anótalo tal como fue. Symmetry Debt no mueve dinero; solo lleva la cuenta.",
+      "methodsLabel": "Formas de pago que puedes registrar",
+      "methods": {
+        "cash": "Efectivo",
+        "transfer": "Transferencia",
+        "deposit": "Depósito",
+        "card": "Tarjeta (registro manual)",
+        "other": "Otro"
+      },
+      "p1": {
+        "title": "Dos fechas, sin confusiones",
+        "text": "Se guarda cuándo se pagó y cuándo se registró."
+      },
+      "p2": {
+        "title": "El detalle que haga falta",
+        "text": "Referencia y clave de rastreo en transferencias; lugar de entrega en efectivo."
+      },
+      "p3": {
+        "title": "Los errores se corrigen, no se borran",
+        "text": "Un pago ya confirmado se corrige con un ajuste o un reverso que ambos aprueban."
+      },
+      "p4": {
+        "title": "Tus cuentas bancarias, privadas",
+        "text": "Guarda tu CLABE (se valida al escribirla) y comparte los datos para recibir un pago solo cuando tú lo autorices."
+      },
+      "track": {
+        "title": "El camino de un pago en un acuerdo compartido",
+        "s1": {
+          "title": "Una parte lo registra",
+          "text": "Quien paga o quien recibe, da igual."
+        },
+        "s2": {
+          "title": "Queda por confirmar",
+          "text": "El saldo confirmado todavía no cambia."
+        },
+        "s3": {
+          "title": "La otra parte responde",
+          "text": "Confirma, rechaza o pide una aclaración."
+        },
+        "result": "Al confirmarse, cuenta en el saldo confirmado.",
+        "alt": "Si se rechaza, queda en el historial y no cuenta."
+      }
+    },
+    "installments": {
+      "eyebrow": "Pagos a plazos",
+      "title": "A plazos, sin perder la cuenta",
+      "lead": "Una sola fecha, pagos semanales, mensuales o cuotas a tu medida. En cada una ves cuánto está programado, pagado y pendiente.",
+      "p1": "Los pagos anticipados y parciales se aplican a las cuotas en orden.",
+      "p2": "Las cuotas vencidas quedan a la vista.",
+      "p3": "Puedes reprogramar: en un acuerdo compartido, el nuevo calendario lo aceptan ambos.",
+      "p4": "El avance se calcula con tus registros o, en un acuerdo compartido, solo con los pagos confirmados.",
+      "card": {
+        "label": "Ilustración con datos ficticios: un plan de cuatro cuotas mensuales, con una pagada, una vencida con pago parcial y dos próximas.",
+        "title": "Plan de pagos",
+        "kind": "4 pagos mensuales",
+        "progress": "{paid} de {total}",
+        "installment": "Cuota {number}",
+        "remaining": "Faltan {amount}",
+        "d1": "15 ene",
+        "d2": "15 feb",
+        "d3": "15 mar",
+        "d4": "15 abr",
+        "state": {
+          "paid": "Pagada",
+          "overdue": "Vencida",
+          "upcoming": "Próxima"
+        }
+      }
+    },
+    "receipts": {
+      "eyebrow": "Comprobantes",
+      "title": "Comprobantes a la mano",
+      "lead": "Adjunta un PDF o una foto a una deuda, a un pago o a un ajuste. Siempre son opcionales.",
+      "p1": {
+        "title": "PDF, JPG, PNG y WebP",
+        "text": "Se revisa que el archivo sea lo que dice ser, con un límite de tamaño."
+      },
+      "p2": {
+        "title": "Almacenamiento privado",
+        "text": "Solo los abre quien puede ver la deuda. Con vista previa y descarga."
+      },
+      "p3": {
+        "title": "Evidencia, no confirmación",
+        "text": "Un comprobante no confirma un pago por sí solo: en un acuerdo compartido, la otra parte igual tiene que confirmarlo."
+      },
+      "card": {
+        "label": "Ilustración con datos ficticios: un pago por confirmar con un comprobante en PDF adjunto.",
+        "payment": "Transferencia",
+        "file": "transferencia-marzo.pdf",
+        "attached": "Comprobante adjunto",
+        "status": "Por confirmar",
+        "note": "El comprobante acompaña al pago. La confirmación la da la otra parte."
+      }
+    },
+    "security": {
+      "eyebrow": "Seguridad y privacidad",
+      "title": "Privado por diseño",
+      "lead": "Lo que anotas para ti se queda contigo. Lo que compartes, lo decides tú.",
+      "i1": {
+        "title": "Tus registros personales son solo tuyos",
+        "text": "Nadie más puede verlos, ni siquiera la persona que aparece en ellos."
+      },
+      "i2": {
+        "title": "Un correo no abre ninguna puerta",
+        "text": "Que alguien conozca tu correo o tu nombre no le permite ver ni reclamar tus registros."
+      },
+      "i3": {
+        "title": "Acuerdos solo entre dos",
+        "text": "Un acuerdo compartido lo ven únicamente las dos personas que participan."
+      },
+      "i4": {
+        "title": "Datos bancarios cifrados",
+        "text": "La CLABE y el número de cuenta se guardan cifrados. Nunca pedimos contraseñas, NIP ni CVV."
+      },
+      "i5": {
+        "title": "Lo confirmado no se reescribe",
+        "text": "Lo que ambos confirmaron no se edita ni se borra: se corrige con un movimiento nuevo, a la vista de los dos."
+      },
+      "i6": {
+        "title": "Tus datos, cuando los quieras",
+        "text": "Descarga todos tus datos o elimina tu cuenta desde Configuración."
+      },
+      "i7": {
+        "title": "Sesión con Google, sin contraseñas",
+        "text": "No guardamos contraseñas ni credenciales de tu cuenta de Google, y puedes cerrar sesión en todos tus dispositivos."
+      },
+      "i8": {
+        "title": "Sin anuncios ni rastreadores",
+        "text": "La aplicación no incluye publicidad ni servicios de seguimiento de terceros."
+      }
+    },
+    "openSource": {
+      "eyebrow": "Código abierto",
+      "title": "Abierto, para que puedas confiar",
+      "lead": "Symmetry Debt es software libre con licencia MIT. Cualquiera puede leer el código, proponer mejoras o instalarlo en su propio servidor.",
+      "p1": {
+        "title": "Gratis de verdad",
+        "text": "Sin planes de pago ni funciones bloqueadas."
+      },
+      "p2": {
+        "title": "Instálalo tú mismo",
+        "text": "Incluye lo necesario para ejecutarlo con Docker en tu dominio y con tu base de datos."
+      },
+      "p3": {
+        "title": "Sin ataduras",
+        "text": "Tus datos se exportan en un formato abierto que puedes leer sin la aplicación."
+      },
+      "p4": {
+        "title": "En español y en inglés",
+        "text": "La aplicación, la documentación y los correos."
+      },
+      "cta": "Ver el código en GitHub",
+      "stackLabel": "Tecnología y licencia del proyecto"
+    },
+    "support": {
+      "title": "¿Te resulta útil Symmetry Debt? Ayúdanos a mantenerlo gratuito.",
+      "text": "Es gratuito y de código abierto. Si te sirve, puedes apoyar su desarrollo con una aportación voluntaria. Ninguna función depende de ello.",
+      "button": "Apoyar el proyecto",
+      "external": "Las donaciones se hacen en la plataforma que elijas. Symmetry Debt no procesa pagos ni guarda datos de tarjetas."
+    },
+    "faq": {
+      "eyebrow": "Preguntas frecuentes",
+      "title": "Lo que suele preguntarse",
+      "q1": {
+        "q": "¿Tengo que invitar a la otra persona para usarlo?",
+        "a": "No. Puedes llevar tus deudas como registros personales, solo para ti. La otra persona no necesita cuenta ni recibe ningún aviso."
+      },
+      "q2": {
+        "q": "¿Qué diferencia hay entre un registro personal y un acuerdo compartido?",
+        "a": "Un registro personal es lo que tú anotas: te sirve para organizarte, pero nadie más lo ha confirmado. En un acuerdo compartido las dos partes aceptan las mismas condiciones y cada pago lo confirma la otra parte. La aplicación nunca presenta una cosa como si fuera la otra."
+      },
+      "q3": {
+        "q": "¿Cómo se entera la otra persona de un acuerdo?",
+        "a": "Al crear el acuerdo se genera un enlace que tú le envías por donde prefieras. Lo abre, inicia sesión con Google, revisa las condiciones y decide si las acepta, las rechaza o pide cambios."
+      },
+      "q4": {
+        "q": "¿Puedo convertir un registro personal en un acuerdo compartido?",
+        "a": "Sí. Eliges qué información compartir y se crea una propuesta. Tus pagos anteriores no se dan por confirmados: la otra persona tiene que aceptar expresamente los que quieras reconocer. Si no acepta, tu registro personal sigue exactamente igual."
+      },
+      "q5": {
+        "q": "¿Symmetry Debt mueve dinero o se conecta a mi banco?",
+        "a": "No. Solo lleva el registro de deudas y pagos. Pagas como siempre (en efectivo, por transferencia o con un depósito) y aquí lo anotas."
+      },
+      "q6": {
+        "q": "¿Qué pasa si no estamos de acuerdo con un pago?",
+        "a": "La otra parte puede rechazarlo o pedir una aclaración. Un pago rechazado no cuenta en el saldo confirmado y todo queda en el historial. Si el desacuerdo es mayor, el acuerdo se puede marcar en disputa."
+      },
+      "q7": {
+        "q": "¿Quién puede ver mis datos?",
+        "a": "Tus registros personales, solo tú. Un acuerdo compartido, solo las dos personas que participan. Tus cuentas bancarias son privadas y la otra parte ve los datos para pagarte únicamente si tú lo autorizas."
+      },
+      "q8": {
+        "q": "¿Cuánto cuesta?",
+        "a": "Nada. Es gratuito y de código abierto, con licencia MIT. No hay planes de pago ni funciones bloqueadas."
+      },
+      "q9": {
+        "q": "¿Puedo instalarlo en mi propio servidor?",
+        "a": "Sí. El código incluye lo necesario para instalarlo con Docker en tu dominio, con tu propia base de datos."
+      },
+      "q10": {
+        "q": "¿Puedo exportar o borrar mis datos?",
+        "a": "Sí. Desde Configuración puedes descargar todos tus datos y eliminar tu cuenta."
+      }
+    },
+    "closing": {
+      "title": "Empieza por una deuda. Lo demás viene solo.",
+      "text": "Anótala en un minuto. Compártela cuando los dos quieran."
+    },
+    "footer": {
+      "description": "Deudas personales y acuerdos entre dos personas, con las cuentas claras.",
+      "navLabel": "Enlaces del pie de página",
+      "sections": "Secciones",
+      "project": "Proyecto",
+      "source": "Código fuente",
+      "license": "Licencia MIT",
+      "support": "Apoyar el proyecto",
+      "preferences": "Idioma y apariencia",
+      "free": "Symmetry Debt es software libre: úsalo, estúdialo y mejóralo.",
+      "backToTop": "Volver arriba"
+    }
+  },
+  "locale": {
+    "label": "Idioma",
+    "switchTo": "Cambiar idioma",
+    "es": "Español",
+    "en": "English",
+    "short": {
+      "es": "ES",
+      "en": "EN"
+    },
+    "hint": {
+      "text": "Este sitio también está disponible en español.",
+      "action": "Cambiar a español",
+      "dismiss": "No, gracias"
+    }
+  },
+  "nav": {
+    "primary": "Navegación principal",
+    "dashboard": "Inicio",
+    "debts": "Mis deudas",
+    "newDebt": "Nueva deuda",
+    "people": "Personas",
+    "accounts": "Cuentas bancarias",
+    "activity": "Historial",
+    "notifications": "Notificaciones",
+    "notificationsUnread": "{count, plural, one {# notificación sin leer} other {# notificaciones sin leer}}",
+    "settings": "Configuración",
+    "menu": "Menú",
+    "signOut": "Cerrar sesión",
+    "signIn": "Iniciar sesión",
+    "goToApp": "Ir a mi panel",
+    "account": "Tu cuenta",
+    "support": "Apoyar Symmetry Debt",
+    "github": "Código en GitHub",
+    "home": "Página de inicio"
+  },
+  "notifications": {
+    "types": {
+      "INVITATION_RECEIVED": {
+        "title": "{actor} te invitó a revisar un acuerdo",
+        "body": "Abre la invitación para ver las condiciones y decidir si las aceptas."
+      },
+      "PROPOSAL_RECEIVED": {
+        "title": "{actor} te envió una propuesta",
+        "body": "Revisa las condiciones de «{concept}» y responde cuando quieras."
+      },
+      "CHANGES_REQUESTED": {
+        "title": "{actor} pidió cambios",
+        "body": "Sobre «{concept}»: {comment}"
+      },
+      "PROPOSAL_REJECTED": {
+        "title": "{actor} rechazó la propuesta",
+        "body": "Las condiciones de «{concept}» no fueron aceptadas. {comment}"
+      },
+      "IDENTITY_CONFIRMATION_NEEDED": {
+        "title": "Confirma quién se unió a tu acuerdo",
+        "body": "{actor} ({email}) entró con el enlace de «{concept}». Confirma que es la persona correcta para que el acuerdo pueda activarse."
+      },
+      "PAYMENT_TO_CONFIRM": {
+        "title": "{kind, select, PAYMENT {{actor} registró un pago de {amount}} REVERSAL {{actor} propone revertir un pago de {amount}} ADJUSTMENT_INCREASE {{actor} propone aumentar la deuda en {amount}} other {{actor} propone reducir la deuda en {amount}}}",
+        "body": "En «{concept}». No cuenta en el saldo confirmado hasta que respondas."
+      },
+      "PAYMENT_REJECTED": {
+        "title": "{actor} rechazó un movimiento de {amount}",
+        "body": "En «{concept}»: {comment}"
+      },
+      "PAYMENT_CLARIFICATION_REQUESTED": {
+        "title": "{actor} pide una aclaración",
+        "body": "Sobre el movimiento de {amount} en «{concept}»: {comment}"
+      },
+      "PAYMENT_CLARIFIED": {
+        "title": "{actor} respondió tu pregunta",
+        "body": "Sobre el movimiento de {amount} en «{concept}»: {comment}"
+      },
+      "CANCELLATION_REQUESTED": {
+        "title": "{actor} propone cancelar el acuerdo",
+        "body": "«{concept}»: {comment}"
+      },
+      "DISPUTE_OPENED": {
+        "title": "{actor} marcó el acuerdo en disputa",
+        "body": "«{concept}»: {comment}"
+      },
+      "PROPOSAL_ACCEPTED": {
+        "title": "{actor} aceptó las condiciones",
+        "body": "«{concept}» quedó acordado por ambas partes."
+      },
+      "PROPOSAL_WITHDRAWN": {
+        "title": "{actor} retiró su propuesta",
+        "body": "La propuesta sobre «{concept}» ya no está vigente."
+      },
+      "AGREEMENT_ACTIVE": {
+        "title": "Acuerdo activo: {concept}",
+        "body": "Tú y {counterparty} aceptaron las mismas condiciones."
+      },
+      "AMENDMENT_APPLIED": {
+        "title": "Condiciones actualizadas: {concept}",
+        "body": "Tú y {counterparty} aceptaron los cambios."
+      },
+      "IDENTITY_CONFIRMED": {
+        "title": "{actor} confirmó que eres tú",
+        "body": "Ya puedes participar en «{concept}»."
+      },
+      "PARTICIPANT_REMOVED": {
+        "title": "Ya no formas parte de un acuerdo",
+        "body": "{actor} indicó que la invitación de «{concept}» era para otra persona."
+      },
+      "PAYMENT_CONFIRMED": {
+        "title": "{actor} confirmó un movimiento de {amount}",
+        "body": "En «{concept}». Ya cuenta en el saldo confirmado."
+      },
+      "PAYMENT_WITHDRAWN": {
+        "title": "{actor} retiró un movimiento de {amount}",
+        "body": "En «{concept}»."
+      },
+      "DISPUTE_RESOLVED": {
+        "title": "{actor} dio por resuelta la disputa",
+        "body": "«{concept}» vuelve a estar activo."
+      },
+      "AGREEMENT_CANCELLED": {
+        "title": "Acuerdo cancelado: {concept}",
+        "body": "{actor} cerró el acuerdo. {comment}"
+      },
+      "CANCELLATION_DECLINED": {
+        "title": "{actor} no aceptó cancelar",
+        "body": "«{concept}» sigue activo."
+      },
+      "DEBT_SETTLED": {
+        "title": "Deuda liquidada: {concept}",
+        "body": "{role, select, DEBTOR {Terminaste de pagarle a {counterparty}.} other {{counterparty} terminó de pagarte.}} Total: {amount}."
+      },
+      "COMMENT_ADDED": {
+        "title": "{actor} comentó en «{concept}»",
+        "body": "{comment}"
+      },
+      "BANK_DETAILS_SHARED": {
+        "title": "{actor} compartió datos bancarios",
+        "body": "Ya puedes ver a qué cuenta pagar en «{concept}»."
+      },
+      "INSTALLMENT_DUE_SOON": {
+        "title": "{role, select, DEBTOR {Pago próximo: {amount}} other {Cobro próximo: {amount}}}",
+        "body": "{role, select, DEBTOR {Vence el {date}: «{concept}», con {counterparty}.} other {{counterparty} debe pagarte el {date}: «{concept}».}}"
+      },
+      "INSTALLMENT_DUE_TODAY": {
+        "title": "{role, select, DEBTOR {Hoy vence un pago de {amount}} other {Hoy vence un cobro de {amount}}}",
+        "body": "«{concept}», con {counterparty}."
+      },
+      "INSTALLMENT_OVERDUE": {
+        "title": "{role, select, DEBTOR {Pago vencido: {amount}} other {Cobro vencido: {amount}}}",
+        "body": "Venció el {date}: «{concept}», con {counterparty}."
+      }
+    }
+  },
+  "pages": {
+    "activity": {
+      "metaTitle": "Historial",
+      "title": "Historial",
+      "subtitle": "Todo lo que ha pasado en tus deudas y en tu cuenta, de lo más reciente a lo más antiguo.",
+      "empty": {
+        "title": "Todavía no hay movimientos",
+        "text": "Aquí quedará registrado cada cambio: quién hizo qué y cuándo."
+      },
+      "older": "Ver más antiguos",
+      "legendPersonal": "Registro personal",
+      "legendOne": "Una parte",
+      "legendBoth": "Confirmado por ambos"
+    },
+    "inbox": {
+      "metaTitle": "Notificaciones",
+      "title": "Notificaciones",
+      "subtitle": "Avisos de lo que espera tu respuesta y de lo que ha pasado en tus acuerdos.",
+      "markAll": "Marcar todo como leído",
+      "empty": {
+        "title": "No tienes notificaciones",
+        "text": "Te avisaremos aquí cuando alguien te invite, registre un pago o responda una propuesta."
+      },
+      "unread": "Sin leer",
+      "category": {
+        "ACTION_REQUIRED": "Requiere tu respuesta",
+        "ACTIVITY": "Actividad",
+        "REMINDER": "Recordatorio"
+      },
+      "preferences": "Elegir qué avisos recibir"
+    },
+    "settings": {
+      "metaTitle": "Configuración",
+      "title": "Configuración",
+      "profile": {
+        "title": "Perfil",
+        "text": "Estos datos vienen de tu cuenta de Google.",
+        "name": "Nombre",
+        "email": "Correo",
+        "memberSince": "En Symmetry Debt desde {date}"
+      },
+      "region": {
+        "title": "Idioma y región",
+        "language": "Idioma",
+        "languageHint": "Se usa en la aplicación y en los correos que recibes.",
+        "timeZone": "Zona horaria",
+        "timeZoneHint": "Para saber qué día es «hoy» en vencimientos y recordatorios.",
+        "detect": "Usar la de este dispositivo",
+        "currency": "Moneda predeterminada",
+        "currencyHint": "La que se propone al crear una deuda."
+      },
+      "notifications": {
+        "title": "Notificaciones",
+        "inApp": "Lo que requiere tu respuesta siempre aparece dentro de la aplicación.",
+        "reminders": "Recordatorios de vencimientos",
+        "remindersHint": "Avisos antes de una fecha de pago, el mismo día y cuando se vence.",
+        "emailTitle": "Por correo",
+        "emailDisabled": "Este servidor no tiene configurado el envío de correos.",
+        "emailActionRequired": "Cuando alguien espera mi respuesta",
+        "emailActionRequiredHint": "Invitaciones, propuestas, pagos por confirmar y rechazos.",
+        "emailActivity": "Actividad de mis acuerdos",
+        "emailActivityHint": "Pagos confirmados, liquidaciones y comentarios.",
+        "emailReminders": "Recordatorios de vencimientos"
+      },
+      "save": "Guardar preferencias",
+      "saved": "Preferencias guardadas.",
+      "security": {
+        "title": "Sesiones",
+        "text": "Si usaste Symmetry Debt en un dispositivo que ya no controlas, cierra las demás sesiones.",
+        "revoke": "Cerrar sesión en los demás dispositivos",
+        "revoked": "{count, plural, =0 {No había otras sesiones abiertas.} one {Se cerró # sesión.} other {Se cerraron # sesiones.}}"
+      },
+      "data": {
+        "title": "Tus datos",
+        "exportTitle": "Exportar",
+        "exportText": "Descarga todo lo que Symmetry Debt guarda sobre ti en un archivo JSON.",
+        "export": "Exportar mis datos",
+        "deleteTitle": "Eliminar mi cuenta",
+        "deleteText": "Se borran tu perfil, tus registros personales, tus contactos y tus cuentas bancarias. Los acuerdos compartidos se conservan para la otra persona, con tu nombre pero ya sin vínculo a tu cuenta. No se puede deshacer.",
+        "delete": "Eliminar mi cuenta",
+        "deleteConfirmLabel": "Escribe tu correo ({email}) para confirmar",
+        "deleteBlocked": "Antes tienes que liquidar o cancelar los acuerdos activos con saldo pendiente."
+      },
+      "about": {
+        "title": "Acerca de",
+        "text": "Symmetry Debt es software libre con licencia MIT. Puedes revisar el código, instalarlo en tu propio servidor y proponer mejoras.",
+        "version": "Versión {version}",
+        "source": "Ver el código en GitHub",
+        "supportTitle": "Apoyar el proyecto"
+      }
+    }
+  },
+  "people": {
+    "metaTitle": "Personas",
+    "title": "Personas",
+    "subtitle": "Con quién tienes cuentas. Lo que le debes y lo que te debe cada quien se muestran por separado, sin compensarse.",
+    "add": "Agregar persona",
+    "showArchived": "Mostrar archivadas",
+    "hideArchived": "Ocultar archivadas",
+    "linked": "Usuario vinculado",
+    "linkedHint": "Se vinculó al aceptar una invitación. Comparten al menos un acuerdo.",
+    "private": "Contacto privado",
+    "privateHint": "Solo existe en tu lista. No está vinculado a ninguna cuenta.",
+    "archived": "Archivada",
+    "iOwe": "Le debo",
+    "owesMe": "Me debe",
+    "nothingOpen": "Sin saldos abiertos",
+    "counts": "{personal, plural, =0 {} one {# registro personal} other {# registros personales}}{both, select, yes { · } other {}}{shared, plural, =0 {} one {# acuerdo compartido} other {# acuerdos compartidos}}",
+    "pending": "{count, plural, one {# pendiente} other {# pendientes}}",
+    "empty": {
+      "title": "Aún no tienes personas",
+      "text": "Se agregan solas cuando registras una deuda, o puedes crearlas aquí."
+    },
+    "form": {
+      "createTitle": "Agregar persona",
+      "editTitle": "Editar persona",
+      "name": "Nombre",
+      "email": "Correo",
+      "phone": "Teléfono",
+      "notes": "Notas",
+      "notesHint": "Solo tú las ves.",
+      "privacy": "Este contacto es privado. Guardar un correo aquí no lo vincula con ninguna cuenta ni le da acceso a nada.",
+      "saved": "Persona guardada."
+    },
+    "detail": {
+      "newDebt": "Nueva deuda con {name}",
+      "edit": "Editar",
+      "archive": "Archivar",
+      "unarchive": "Desarchivar",
+      "delete": "Eliminar",
+      "deleteConfirm": "¿Eliminar a {name} de tu lista? No se puede deshacer.",
+      "archiveConfirm": "Dejará de aparecer en tu lista. Sus deudas se conservan.",
+      "debts": "Deudas con {name}",
+      "noDebts": "Todavía no hay deudas con esta persona.",
+      "history": "Historial",
+      "noHistory": "Sin movimientos todavía.",
+      "contact": "Contacto",
+      "noContact": "Sin datos de contacto.",
+      "notes": "Notas",
+      "sideBySide": "Los dos sentidos se muestran por separado: no se compensan automáticamente.",
+      "recorded": "registros personales",
+      "confirmed": "confirmado por ambos"
+    }
+  },
+  "share": {
+    "title": "Enlace de invitación",
+    "label": "Enlace para compartir",
+    "copy": "Copiar enlace",
+    "whatsapp": "Enviar por WhatsApp",
+    "email": "Enviar por correo",
+    "native": "Compartir…",
+    "message": "Hola. Registré nuestro acuerdo en Symmetry Debt para que los dos tengamos las cuentas claras. Revísalo y confírmalo aquí:",
+    "emailSubject": "Nuestro acuerdo en Symmetry Debt",
+    "onceNotice": "Guarda o envía el enlace ahora: por seguridad no se vuelve a mostrar. Si lo pierdes, puedes generar uno nuevo desde el acuerdo.",
+    "expires": "Vence el {date}. Es de un solo uso.",
+    "emailed": "También lo enviamos por correo a {email}.",
+    "privacy": "Quien tenga el enlace podrá ver la propuesta después de iniciar sesión. Envíalo solo a la persona indicada."
+  },
+  "shell": {
+    "signedInAs": "Sesión iniciada como {email}",
+    "newDebt": "Nueva deuda",
+    "more": "Más opciones",
+    "footerNote": "Symmetry Debt · gratuito y de código abierto",
+    "closeMenu": "Cerrar menú",
+    "userMenu": "Menú de usuario"
+  },
+  "termsForm": {
+    "metaEdit": "Editar registro",
+    "metaDraft": "Editar borrador",
+    "metaPropose": "Proponer condiciones",
+    "titlePersonal": "Editar registro",
+    "titleDraft": "Editar borrador",
+    "titleCounter": "Proponer nuevas condiciones",
+    "titleAmendment": "Proponer cambios al acuerdo",
+    "introPersonal": "Es tu registro: los cambios se aplican de inmediato y quedan anotados en tu historial.",
+    "introDraft": "Todavía no se ha enviado. Nadie más lo ve.",
+    "introCounter": "Se enviará una nueva versión de las condiciones. Sustituye a la propuesta anterior y {name} tendrá que aceptarla.",
+    "introAmendment": "Las condiciones actuales siguen en vigor hasta que {name} acepte los cambios. El importe no se cambia aquí: para eso se usa un ajuste, que también aprueban ambos.",
+    "lockedAmount": "Importe del acuerdo",
+    "direction": "¿Quién debe?",
+    "changeNote": "Mensaje para {name}",
+    "changeNoteHint": "Explica qué cambia y por qué.",
+    "previousTitle": "Pagos previos a reconocer",
+    "save": "Guardar cambios",
+    "saveDraft": "Guardar borrador",
+    "send": "Enviar propuesta",
+    "saved": "Cambios guardados.",
+    "sent": "Propuesta enviada. Falta la respuesta de {name}."
+  },
+  "theme": {
+    "label": "Apariencia",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Como el sistema",
+    "toggle": "Cambiar apariencia"
+  },
+  "timeline": {
+    "title": "Historial",
+    "empty": "Todavía no hay movimientos.",
+    "recordedOn": "Registrado el {date}",
+    "system": "Sistema",
+    "event": {
+      "DEBT_CREATED": "{by, select, me {Creaste {scope, select, personal {este registro} other {este acuerdo}}} other {{actor} creó este acuerdo}} por {amount}",
+      "DEBT_UPDATED": "{by, select, me {Editaste los datos} other {{actor} editó los datos}}",
+      "SCHEDULE_UPDATED": "{by, select, me {Cambiaste el calendario de pagos} other {{actor} cambió el calendario de pagos}}",
+      "DEBT_SETTLED": "La deuda quedó liquidada",
+      "DEBT_REOPENED": "La deuda volvió a quedar abierta",
+      "DEBT_CANCELLED": "{reason, select, rejected {La propuesta fue rechazada} withdrawn {La propuesta fue retirada} mutual {El acuerdo se canceló de mutuo acuerdo} account_deleted {El acuerdo se cerró porque una de las partes eliminó su cuenta} owner {Cancelaste este registro} other {Se canceló}}",
+      "PAYMENT_RECORDED": "{by, select, me {Registraste} other {{actor} registró}} {kind, select, PAYMENT {un pago de {amount}} ADJUSTMENT_INCREASE {un ajuste que aumenta la deuda en {amount}} ADJUSTMENT_DECREASE {un ajuste que reduce la deuda en {amount}} other {el reverso de un pago de {amount}}}",
+      "PAYMENT_UPDATED": "{by, select, me {Editaste un movimiento} other {{actor} editó un movimiento}}: ahora es de {amount}",
+      "PAYMENT_DELETED": "{by, select, me {Eliminaste un movimiento} other {{actor} eliminó un movimiento}} de {amount}",
+      "PAYMENT_CONFIRMED": "{by, select, me {Confirmaste} other {{actor} confirmó}} {kind, select, PAYMENT {el pago} REVERSAL {el reverso} other {el ajuste}} de {amount}",
+      "PAYMENT_REJECTED": "{by, select, me {Rechazaste} other {{actor} rechazó}} el movimiento de {amount}",
+      "PAYMENT_CLARIFICATION_REQUESTED": "{by, select, me {Pediste} other {{actor} pidió}} una aclaración sobre el movimiento de {amount}",
+      "PAYMENT_CLARIFIED": "{by, select, me {Respondiste} other {{actor} respondió}} la aclaración sobre el movimiento de {amount}",
+      "PAYMENT_WITHDRAWN": "{by, select, me {Retiraste} other {{actor} retiró}} el movimiento de {amount}",
+      "VERSION_PROPOSED": "{by, select, me {Propusiste} other {{actor} propuso}} condiciones (versión {version})",
+      "VERSION_ACCEPTED": "{by, select, me {Aceptaste} other {{actor} aceptó}} las condiciones (versión {version})",
+      "VERSION_REJECTED": "{by, select, me {Rechazaste} other {{actor} rechazó}} las condiciones (versión {version})",
+      "VERSION_CHANGES_REQUESTED": "{by, select, me {Pediste} other {{actor} pidió}} cambios a las condiciones (versión {version})",
+      "VERSION_WITHDRAWN": "{by, select, me {Retiraste} other {{actor} retiró}} la propuesta (versión {version})",
+      "AGREEMENT_ACTIVATED": "El acuerdo entró en vigor: ambas partes aceptaron la versión {version}",
+      "AMENDMENT_APPLIED": "Ambas partes aceptaron los cambios (versión {version})",
+      "INVITATION_CREATED": "Se generó un enlace de invitación",
+      "INVITATION_REVOKED": "El enlace de invitación anterior dejó de funcionar",
+      "PARTICIPANT_JOINED": "{by, select, me {Te uniste} other {{name} se unió}} con el enlace de invitación",
+      "IDENTITY_CONFIRMED": "{by, select, me {Confirmaste que {name} es la persona correcta} other {{actor} confirmó que eres la persona correcta}}",
+      "PARTICIPANT_REMOVED": "Indicaste que {name} no era la persona correcta",
+      "DISPUTE_OPENED": "{by, select, me {Marcaste} other {{actor} marcó}} el acuerdo en disputa",
+      "DISPUTE_RESOLVED": "{by, select, me {Diste} other {{actor} dio}} por resuelta la disputa",
+      "CANCELLATION_REQUESTED": "{by, select, me {Propusiste} other {{actor} propuso}} cancelar el acuerdo",
+      "CANCELLATION_DECLINED": "{by, select, me {No aceptaste} other {{actor} no aceptó}} cancelar el acuerdo",
+      "CANCELLATION_WITHDRAWN": "{by, select, me {Retiraste} other {{actor} retiró}} la propuesta de cancelación",
+      "CONVERSION_PROPOSED": "Invitaste a confirmar esta deuda: se creó una propuesta de acuerdo compartido",
+      "CONVERSION_COMPLETED": "La otra persona aceptó: este registro pasó a ser un acuerdo compartido",
+      "CONVERSION_CLOSED": "La propuesta de acuerdo compartido no siguió adelante. Tu registro quedó como estaba.",
+      "COMMENT_ADDED": "{by, select, me {Comentaste} other {{actor} comentó}}",
+      "ATTACHMENT_ADDED": "{by, select, me {Adjuntaste} other {{actor} adjuntó}} «{fileName}»",
+      "ATTACHMENT_REMOVED": "{by, select, me {Eliminaste} other {{actor} eliminó}} «{fileName}»",
+      "BANK_DETAILS_SHARED": "{by, select, me {Compartiste} other {{actor} compartió}} datos bancarios ({label})",
+      "BANK_DETAILS_REVOKED": "{by, select, me {Dejaste} other {{actor} dejó}} de compartir datos bancarios ({label})",
+      "BANK_ACCOUNT_CREATED": "Agregaste la cuenta {label}",
+      "BANK_ACCOUNT_UPDATED": "Editaste la cuenta {label}",
+      "BANK_ACCOUNT_ARCHIVED": "Eliminaste la cuenta {label}",
+      "DATA_EXPORTED": "Exportaste tus datos",
+      "SESSIONS_REVOKED": "Cerraste sesión en otros dispositivos",
+      "INSTALLMENT_OVERDUE": "Venció la cuota {sequence}: faltan {amount}"
+    }
+  },
+  "validation": {
+    "required": "Este campo es obligatorio.",
+    "tooLong": "El texto es demasiado largo.",
+    "invalid": "El valor no es válido.",
+    "date": "Indica una fecha válida.",
+    "dateInFuture": "La fecha no puede ser futura.",
+    "dateBeforeOrigin": "La fecha no puede ser anterior al origen de la deuda.",
+    "email": "Escribe un correo válido.",
+    "currency": "Elige una moneda.",
+    "amountEmpty": "Escribe un importe.",
+    "amountInvalid": "Escribe un importe válido, por ejemplo 1,500.50.",
+    "amountDecimals": "Esta moneda no admite tantos decimales.",
+    "amountNotPositive": "El importe debe ser mayor que cero.",
+    "amountTooLarge": "El importe es demasiado grande.",
+    "amountExceedsBalance": "El importe supera lo que queda por pagar.",
+    "amountBelowPaid": "El importe no puede ser menor que lo ya pagado.",
+    "clabeLength": "La CLABE debe tener 18 dígitos.",
+    "clabeDigits": "La CLABE solo lleva números.",
+    "clabeChecksum": "La CLABE no es válida: revisa los dígitos.",
+    "accountNumber": "El número de cuenta debe tener entre 4 y 34 letras o números.",
+    "needClabeOrAccount": "Indica la CLABE o el número de cuenta.",
+    "scheduleSum": "Las cuotas deben sumar exactamente el importe de la deuda.",
+    "scheduleOrder": "Ordena las cuotas por fecha.",
+    "scheduleEmpty": "Agrega al menos una fecha de pago.",
+    "scheduleCount": "Son demasiadas cuotas (máximo 120).",
+    "previousPaymentsTooMuch": "Los pagos previos deben ser menores que el importe de la deuda.",
+    "selfInvite": "No puedes invitarte a ti mismo.",
+    "confirmText": "El texto no coincide."
+  },
+  "wizard": {
+    "metaTitle": "Nueva deuda",
+    "title": "Nueva deuda",
+    "stepOf": "Paso {step} de {total}",
+    "steps": {
+      "mode": "Modalidad",
+      "who": "Quién y cuánto",
+      "plan": "Plan de pago",
+      "review": "Detalles y revisión"
+    },
+    "mode": {
+      "question": "¿Cómo quieres gestionar esta deuda?",
+      "help": "Puedes cambiar de opinión después: un registro personal se puede compartir más adelante.",
+      "personal": {
+        "title": "Solo para mí",
+        "subtitle": "Seguimiento personal",
+        "points": {
+          "a": "Lo anotas tú; no necesitas a nadie más.",
+          "b": "Editas y corriges cuando quieras.",
+          "c": "Es tu registro: no cuenta como confirmado por la otra persona."
+        }
+      },
+      "shared": {
+        "title": "Compartir con la otra persona",
+        "subtitle": "Acuerdo compartido",
+        "points": {
+          "a": "Recibes un enlace para enviárselo.",
+          "b": "Entra en vigor cuando ambos aceptan las mismas condiciones.",
+          "c": "Cada pago cuenta cuando la otra parte lo confirma."
+        }
+      }
+    },
+    "who": {
+      "direction": "¿Quién debe?",
+      "iOwe": "Yo debo",
+      "iOweHint": "Tú eres quien paga.",
+      "owedToMe": "Me deben",
+      "owedToMeHint": "Tú eres quien recibe.",
+      "person": "¿Con quién?",
+      "personOwe": "¿A quién le debes?",
+      "personOwed": "¿Quién te debe?",
+      "choosePerson": "Elige a una persona",
+      "newPerson": "Otra persona…",
+      "personName": "Nombre",
+      "personNamePlaceholder": "Por ejemplo, Marta",
+      "personHintPersonal": "No necesita tener cuenta. Solo tú verás este contacto.",
+      "personHintShared": "Así la verás en tu lista. Cuando acepte la invitación aparecerá con su propio nombre.",
+      "addContact": "Agregar correo o teléfono (opcional)",
+      "personEmail": "Correo",
+      "personPhone": "Teléfono",
+      "amount": "Importe",
+      "currency": "Moneda",
+      "concept": "Concepto",
+      "conceptPlaceholder": "Por ejemplo, préstamo para el coche",
+      "originDate": "Fecha de origen",
+      "originDateHint": "Cuándo se prestó el dinero o nació la deuda."
+    },
+    "plan": {
+      "question": "¿Cómo se va a pagar?",
+      "firstDate": "Primera fecha de pago",
+      "dueDate": "Fecha de pago",
+      "count": "Número de pagos",
+      "preview": "Así queda el calendario",
+      "editInstallments": "Ajustar cuotas a mano",
+      "installment": "Cuota {sequence}",
+      "installmentDate": "Fecha de la cuota {sequence}",
+      "installmentAmount": "Importe de la cuota {sequence}",
+      "addInstallment": "Agregar cuota",
+      "removeInstallment": "Quitar cuota {sequence}",
+      "assigned": "Asignado: {assigned} de {total}",
+      "remaining": "Falta asignar {amount}",
+      "exceeded": "Sobran {amount}",
+      "balanced": "Las cuotas suman el total",
+      "needAmount": "Indica primero el importe de la deuda.",
+      "method": "Método de pago previsto",
+      "methodHint": "Es solo la intención. En cada pago registras cómo se hizo realmente.",
+      "noMethod": "Sin definir",
+      "receivingAccount": "Cuenta donde esperas recibir",
+      "receivingAccountHint": "Solo para tu referencia. Nadie más la ve.",
+      "noAccount": "Ninguna",
+      "shareAccount": "Compartir los datos de una cuenta para que me paguen",
+      "shareAccountHint": "La otra persona verá banco, titular y CLABE o número de cuenta —solo de esa cuenta— cuando el acuerdo esté activo. Puedes dejar de compartirla cuando quieras.",
+      "chooseAccount": "Elige una cuenta",
+      "addAccountFirst": "Aún no tienes cuentas guardadas. Puedes agregarlas después en Cuentas bancarias."
+    },
+    "review": {
+      "previousTitle": "¿Ya hubo pagos?",
+      "previousHintPersonal": "Agrega los abonos que ya se hicieron. Se guardan como registros personales.",
+      "previousHintShared": "Agrega los abonos que ya se hicieron. Contarán como confirmados solo si la otra persona acepta estas condiciones.",
+      "addPrevious": "Agregar un pago previo",
+      "previousAmount": "Importe del pago {index}",
+      "previousDate": "Fecha del pago {index}",
+      "previousMethod": "Método del pago {index}",
+      "previousNote": "Nota del pago {index}",
+      "removePrevious": "Quitar pago {index}",
+      "notePlaceholder": "Nota (opcional)",
+      "notesPersonal": "Notas privadas",
+      "notesPersonalHint": "Solo tú las verás.",
+      "notesShared": "Notas del acuerdo",
+      "notesSharedHint": "Forman parte de las condiciones: la otra persona las verá.",
+      "receipts": "Comprobantes",
+      "receiptsHint": "PDF, JPG, PNG o WebP, hasta {max} MB cada uno. Un comprobante acompaña, pero no confirma un pago por sí solo.",
+      "addReceipts": "Adjuntar archivos",
+      "removeReceipt": "Quitar {name}",
+      "inviteEmail": "Correo de la otra persona",
+      "inviteEmailHint": "Opcional. Si entra con esa misma cuenta de Google, su identidad queda confirmada automáticamente. De cualquier modo recibirás un enlace para compartir.",
+      "summary": "Resumen",
+      "summaryPersonal": "Registro personal · solo tú lo ves",
+      "summaryShared": "Propuesta de acuerdo · necesita la aceptación de la otra persona",
+      "outstandingAfter": "Saldo inicial",
+      "acceptNotice": "Al enviar la propuesta, tú aceptas estas condiciones. Entrarán en vigor cuando la otra persona acepte exactamente las mismas."
+    },
+    "submit": {
+      "personal": "Guardar registro",
+      "shared": "Crear y obtener enlace",
+      "draft": "Guardar como borrador",
+      "uploading": "Subiendo comprobantes…",
+      "createdPersonal": "Registro guardado.",
+      "draftSaved": "Borrador guardado.",
+      "receiptsFailed": "La deuda se guardó, pero {count, plural, one {un comprobante no se pudo subir} other {# comprobantes no se pudieron subir}}. Puedes adjuntarlos desde el detalle."
+    },
+    "done": {
+      "title": "Propuesta creada",
+      "text": "Envía este enlace a {name}. Al abrirlo podrá revisar las condiciones y aceptarlas, rechazarlas o pedir cambios.",
+      "sentDirect": "{name} ya comparte acuerdos contigo: recibió la propuesta directamente en su cuenta.",
+      "goToDebt": "Ir al acuerdo"
+    }
+  }
+}
