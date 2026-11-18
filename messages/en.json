@@ -74,6 +74,21 @@
     "notConfigured": {
       "title": "Sign-in is not active yet",
       "text": "This server does not have Google sign-in set up yet. You can browse the page and the demo; signing in will work as soon as it is configured."
+    },
+    "showcase": {
+      "label": "What Symmetry Debt looks like",
+      "title": "Two sides. One agreement.",
+      "text": "Keep your debts the way a bank keeps accounts: every payment marked by whoever pays and validated by whoever receives.",
+      "concept": "Laptop loan",
+      "validated": "Validated by both",
+      "balance": "Left to pay",
+      "paid": "$2,000.00 of $6,000.00 paid",
+      "example": "Example with made-up figures.",
+      "points": {
+        "free": "Free",
+        "private": "Private",
+        "open": "Open source"
+      }
     }
   },
   "common": {
@@ -172,14 +187,14 @@
     "totals": {
       "iOwe": "Total I owe",
       "owedToMe": "Total owed to me",
-      "net": "Net balance",
+      "net": "Your net position",
       "netPositive": "In your favour",
       "netNegative": "Against you",
       "netZero": "Balanced",
       "netHint": "What you are owed minus what you owe. Only what you recorded and what both sides confirmed counts.",
       "recorded": "Personal records",
       "confirmed": "Confirmed by both",
-      "awaiting": "Payments to be confirmed",
+      "awaiting": "Payments to be validated",
       "awaitingHint": "Already recorded, but not counted in the balance yet.",
       "proposed": "Proposed",
       "proposedHint": "Terms the other side has not accepted yet.",
@@ -196,7 +211,8 @@
     },
     "needsMe": {
       "title": "Waiting for your answer",
-      "empty": "There is nothing for you to answer."
+      "empty": "There is nothing for you to answer.",
+      "count": "{count, plural, one {# debt needs something from you} other {# debts need something from you}}"
     },
     "waiting": {
       "title": "Waiting for the other side"
@@ -221,7 +237,25 @@
       "action": "Record a debt"
     },
     "duePay": "You are due to pay {name}",
-    "dueCollect": "{name} is due to pay you"
+    "dueCollect": "{name} is due to pay you",
+    "subtitleShort": "Your summary for today",
+    "quick": {
+      "label": "Quick actions",
+      "newDebt": "New debt",
+      "pay": "Record payment",
+      "people": "People",
+      "accounts": "Accounts"
+    },
+    "dueOverdue": "Overdue",
+    "debtsList": {
+      "title": "Your active debts",
+      "all": "See all",
+      "empty": "You have no open debts."
+    },
+    "day": {
+      "today": "Today",
+      "yesterday": "Yesterday"
+    }
   },
   "debts": {
     "metaTitle": "My debts",
@@ -229,7 +263,7 @@
     "subtitle": "Your personal records and your shared agreements, each with how firmly it is confirmed.",
     "new": "New debt",
     "needsYou": "Waiting for you",
-    "pendingMovements": "{count, plural, one {# to be confirmed} other {# to be confirmed}}",
+    "pendingMovements": "{count, plural, one {# to be validated} other {# to be validated}}",
     "nextDue": "Next payment:",
     "proposedAmount": "Proposed amount",
     "empty": {
@@ -264,6 +298,10 @@
       "one_side": "One side recorded it; the other still has to confirm it.",
       "both_sides": "Both sides agree.",
       "proposal": "Terms nobody else has accepted yet."
+    },
+    "groups": {
+      "iOwe": "I owe",
+      "owedToMe": "Owed to me"
     }
   },
   "detail": {
@@ -277,8 +315,8 @@
       "recordedHint": "Balance according to your own records. The other person has not confirmed it.",
       "confirmedHint": "Only what both sides have confirmed counts.",
       "proposalHint": "This is not an agreement yet: both sides still have to accept the same terms.",
-      "pending": "To be confirmed",
-      "pendingHint": "Recorded by one side. It does not count towards the balance until the other confirms it.",
+      "pending": "To be validated",
+      "pendingHint": "Marked by one side. It does not count towards the balance until the other validates it.",
       "ifConfirmed": "If everything is confirmed, {amount} would be left",
       "adjustments": "Adjustments: {amount}",
       "asOf": "Balance agreed as of {date}",
@@ -297,7 +335,11 @@
       "openDispute": "Mark as disputed",
       "requestCancellation": "Cancel agreement",
       "withdrawProposal": "Withdraw proposal",
-      "addComment": "Comment"
+      "addComment": "Comment",
+      "markPayment": "Mark a payment",
+      "invite": "Invite {name}",
+      "movements": "Movements",
+      "installments": "Instalments"
     },
     "banner": {
       "settledTitle": "Debt settled",
@@ -434,8 +476,8 @@
       "reversed": "Reversed",
       "reversalPending": "Reversal waiting",
       "reverses": "Reverses an earlier payment",
-      "waitingOther": "Waiting for {name} to confirm",
-      "waitingYou": "Waiting for you to confirm",
+      "waitingOther": "Waiting for {name} to validate",
+      "waitingYou": "Waiting for your validation",
       "needsClarification": "{name} asked for a clarification",
       "youAsked": "You asked for a clarification",
       "answers": "Conversation",
@@ -446,9 +488,9 @@
         "CLARIFIED": "{by, select, me {You answered} other {{name} answered}}",
         "WITHDRAWN": "{by, select, me {You withdrew it} other {{name} withdrew it}}"
       },
-      "approve": "Confirm",
-      "approveConfirmTitle": "Confirm this movement",
-      "approveConfirm": "Once you confirm, {amount} will count in the agreed balance. A confirmed movement cannot be edited or deleted: it can only be corrected with a reversal or an adjustment that you both approve.",
+      "approve": "Validate",
+      "approveConfirmTitle": "Validate this payment",
+      "approveConfirm": "Once you validate it, {amount} counts as paid for both of you. A validated payment cannot be edited or deleted: it can only be corrected with a reversal or an adjustment that you both approve.",
       "reject": "Reject",
       "ask": "Ask for clarification",
       "clarify": "Answer",
@@ -500,7 +542,19 @@
       "submitPersonal": "Save",
       "submitShared": "Record and ask for confirmation",
       "saved": "Movement saved.",
-      "sent": "Recorded. {name} still has to confirm it."
+      "sent": "Marked. Now {name} has to validate it.",
+      "installmentTitle": "Mark instalment {number} as paid",
+      "coverage": "How much was paid?",
+      "full": "In full",
+      "partial": "Part of it",
+      "includesEarlier": "Includes {count, plural, one {# earlier instalment still open} other {# earlier instalments still open}}: payments go to the oldest instalment first.",
+      "moreDetails": "Add method, reference or receipt",
+      "submitInstallmentShared": "Mark and ask {name} to validate",
+      "submitInstallmentPersonal": "Mark as paid",
+      "whatsapp": "Tell them on WhatsApp",
+      "whatsappInstallment": "Hi {name}, I marked instalment {number} ({amount}) as paid on Symmetry Debt. Can you validate it? {url}",
+      "whatsappPayment": "Hi {name}, I recorded a payment of {amount} on Symmetry Debt. Can you validate it? {url}",
+      "appliesToOldest": "It goes to instalment {number} first, the oldest one still open."
     },
     "bank": {
       "title": "Payment details",
@@ -549,6 +603,63 @@
       "cancelSharedTitle": "Cancel the agreement",
       "cancelSharedActive": "An agreement in force is only cancelled if both sides agree. {name} will be asked to accept.",
       "cancelSharedNegotiating": "There is no agreement in force yet: the proposal will be closed."
+    },
+    "hero": {
+      "next": "Next payment",
+      "paidCount": "{paid} of {total} instalments paid",
+      "role": {
+        "DEBTOR": "You owe {name}",
+        "CREDITOR": "{name} owes you"
+      }
+    },
+    "inviteCard": {
+      "title": "Validate every payment with {name}",
+      "text": "For now this record is yours alone. Invite {name}: once they accept, every instalment you tick reaches them to validate, and you both see ✓✓ when it is confirmed.",
+      "cta": "Invite {name}"
+    },
+    "attention": {
+      "title": "{count, plural, one {You have # payment to validate} other {You have # payments to validate}}",
+      "text": "{name} marked payments that are waiting for your validation. Validate them if you received them.",
+      "cta": "See instalments"
+    },
+    "installments": {
+      "title": "Instalments",
+      "subtitleShared": "Tick each instalment when you pay it; {name} validates it on their side.",
+      "subtitlePersonal": "Tick each instalment when you pay it. It is your personal record.",
+      "subtitleProposal": "Proposed schedule: it starts once you both accept the terms.",
+      "number": "Instalment {number}",
+      "due": "Due",
+      "progress": "{paid} of {total} paid",
+      "mark": "Mark instalment {number} as paid",
+      "markShort": "Mark",
+      "state": {
+        "validated": "Paid · validated by both",
+        "paidPersonal": "Paid",
+        "waitingOther": "You marked {amount} · waiting for {name}",
+        "waitingMe": "{name} marked {amount} · did you receive it?",
+        "partial": "{paid} paid of {total}",
+        "overdue": "Overdue",
+        "dueToday": "Due today",
+        "upcoming": "To pay",
+        "waived": "Nothing to pay"
+      },
+      "validate": "Validate",
+      "validateTitle": "Did you receive this payment?",
+      "validateText": "Once validated, {amount} counts as paid for both of you. It can no longer be edited, only reversed by mutual agreement.",
+      "notReceived": "I did not receive it",
+      "notReceivedTitle": "I did not receive this payment",
+      "notReceivedHint": "{name} will see your answer. The payment will not count.",
+      "undo": "Undo",
+      "undoTitle": "Undo the mark",
+      "undoText": "The instalment is open again and {name} no longer has to validate it.",
+      "legend": {
+        "validated": "Validated by both",
+        "waiting": "Waiting for validation",
+        "personal": "Paid (personal record)",
+        "open": "To pay",
+        "overdue": "Overdue"
+      },
+      "unscheduled": "Not on the schedule"
     }
   },
   "donate": {
@@ -603,7 +714,7 @@
     "stale": "The terms changed while you were reading them. Read them again before you answer.",
     "invalid_state": "This action is no longer available in the current state.",
     "exceeds_balance": "The amount is more than what is left to pay.",
-    "nothing_to_pay": "There is nothing left to pay (counting what is waiting to be confirmed).",
+    "nothing_to_pay": "There is nothing left to pay (counting what is waiting to be validated).",
     "reversal_target_invalid": "That movement cannot be reversed.",
     "reversal_already_exists": "There is already a reversal in progress for that payment.",
     "reversal_amount_mismatch": "A reversal must be for the full amount of the payment.",
@@ -699,7 +810,18 @@
       "own": "Share the link with the other person so they can answer.",
       "goToDebt": "Go to the agreement",
       "goToApp": "Go to my dashboard"
-    }
+    },
+    "request": "Agreement request",
+    "amountLabel": "Agreement amount",
+    "plan": "Payment plan",
+    "noSchedule": "No schedule: paid as agreed",
+    "single": "One payment on {date}",
+    "scheduleSummary": "{count, plural, one {# payment} other {# payments}}, from {first} to {last}",
+    "each": "of",
+    "status": "Status",
+    "proposerAccepted": "{name} already accepted",
+    "waitingYou": "Your validation is missing for it to count for both.",
+    "details": "Terms in detail"
   },
   "labels": {
     "mode": {
@@ -728,9 +850,9 @@
     },
     "movementStatus": {
       "PERSONAL_RECORD": "Personal record",
-      "PENDING": "To be confirmed",
+      "PENDING": "To be validated",
       "CLARIFICATION": "Being clarified",
-      "CONFIRMED": "Confirmed by both",
+      "CONFIRMED": "Validated by both",
       "REJECTED": "Rejected",
       "WITHDRAWN": "Withdrawn"
     },
@@ -777,7 +899,7 @@
       "personalHint": "You wrote this down. Nobody else has confirmed it.",
       "one_side": "One side",
       "one_sideHint": "Recorded by one side. The other has not confirmed it yet.",
-      "both_sides": "Confirmed by both",
+      "both_sides": "Validated by both",
       "both_sidesHint": "Both sides agree.",
       "proposal": "Proposal",
       "proposalHint": "Nobody else has accepted these terms yet.",
@@ -822,14 +944,14 @@
         "open": "Open source"
       },
       "visual": {
-        "label": "Illustration with fictional data: a shared agreement that Ana and Luis both accepted, with its confirmed balance and a payment waiting to be confirmed, next to a personal record that only its owner can see.",
+        "label": "Illustration with fictional data: a shared agreement that Ana and Luis both accepted, with its confirmed balance and a payment waiting to be validated, next to a personal record that only its owner can see.",
         "agreement": "Shared agreement",
         "concept": "Loan for the laptop",
         "status": "Active",
         "accepted": "Accepted",
         "confirmedBalance": "Confirmed balance",
         "progress": "{paid} of {total} confirmed",
-        "awaiting": "To be confirmed",
+        "awaiting": "To be validated",
         "personal": "Personal record",
         "personalConcept": "Friday dinner",
         "personalWho": "You owe Marta",
@@ -866,11 +988,11 @@
         "text": "You wrote it down. Nobody else has confirmed it."
       },
       "waiting": {
-        "name": "To be confirmed",
+        "name": "To be validated",
         "text": "One side recorded it. The other has not answered yet."
       },
       "both": {
-        "name": "Confirmed by both",
+        "name": "Validated by both",
         "text": "Both sides agree."
       },
       "none": {
@@ -895,8 +1017,8 @@
       "recordedBy": "Recorded by {name}",
       "status": {
         "personal": "Personal record",
-        "pending": "To be confirmed",
-        "confirmed": "Confirmed by both",
+        "pending": "To be validated",
+        "confirmed": "Validated by both",
         "rejected": "Rejected · does not count"
       },
       "personal": {
@@ -921,21 +1043,21 @@
         "balanceLabel": "Confirmed balance",
         "balanceHint": "Only what both confirmed counts.",
         "paid": "{paid} confirmed by both",
-        "awaitingLabel": "To be confirmed",
+        "awaitingLabel": "To be validated",
         "awaitingHint": "It does not count until the other side answers.",
         "recordPaid": "Record a payment of {amount}",
         "recordReceived": "Record that I received {amount}",
-        "confirm": "Confirm",
+        "confirm": "Validate",
         "reject": "Reject",
-        "confirmLabel": "Confirm the payment of {amount}",
+        "confirmLabel": "Validate the payment of {amount}",
         "rejectLabel": "Reject the payment of {amount}",
         "waitingFor": "Waiting for {name} to answer",
-        "noRoom": "Nothing left to pay, counting what is waiting to be confirmed.",
+        "noRoom": "Nothing left to pay, counting what is waiting to be validated.",
         "coach": {
           "start": "Record a payment and keep an eye on the confirmed balance: it will not change yet.",
-          "ownPending": "It is waiting to be confirmed and the confirmed balance did not change. Switch to {name} to answer.",
-          "theirPending": "Your turn: confirm or reject what {name} recorded.",
-          "confirmed": "Confirmed by both: now the confirmed balance has gone down.",
+          "ownPending": "It is waiting to be validated and the confirmed balance did not change. Switch to {name} to answer.",
+          "theirPending": "Your turn: validate or reject what {name} recorded.",
+          "confirmed": "Validated by both: now the confirmed balance has gone down.",
           "rejected": "Rejected: it stays in the history, but it does not count towards the balance.",
           "settled": "Settled: the confirmed balance reached zero."
         }
@@ -1033,7 +1155,7 @@
           "text": "Whoever pays or whoever receives, it makes no difference."
         },
         "s2": {
-          "title": "It waits to be confirmed",
+          "title": "It waits to be validated",
           "text": "The confirmed balance does not change yet."
         },
         "s3": {
@@ -1087,12 +1209,12 @@
         "text": "A receipt does not confirm a payment by itself: in a shared agreement, the other side still has to confirm it."
       },
       "card": {
-        "label": "Illustration with fictional data: a payment waiting to be confirmed, with a PDF receipt attached.",
+        "label": "Illustration with fictional data: a payment waiting to be validated, with a PDF receipt attached.",
         "payment": "Transfer",
         "file": "march-transfer.pdf",
         "attached": "Receipt attached",
-        "status": "To be confirmed",
-        "note": "The receipt goes with the payment. The confirmation comes from the other side."
+        "status": "To be validated",
+        "note": "The receipt goes with the payment. The validation comes from the other side."
       }
     },
     "security": {
@@ -1483,7 +1605,10 @@
         "version": "Version {version}",
         "source": "View the code on GitHub",
         "supportTitle": "Support the project"
-      }
+      },
+      "index": "Settings sections",
+      "on": "On",
+      "off": "Off"
     }
   },
   "people": {

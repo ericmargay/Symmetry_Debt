@@ -88,18 +88,18 @@ export function PersonalTracking() {
             className="relative rounded-3xl border border-border bg-card p-6 shadow-[0_24px_60px_-32px] shadow-personal/60 sm:p-7"
           >
             <div className="flex items-center justify-between gap-3">
-              <span className="flex items-center gap-2 text-xs font-semibold tracking-[0.14em] text-personal uppercase">
+              <span className="flex items-center gap-2 text-xs font-semibold text-personal">
                 <SymmetryMark state="one" className="size-4" />
                 {t("card.tag")}
               </span>
               <Lock className="size-4 text-muted-foreground" />
             </div>
-            <p className="mt-4 font-display text-2xl leading-tight font-medium">{t("card.concept")}</p>
+            <p className="mt-4 font-display text-2xl leading-tight font-extrabold tracking-tight">{t("card.concept")}</p>
             <p className="mt-1 text-sm text-muted-foreground">{t("card.who")}</p>
 
             <div className="mt-6 flex items-end justify-between gap-4">
               <span className="text-sm text-muted-foreground">{t("card.balance")}</span>
-              <span className="tabular font-display text-3xl leading-none font-medium text-owe" {...countUp(total - paid)}>
+              <span className="tabular font-display text-3xl leading-none font-extrabold tracking-tight text-owe" {...countUp(total - paid)}>
                 {money(total - paid)}
               </span>
             </div>
@@ -153,12 +153,12 @@ export function SharedAgreements() {
         {STEPS.map((step, index) => (
           <li key={step.key} data-reveal className="landing-lift group relative rounded-3xl border border-border bg-background p-7">
             <div className="flex items-center justify-between gap-3">
-              <span className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+              <span className="text-xs font-semibold text-muted-foreground">
                 {t("step", { number: index + 1 })}
               </span>
               <SymmetryMark state={step.mark} className={cn("size-10 transition-transform duration-500 group-hover:scale-110", step.color)} />
             </div>
-            <h3 className="mt-5 font-display text-2xl leading-tight font-medium">{t(`${step.key}.title`)}</h3>
+            <h3 className="mt-5 font-display text-2xl leading-tight font-extrabold tracking-tight">{t(`${step.key}.title`)}</h3>
             <p className="mt-3 leading-relaxed text-muted-foreground">{t(`${step.key}.text`)}</p>
           </li>
         ))}
@@ -217,7 +217,7 @@ export function Payments() {
 
         <div data-reveal className="mx-auto w-full max-w-md">
           <div data-tilt="5" className="relative rounded-3xl border border-border bg-card p-6 sm:p-8">
-            <h3 className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">{t("track.title")}</h3>
+            <h3 className="text-xs font-semibold text-muted-foreground">{t("track.title")}</h3>
             <ol className="mt-6">
               <TrackStep mark="waiting" color="text-waiting" title={t("track.s1.title")} text={t("track.s1.text")} />
               <TrackStep icon={Clock3} color="text-waiting" title={t("track.s2.title")} text={t("track.s2.text")} />
@@ -302,7 +302,7 @@ export function Installments() {
           <div role="img" aria-label={t("card.label")} data-tilt="5" className="relative rounded-3xl border border-border bg-background p-6 sm:p-7">
             <div className="flex items-end justify-between gap-4">
               <div>
-                <p className="font-display text-2xl leading-tight font-medium">{t("card.title")}</p>
+                <p className="font-display text-2xl leading-tight font-extrabold tracking-tight">{t("card.title")}</p>
                 <p className="mt-1 text-sm text-muted-foreground">{t("card.kind")}</p>
               </div>
               <p className="tabular text-right text-sm font-medium">{t("card.progress", { paid: money(paid), total: money(total) })}</p>
@@ -378,7 +378,7 @@ export function Receipts() {
                 <SymmetryMark state="waiting" className="size-5 text-waiting" />
                 {t("card.payment")}
               </span>
-              <span className="tabular font-display text-2xl leading-none font-medium" {...countUp(250_000n)}>
+              <span className="tabular font-display text-2xl leading-none font-extrabold tracking-tight" {...countUp(250_000n)}>
                 {money(250_000n)}
               </span>
             </div>

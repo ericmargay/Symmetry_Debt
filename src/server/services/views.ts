@@ -25,7 +25,7 @@ import {
   type VersionStatus,
 } from "@/domain/lifecycle";
 import type { PaymentMethod } from "@/domain/payment-methods";
-import { allocatePayments, type ScheduleProgress, type ScheduleType } from "@/domain/schedule";
+import { allocatePayments, installmentLedger, type InstallmentLedgerRow, type ScheduleProgress, type ScheduleType } from "@/domain/schedule";
 import { diffTerms, parseTerms, type TermsField, type TermsSnapshot } from "@/domain/terms";
 import type { Prisma } from "@/generated/prisma/client";
 import type { Actor } from "../actor";
@@ -391,6 +391,8 @@ export interface DebtView {
   termsAreProposal: boolean;
   balance: Balance;
   progress: ScheduleProgress;
+  /** The schedule as a checklist: validated, marked-and-waiting and open, instalment by instalment. */
+  ledger: InstallmentLedgerRow[];
   scheduleType: ScheduleType;
   movements: MovementView[];
   attachments: AttachmentView[];
@@ -594,6 +596,16 @@ export async function getDebtView(actor: Actor, debtId: string): Promise<DebtVie
     paidMinor: inForce ? balance.paidMinor : 0n,
     today,
   });
+
+  // Payments marked by one side and not yet validated by the other, oldest first, poured over
+  // what is still open. Personal records count at once, so they never wait.
+  const waitingPayments = inForce
+    ? row.payments
+        .filter((payment) => payment.kind === "PAYMENT" && isAwaitingConfirmation(payment.status))
+        .sort((a, b) => a.effectiveDate.getTime() - b.effectiveDate.getTime() || a.recordedAt.getTime() - b.recordedAt.getTime())
+        .map((payment) => ({ id: payment.id, amountMinor: payment.amountMinor }))
+    : [];
+  const ledger = installmentLedger(progress, waitingPayments);
 
   // ── Attachments ────────────────────────────────────────────────────────────
   const paymentStatus = new Map(row.payments.map((payment) => [payment.id, payment.status]));
@@ -811,6 +823,7 @@ export async function getDebtView(actor: Actor, debtId: string): Promise<DebtVie
     termsAreProposal: !inForce,
     balance,
     progress,
+    ledger,
     scheduleType: terms.scheduleType,
     movements,
     attachments: row.attachments.filter((attachment) => attachment.paymentId === null).map(toAttachmentView),

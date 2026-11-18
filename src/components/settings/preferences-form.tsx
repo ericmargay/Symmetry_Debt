@@ -64,8 +64,8 @@ export function PreferencesForm({ initial, emailEnabled }: { initial: Preference
         run(() => updatePreferencesAction(values), { successMessage: t("saved"), onSuccess: () => router.refresh() });
       }}
     >
-      <section aria-labelledby="region-title" className="rounded-2xl border border-border bg-card p-5 sm:p-6">
-        <h2 id="region-title" className="mb-4 text-base font-semibold">
+      <section id="region" aria-labelledby="region-title" className="surface scroll-mt-24 p-5 sm:p-6">
+        <h2 id="region-title" className="mb-4 text-[1.05rem] font-bold">
           {t("region.title")}
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -113,8 +113,8 @@ export function PreferencesForm({ initial, emailEnabled }: { initial: Preference
         </div>
       </section>
 
-      <section id="notifications" aria-labelledby="notifications-title" className="scroll-mt-20 rounded-2xl border border-border bg-card p-5 sm:p-6">
-        <h2 id="notifications-title" className="text-base font-semibold">
+      <section id="notifications" aria-labelledby="notifications-title" className="surface scroll-mt-24 p-5 sm:p-6">
+        <h2 id="notifications-title" className="text-[1.05rem] font-bold">
           {t("notifications.title")}
         </h2>
         <p className="mt-1 mb-2 text-sm text-muted-foreground">{t("notifications.inApp")}</p>
@@ -122,7 +122,7 @@ export function PreferencesForm({ initial, emailEnabled }: { initial: Preference
           <Toggle label={t("notifications.reminders")} hint={t("notifications.remindersHint")} checked={values.remindersEnabled} onChange={(value) => set("remindersEnabled", value)} />
         </div>
         <h3 className="mt-5 text-sm font-semibold">{t("notifications.emailTitle")}</h3>
-        {!emailEnabled && <p className="mt-1 rounded-lg bg-muted/60 px-3 py-2 text-xs text-muted-foreground">{t("notifications.emailDisabled")}</p>}
+        {!emailEnabled && <p className="mt-1 rounded-xl bg-muted px-3 py-2 text-xs text-muted-foreground">{t("notifications.emailDisabled")}</p>}
         <div className="divide-y divide-border">
           <Toggle
             label={t("notifications.emailActionRequired")}

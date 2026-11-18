@@ -28,13 +28,13 @@ export function Hero({ signedIn, repoUrl }: { signedIn: boolean; repoUrl: string
       <div aria-hidden className="landing-hero-grid pointer-events-none absolute inset-0 -z-20" />
       <Container className="relative grid items-center gap-6 pt-10 pb-16 sm:gap-10 sm:pt-16 sm:pb-20 lg:grid-cols-[minmax(0,1fr)_30rem] lg:gap-10 lg:pt-14 lg:pb-24 xl:grid-cols-[minmax(0,1fr)_32rem]">
         <div className="relative z-10">
-          <p className="landing-rise inline-flex items-center gap-2.5 text-xs font-semibold tracking-[0.22em] uppercase" style={rise(0)}>
+          <p className="landing-rise inline-flex items-center gap-2.5 text-xs font-semibold" style={rise(0)}>
             <SymmetryMark state="both" className="size-4 text-primary" />
             <span lang="en" className="landing-sheen">
               {t("motto")}
             </span>
           </p>
-          <h1 id="hero-title" className="mt-6 font-display text-[2.7rem] leading-[1.02] font-medium tracking-tight sm:text-6xl">
+          <h1 id="hero-title" className="mt-6 font-display text-[2.7rem] leading-[1.02] font-extrabold tracking-tight sm:text-6xl">
             {words.map((word, index) => (
               <span key={`${word}-${index}`}>
                 <span className="landing-rise inline-block" style={rise(80 + index * 60)}>
@@ -112,7 +112,7 @@ function PersonalCard() {
 
   return (
     <div data-tilt="8" className="landing-glass relative rounded-2xl border border-border/60 p-4">
-      <p className="flex items-center gap-2 text-[0.68rem] font-semibold tracking-[0.14em] whitespace-nowrap text-personal uppercase">
+      <p className="flex items-center gap-2 text-[0.68rem] font-semibold whitespace-nowrap text-personal">
         <SymmetryMark state="one" className="size-3.5" />
         {t("personal")}
       </p>
@@ -121,7 +121,7 @@ function PersonalCard() {
           <p className="truncate text-sm font-medium">{t("personalConcept")}</p>
           <p className="truncate text-xs text-muted-foreground">{t("personalWho")}</p>
         </div>
-        <span className="tabular font-display text-lg leading-none font-medium text-owe">{formatMoney(PERSONAL, CURRENCY, intlLocale)}</span>
+        <span className="tabular font-display text-lg leading-none font-extrabold tracking-tight text-owe">{formatMoney(PERSONAL, CURRENCY, intlLocale)}</span>
       </div>
       <p className="mt-2.5 flex items-center gap-1.5 border-t border-border/70 pt-2.5 text-[0.7rem] text-muted-foreground">
         <Lock className="size-3 shrink-0" />
@@ -162,13 +162,13 @@ function HeroVisual() {
         <div className="landing-rise relative z-10 -mt-[24%] ml-auto w-[96%] sm:-mt-[27%] sm:w-[84%]" style={rise(450)}>
           <div data-tilt="5" className="landing-glass relative rounded-3xl border border-border/60 p-5 sm:p-6">
             <div className="flex items-center justify-between gap-3">
-              <span className="flex items-center gap-2 text-xs font-semibold tracking-[0.14em] text-agreed uppercase">
+              <span className="flex items-center gap-2 text-xs font-semibold text-agreed">
                 <SymmetryMark state="both" className="size-4" />
                 {t("agreement")}
               </span>
               <Chip tone="agreed">{t("status")}</Chip>
             </div>
-            <p className="mt-3 font-display text-xl leading-tight font-medium sm:text-2xl">{t("concept")}</p>
+            <p className="mt-3 font-display text-xl leading-tight font-extrabold tracking-tight sm:text-2xl">{t("concept")}</p>
 
             <div className="mt-4 flex items-center justify-center gap-3 sm:gap-4">
               <div className="min-w-0 flex-1 text-right">
@@ -191,7 +191,7 @@ function HeroVisual() {
             <div className="mt-5 border-t border-border/70 pt-4">
               <div className="flex items-end justify-between gap-4">
                 <span className="text-sm text-muted-foreground">{t("confirmedBalance")}</span>
-                <span className="tabular font-display text-[1.7rem] leading-none font-medium sm:text-3xl">{money(TOTAL - CONFIRMED)}</span>
+                <span className="tabular font-display text-[1.7rem] leading-none font-extrabold tracking-tight sm:text-3xl">{money(TOTAL - CONFIRMED)}</span>
               </div>
               <div className="mt-3.5 h-2 overflow-hidden rounded-full bg-muted">
                 <div className="landing-grow-x h-full rounded-full bg-agreed" style={{ width: `${progress}%`, "--grow-delay": "1100ms" } as React.CSSProperties} />

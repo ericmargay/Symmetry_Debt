@@ -3,8 +3,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { ActivityList } from "@/components/dashboard/activity-list";
-import { EmptyState, PageHeader, Section } from "@/components/shared/page-header";
-import { WeightMark } from "@/components/shared/weight-badge";
+import { EmptyState, PageHeader } from "@/components/shared/page-header";
+import { Ticks } from "@/components/shared/ticks";
+import { Button } from "@/components/ui/button";
 import { listActivity } from "@/server/services/overview";
 import { requireActor } from "@/server/session";
 
@@ -27,28 +28,27 @@ export default async function ActivityPage({ searchParams }: { searchParams: Pro
       {page.length === 0 ? (
         <EmptyState icon={<History />} title={t("empty.title")} text={t("empty.text")} />
       ) : (
-        <Section>
-          <ul className="mb-3 flex flex-wrap gap-x-5 gap-y-1.5 border-b border-border pb-3 text-xs text-muted-foreground">
-            <li className="flex items-center gap-1.5">
-              <WeightMark weight="personal" /> {t("legendPersonal")}
+        <>
+          <ul className="mb-4 flex flex-wrap gap-2 text-xs font-semibold text-muted-foreground">
+            <li className="flex items-center gap-1.5 rounded-full bg-card px-3 py-1.5 shadow-[var(--shadow-card)]">
+              <Ticks state="personal" /> {t("legendPersonal")}
             </li>
-            <li className="flex items-center gap-1.5">
-              <WeightMark weight="one_side" /> {t("legendOne")}
+            <li className="flex items-center gap-1.5 rounded-full bg-card px-3 py-1.5 shadow-[var(--shadow-card)]">
+              <Ticks state="one" /> {t("legendOne")}
             </li>
-            <li className="flex items-center gap-1.5">
-              <WeightMark weight="both_sides" /> {t("legendBoth")}
+            <li className="flex items-center gap-1.5 rounded-full bg-card px-3 py-1.5 shadow-[var(--shadow-card)]">
+              <Ticks state="both" /> {t("legendBoth")}
             </li>
           </ul>
-          <ActivityList items={page} timeZone={actor.timeZone} />
+          <div className="surface p-3 sm:p-4">
+            <ActivityList items={page} timeZone={actor.timeZone} />
+          </div>
           {hasMore && (
-            <Link
-              href={`/app/activity?before=${page[page.length - 1].at.getTime()}`}
-              className="mt-4 inline-block rounded text-sm text-primary underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring"
-            >
-              {t("older")}
-            </Link>
+            <Button asChild variant="outline" className="mt-5">
+              <Link href={`/app/activity?before=${page[page.length - 1].at.getTime()}`}>{t("older")}</Link>
+            </Button>
           )}
-        </Section>
+        </>
       )}
     </>
   );

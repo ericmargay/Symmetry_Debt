@@ -1,10 +1,12 @@
-import { Link2, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { ActivityList } from "@/components/dashboard/activity-list";
-import { DebtRow } from "@/components/debts/debt-row";
+import { DebtList } from "@/components/debts/debt-row";
+import { InitialAvatar } from "@/components/shared/initial-avatar";
+import { Ticks } from "@/components/shared/ticks";
 import { ContactFormButton } from "@/components/people/contact-form";
 import { PersonActions } from "@/components/people/person-actions";
 import { PersonTotalsView } from "@/components/people/person-totals";
@@ -29,10 +31,15 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
     <>
       <PageHeader
         back={{ href: "/app/people", label: t("title") }}
-        title={person.name}
+        title={
+          <span className="flex items-center gap-3.5">
+            <InitialAvatar name={person.name} tone="primary" className="size-12 text-base" />
+            <span className="min-w-0 break-words">{person.name}</span>
+          </span>
+        }
         description={
           <span className="inline-flex items-center gap-1.5" title={person.linked ? t("linkedHint") : t("privateHint")}>
-            {person.linked && <Link2 className="size-3.5 text-agreed" aria-hidden />}
+            <Ticks state={person.linked ? "both" : "personal"} />
             {person.linked ? t("linked") : t("private")}
             {person.archived && ` · ${t("archived")}`}
           </span>
@@ -61,11 +68,7 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
 
           <Section title={t("detail.debts", { name: person.name })}>
             {person.debts.length > 0 ? (
-              <div className="flex flex-col gap-2">
-                {person.debts.map((debt) => (
-                  <DebtRow key={debt.id} item={debt} showPerson={false} />
-                ))}
-              </div>
+              <DebtList items={person.debts} showPerson={false} className="-mx-5 -mb-5 rounded-t-none border-x-0 border-b-0 shadow-none sm:-mx-6 sm:-mb-6" />
             ) : (
               <p className="text-sm text-muted-foreground">{t("detail.noDebts")}</p>
             )}

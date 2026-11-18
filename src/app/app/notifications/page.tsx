@@ -20,7 +20,7 @@ export default async function NotificationsPage() {
       <PageHeader title={t("title")} description={t("subtitle")} />
       {items.length === 0 ? <EmptyState icon={<Bell />} title={t("empty.title")} text={t("empty.text")} /> : <NotificationList items={items} timeZone={actor.timeZone} />}
       <p className="mt-6 text-sm">
-        <Link href="/app/settings#notifications" className="rounded text-muted-foreground underline underline-offset-4 outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring">
+        <Link href="/app/settings#notifications" className="rounded font-semibold text-primary underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring">
           {t("preferences")}
         </Link>
       </p>

@@ -16,9 +16,10 @@ export function InvitationResponse({ invitationKey, versionId, termsHash, propos
     respondToInvitationAction(invitationKey, { versionId, termsHash, action, comment });
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
       <ActionButton
         size="lg"
+        className="sm:min-w-56"
         action={() => respond("accept")}
         onDone={(outcome) => {
           toast.success(outcome.awaitingIdentity ? t("acceptedWaiting", { name: proposerName }) : t("accepted"));

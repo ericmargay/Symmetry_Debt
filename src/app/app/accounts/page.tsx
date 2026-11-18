@@ -24,15 +24,17 @@ export default async function AccountsPage() {
       {accounts.length === 0 ? (
         <EmptyState icon={<Landmark />} title={t("empty.title")} text={t("empty.text")} action={addButton} />
       ) : (
-        <div className="grid gap-3 lg:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {accounts.map((account) => (
             <AccountCard key={account.id} account={account} defaultCurrency={actor.defaultCurrency} defaultHolder={holder} />
           ))}
         </div>
       )}
 
-      <p className="mt-6 flex gap-2.5 rounded-xl border border-border bg-card px-4 py-3 text-sm leading-relaxed text-muted-foreground">
-        <ShieldCheck className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
+      <p className="surface mt-6 flex gap-3 px-4 py-3.5 text-sm leading-relaxed text-muted-foreground">
+        <span className="grid size-9 shrink-0 place-items-center rounded-2xl bg-secondary text-primary" aria-hidden>
+          <ShieldCheck className="size-4" />
+        </span>
         {t("security")}
       </p>
     </>

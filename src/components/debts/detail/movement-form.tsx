@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2, Paperclip } from "lucide-react";
+import { CalendarCheck2, ChevronDown, Loader2, Paperclip } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
@@ -11,6 +11,7 @@ import { uploadReceipts } from "@/components/debts/detail/attachments";
 import { AmountInput } from "@/components/shared/amount-input";
 import { ChoiceCards } from "@/components/shared/choice-cards";
 import { FormField } from "@/components/shared/form-field";
+import { DateText } from "@/components/shared/dates";
 import { NativeSelect } from "@/components/shared/native-select";
 import { useAction } from "@/components/shared/use-action";
 import { Button } from "@/components/ui/button";
@@ -23,7 +24,14 @@ import { formatMoney, toInputValue } from "@/domain/money";
 import { PAYMENT_METHODS } from "@/domain/payment-methods";
 import { intlLocales, type Locale } from "@/i18n/config";
 import { RECEIPT_ACCEPT } from "@/lib/attachments";
+import { cn } from "@/lib/utils";
 import { readAmount } from "@/schemas/common";
+import { Money } from "@/components/shared/money";
+
+function readAmountMinor(value: string, currency: string): bigint {
+  const amount = readAmount(value, currency);
+  return "error" in amount ? 0n : amount.minor;
+}
 
 export type MovementFormKind = "PAYMENT" | "ADJUSTMENT" | "REVERSAL";
 
@@ -44,6 +52,23 @@ export interface MovementFormContext {
   /** Saved accounts the money can be said to have gone to. */
   destinations: DestinationOption[];
   maxUploadMb: number;
+}
+
+/** Marking an instalment of the schedule as paid, from the checklist. */
+export interface InstallmentToMark {
+  sequence: number;
+  dueDate: string;
+  /** What paying it in full costs: its open amount plus any earlier instalment still open. */
+  fullMinor: bigint;
+  /** How many earlier instalments are still open and therefore included in `fullMinor`. */
+  earlierOpen: number;
+  /** The oldest instalment still open: where any payment lands first. */
+  firstOpenSequence: number;
+}
+
+/** "Hola Ivonne, te marqué …": a message to tell the other side on WhatsApp, with the link. */
+export function whatsAppUrl(text: string): string {
+  return `https://wa.me/?text=${encodeURIComponent(text)}`;
 }
 
 export interface MovementToEdit {
@@ -87,6 +112,7 @@ export function MovementDialog({
   kind,
   edit,
   reversal,
+  installment,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -94,6 +120,7 @@ export function MovementDialog({
   kind: MovementFormKind;
   edit?: MovementToEdit | null;
   reversal?: { id: string; amountMinor: bigint } | null;
+  installment?: InstallmentToMark | null;
 }) {
   const t = useTranslations();
   const locale = useLocale() as Locale;
@@ -103,6 +130,9 @@ export function MovementDialog({
   const [files, setFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
   const [idempotencyKey, setIdempotencyKey] = useState(() => crypto.randomUUID());
+  // Marking an instalment: paid in full (the amount is known) or in part (type how much).
+  const [coverage, setCoverage] = useState<"FULL" | "PARTIAL">("FULL");
+  const [showDetails, setShowDetails] = useState(false);
 
   const isEdit = Boolean(edit);
   const isShared = context.mode === "SHARED";
@@ -134,17 +164,23 @@ export function MovementDialog({
   const room = context.roomMinor + (edit && (edit.kind === "PAYMENT" || edit.kind === "ADJUSTMENT_DECREASE") ? edit.amountMinor : 0n);
   const limited = effectiveKind === "PAYMENT" || (effectiveKind === "ADJUSTMENT" && adjustment === "ADJUSTMENT_DECREASE");
 
-  const title =
-    isEdit ? t("detail.form.editTitle") : effectiveKind === "PAYMENT" ? t("detail.form.paymentTitle") : effectiveKind === "ADJUSTMENT" ? t("detail.form.adjustmentTitle") : t("detail.form.reversalTitle");
+  const marking = Boolean(installment) && !isEdit && effectiveKind === "PAYMENT";
+  const full = marking && coverage === "FULL";
+
+  const title = marking
+    ? t("detail.form.installmentTitle", { number: installment?.sequence ?? 0 })
+    : isEdit ? t("detail.form.editTitle") : effectiveKind === "PAYMENT" ? t("detail.form.paymentTitle") : effectiveKind === "ADJUSTMENT" ? t("detail.form.adjustmentTitle") : t("detail.form.reversalTitle");
 
   const close = () => {
     onOpenChange(false);
     setFiles([]);
     form.reset();
+    setCoverage("FULL");
     setIdempotencyKey(crypto.randomUUID());
   };
 
-  const onSubmit = handleSubmit((values) => {
+  const onSubmit = handleSubmit((raw) => {
+    const values = full && installment ? { ...raw, amount: toInputValue(installment.fullMinor, context.currency) } : raw;
     let hasError = false;
     const fail = (field: keyof Values, key: Parameters<typeof fieldMessage>[0]) => {
       setError(field, { message: fieldMessage(key) });
@@ -200,7 +236,20 @@ export function MovementDialog({
           if (failed > 0) toast.warning(t("wizard.submit.receiptsFailed", { count: failed }));
           router.refresh();
         }
-        toast.success(isShared ? t("detail.form.sent", { name: context.counterpartyName }) : t("detail.form.saved"));
+        if (isShared && kindToSend === "PAYMENT") {
+          // Nobody gets an email on this instance by default: offer to tell them on WhatsApp.
+          const amountText = formatMoney(readAmountMinor(values.amount, context.currency), context.currency, intlLocale);
+          const url = window.location.href.split(/[?#]/)[0];
+          const text = installment
+            ? t("detail.form.whatsappInstallment", { name: context.counterpartyName, amount: amountText, number: installment.sequence, url })
+            : t("detail.form.whatsappPayment", { name: context.counterpartyName, amount: amountText, url });
+          toast.success(t("detail.form.sent", { name: context.counterpartyName }), {
+            duration: 12000,
+            action: { label: t("detail.form.whatsapp"), onClick: () => window.open(whatsAppUrl(text), "_blank", "noopener,noreferrer") },
+          });
+        } else {
+          toast.success(isShared ? t("detail.form.sent", { name: context.counterpartyName }) : t("detail.form.saved"));
+        }
         close();
       },
     });
@@ -243,12 +292,58 @@ export function MovementDialog({
             />
           )}
 
-          {effectiveKind !== "REVERSAL" && (
+          {marking && installment && (
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-3 rounded-2xl bg-secondary/60 px-4 py-3">
+                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-card text-primary shadow-[var(--shadow-card)]">
+                  <CalendarCheck2 className="size-5" aria-hidden />
+                </span>
+                <div className="min-w-0 text-sm">
+                  <p className="font-semibold">{t("detail.installments.number", { number: installment.sequence })}</p>
+                  <p className="text-muted-foreground">
+                    {t("detail.installments.due")} <DateText iso={installment.dueDate} />
+                  </p>
+                </div>
+              </div>
+              <div role="radiogroup" aria-label={t("detail.form.coverage")} className="grid grid-cols-2 gap-1 rounded-full bg-muted p-1">
+                {(["FULL", "PARTIAL"] as const).map((option) => (
+                  <button
+                    key={option}
+                    type="button"
+                    role="radio"
+                    aria-checked={coverage === option}
+                    onClick={() => setCoverage(option)}
+                    className={cn(
+                      "min-h-10 rounded-full px-3 text-sm font-semibold transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                      coverage === option ? "bg-card text-foreground shadow-[var(--shadow-card)]" : "text-muted-foreground hover:text-foreground",
+                    )}
+                  >
+                    {option === "FULL" ? t("detail.form.full") : t("detail.form.partial")}
+                  </button>
+                ))}
+              </div>
+              {full && (
+                <div className="rounded-2xl border border-border px-4 py-3">
+                  <p className="text-xs font-medium text-muted-foreground">{t("detail.form.amount")}</p>
+                  <p className="font-display text-3xl font-extrabold tracking-tight">
+                    <Money minor={installment.fullMinor} currency={context.currency} display />
+                  </p>
+                  {installment.earlierOpen > 0 && (
+                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{t("detail.form.includesEarlier", { count: installment.earlierOpen })}</p>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
+          {effectiveKind !== "REVERSAL" && !full && (
             <FormField
               label={t("detail.form.amount")}
               error={errors.amount?.message}
               hint={
-                limited && room > 0n ? (
+                marking && installment && installment.earlierOpen > 0 ? (
+                  t("detail.form.appliesToOldest", { number: installment.firstOpenSequence })
+                ) : limited && room > 0n ? (
                   <button
                     type="button"
                     className="rounded underline underline-offset-2 outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
@@ -276,7 +371,19 @@ export function MovementDialog({
             {(field) => <Input {...field} type="date" min={context.originDate} max={context.today} {...register("effectiveDate")} />}
           </FormField>
 
-          {effectiveKind === "PAYMENT" && (
+          {marking && (
+            <button
+              type="button"
+              onClick={() => setShowDetails((value) => !value)}
+              aria-expanded={showDetails}
+              className="flex items-center justify-between rounded-xl px-1 text-sm font-semibold text-primary outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              {t("detail.form.moreDetails")}
+              <ChevronDown className={cn("size-4 transition-transform", showDetails && "rotate-180")} aria-hidden />
+            </button>
+          )}
+
+          {effectiveKind === "PAYMENT" && (!marking || showDetails) && (
             <>
               <FormField label={t("detail.form.method")} optional optionalLabel={t("common.optional")}>
                 {(field) => (
@@ -336,6 +443,7 @@ export function MovementDialog({
             </>
           )}
 
+          {(!marking || showDetails) && (
           <FormField
             label={effectiveKind === "PAYMENT" ? t("detail.form.notes") : t("detail.form.reason")}
             error={errors.notes?.message}
@@ -345,8 +453,9 @@ export function MovementDialog({
           >
             {(field) => <Textarea {...field} rows={2} maxLength={1000} {...register("notes")} />}
           </FormField>
+          )}
 
-          {!isEdit && (
+          {!isEdit && (!marking || showDetails) && (
             <div className="flex flex-col gap-1.5">
               <span className="text-sm font-medium">
                 {t("detail.form.receipt")} <span className="font-normal text-muted-foreground">· {t("common.optional")}</span>
@@ -376,7 +485,15 @@ export function MovementDialog({
             </Button>
             <Button type="submit" disabled={busy} aria-busy={busy}>
               {busy && <Loader2 className="animate-spin" aria-hidden />}
-              {uploading ? t("detail.attachments.uploading") : isShared ? t("detail.form.submitShared") : t("detail.form.submitPersonal")}
+              {uploading
+                ? t("detail.attachments.uploading")
+                : marking
+                  ? isShared
+                    ? t("detail.form.submitInstallmentShared", { name: context.counterpartyName })
+                    : t("detail.form.submitInstallmentPersonal")
+                  : isShared
+                    ? t("detail.form.submitShared")
+                    : t("detail.form.submitPersonal")}
             </Button>
           </DialogFooter>
         </form>

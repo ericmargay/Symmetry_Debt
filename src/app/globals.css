@@ -1,25 +1,30 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "./shadcn.css";
-@import "@fontsource-variable/fraunces/opsz.css";
+@import "@fontsource-variable/manrope/index.css";
 
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Symmetry Debt — visual identity
+ * Symmetry Debt — visual identity (v2, "banca entre dos")
  *
- * Paper and ink, one deep teal, and two semantic pairs that carry the product's meaning:
+ * A banking interface, not a notebook: cool mist background, white surfaces with a soft lift,
+ * one electric indigo for actions and for what both sides agreed, and a deep navy "account
+ * card" for the figure that matters. Type is Manrope (display, amounts) over Geist (text).
  *
- *   owe / owed          which direction the money goes
- *   personal / agreed   how much weight a figure carries (one person's record vs. both sides)
+ * Two semantic pairs still carry the product's meaning:
  *
- * Everything else in the interface stays neutral so those two distinctions are never lost.
+ *   owe / owed          which direction the money goes        coral / green
+ *   personal / agreed   how much weight a figure carries      slate / indigo (+ amber waiting)
+ *
+ * Confirmation reads like a message receipt: one grey check = marked by one side,
+ * two indigo checks = validated by both.
  */
 
 @theme inline {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-heading: "Fraunces Variable", ui-serif, Georgia, "Times New Roman", serif;
+  --font-heading: "Manrope Variable", var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -67,6 +72,12 @@
   --color-waiting: var(--waiting);
   --color-waiting-soft: var(--waiting-soft);
 
+  /* The account card */
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-ink-muted: var(--ink-muted);
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -79,99 +90,115 @@
 :root {
   --radius: 0.75rem;
 
-  --background: oklch(0.985 0.004 85);
-  --foreground: oklch(0.22 0.012 250);
+  --background: oklch(0.975 0.004 255);
+  --foreground: oklch(0.21 0.035 264);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.012 250);
+  --card-foreground: oklch(0.21 0.035 264);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.012 250);
-  --primary: oklch(0.42 0.072 192);
-  --primary-foreground: oklch(0.985 0.008 190);
-  --secondary: oklch(0.955 0.012 190);
-  --secondary-foreground: oklch(0.3 0.05 192);
-  --muted: oklch(0.958 0.006 85);
-  --muted-foreground: oklch(0.48 0.014 250);
-  --accent: oklch(0.948 0.018 85);
-  --accent-foreground: oklch(0.26 0.014 250);
-  --destructive: oklch(0.55 0.2 27);
-  --border: oklch(0.905 0.008 85);
-  --input: oklch(0.87 0.01 85);
-  --ring: oklch(0.6 0.07 192);
+  --popover-foreground: oklch(0.21 0.035 264);
+  --primary: oklch(0.52 0.2 265);
+  --primary-foreground: oklch(0.99 0.003 260);
+  --secondary: oklch(0.955 0.02 265);
+  --secondary-foreground: oklch(0.38 0.13 265);
+  --muted: oklch(0.955 0.006 260);
+  --muted-foreground: oklch(0.52 0.02 262);
+  --accent: oklch(0.95 0.01 262);
+  --accent-foreground: oklch(0.21 0.035 264);
+  --destructive: oklch(0.58 0.21 25);
+  --border: oklch(0.915 0.008 260);
+  --input: oklch(0.88 0.012 260);
+  --ring: oklch(0.62 0.17 265);
 
-  --owe: oklch(0.55 0.15 38);
-  --owe-soft: oklch(0.955 0.03 45);
-  --owed: oklch(0.5 0.11 160);
-  --owed-soft: oklch(0.955 0.035 160);
+  --ink: oklch(0.24 0.075 268);
+  --ink-2: oklch(0.36 0.15 266);
+  --ink-foreground: oklch(0.985 0.004 260);
+  --ink-muted: oklch(0.8 0.035 265);
 
-  --personal: oklch(0.5 0.03 255);
-  --personal-soft: oklch(0.955 0.01 255);
-  --agreed: oklch(0.42 0.072 192);
-  --agreed-soft: oklch(0.95 0.025 192);
-  --waiting: oklch(0.6 0.13 75);
-  --waiting-soft: oklch(0.96 0.045 85);
+  --owe: oklch(0.6 0.19 30);
+  --owe-soft: oklch(0.96 0.03 30);
+  --owed: oklch(0.56 0.14 158);
+  --owed-soft: oklch(0.96 0.04 158);
 
-  --chart-1: oklch(0.42 0.072 192);
-  --chart-2: oklch(0.55 0.15 38);
-  --chart-3: oklch(0.5 0.11 160);
-  --chart-4: oklch(0.6 0.13 75);
-  --chart-5: oklch(0.5 0.03 255);
+  --personal: oklch(0.52 0.025 260);
+  --personal-soft: oklch(0.955 0.008 260);
+  --agreed: oklch(0.52 0.2 265);
+  --agreed-soft: oklch(0.95 0.03 265);
+  --waiting: oklch(0.68 0.15 65);
+  --waiting-soft: oklch(0.965 0.05 85);
 
-  --sidebar: oklch(0.975 0.006 85);
-  --sidebar-foreground: oklch(0.22 0.012 250);
-  --sidebar-primary: oklch(0.42 0.072 192);
-  --sidebar-primary-foreground: oklch(0.985 0.008 190);
-  --sidebar-accent: oklch(0.94 0.012 85);
-  --sidebar-accent-foreground: oklch(0.22 0.012 250);
-  --sidebar-border: oklch(0.905 0.008 85);
-  --sidebar-ring: oklch(0.6 0.07 192);
+  --chart-1: oklch(0.52 0.2 265);
+  --chart-2: oklch(0.6 0.19 30);
+  --chart-3: oklch(0.56 0.14 158);
+  --chart-4: oklch(0.68 0.15 65);
+  --chart-5: oklch(0.52 0.025 260);
+
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.21 0.035 264);
+  --sidebar-primary: oklch(0.52 0.2 265);
+  --sidebar-primary-foreground: oklch(0.99 0.003 260);
+  --sidebar-accent: oklch(0.955 0.012 262);
+  --sidebar-accent-foreground: oklch(0.21 0.035 264);
+  --sidebar-border: oklch(0.915 0.008 260);
+  --sidebar-ring: oklch(0.62 0.17 265);
+
+  --shadow-card: 0 1px 2px oklch(0.21 0.035 264 / 0.05), 0 6px 20px -8px oklch(0.21 0.035 264 / 0.1);
+  --shadow-raised: 0 2px 4px oklch(0.21 0.035 264 / 0.06), 0 18px 40px -16px oklch(0.24 0.075 268 / 0.35);
 }
 
 .dark {
-  --background: oklch(0.165 0.012 250);
-  --foreground: oklch(0.95 0.006 85);
-  --card: oklch(0.205 0.014 250);
-  --card-foreground: oklch(0.95 0.006 85);
-  --popover: oklch(0.225 0.014 250);
-  --popover-foreground: oklch(0.95 0.006 85);
-  --primary: oklch(0.78 0.09 190);
-  --primary-foreground: oklch(0.19 0.03 195);
-  --secondary: oklch(0.27 0.025 195);
-  --secondary-foreground: oklch(0.9 0.04 190);
-  --muted: oklch(0.25 0.014 250);
-  --muted-foreground: oklch(0.72 0.012 250);
-  --accent: oklch(0.275 0.016 250);
-  --accent-foreground: oklch(0.95 0.006 85);
+  --background: oklch(0.155 0.02 266);
+  --foreground: oklch(0.96 0.005 260);
+  --card: oklch(0.2 0.025 266);
+  --card-foreground: oklch(0.96 0.005 260);
+  --popover: oklch(0.22 0.027 266);
+  --popover-foreground: oklch(0.96 0.005 260);
+  --primary: oklch(0.7 0.15 265);
+  --primary-foreground: oklch(0.17 0.03 266);
+  --secondary: oklch(0.27 0.05 266);
+  --secondary-foreground: oklch(0.88 0.06 265);
+  --muted: oklch(0.24 0.022 266);
+  --muted-foreground: oklch(0.72 0.02 262);
+  --accent: oklch(0.26 0.025 266);
+  --accent-foreground: oklch(0.96 0.005 260);
   --destructive: oklch(0.7 0.18 24);
-  --border: oklch(1 0 0 / 11%);
-  --input: oklch(1 0 0 / 16%);
-  --ring: oklch(0.65 0.08 190);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.7 0.15 265);
 
-  --owe: oklch(0.76 0.13 45);
-  --owe-soft: oklch(0.3 0.05 40);
-  --owed: oklch(0.78 0.12 160);
-  --owed-soft: oklch(0.29 0.045 160);
+  --ink: oklch(0.28 0.09 268);
+  --ink-2: oklch(0.4 0.16 266);
+  --ink-foreground: oklch(0.985 0.004 260);
+  --ink-muted: oklch(0.82 0.04 265);
 
-  --personal: oklch(0.76 0.03 255);
-  --personal-soft: oklch(0.28 0.02 255);
-  --agreed: oklch(0.78 0.09 190);
-  --agreed-soft: oklch(0.29 0.04 192);
-  --waiting: oklch(0.82 0.13 85);
-  --waiting-soft: oklch(0.31 0.05 80);
+  --owe: oklch(0.74 0.15 30);
+  --owe-soft: oklch(0.3 0.06 30);
+  --owed: oklch(0.76 0.14 158);
+  --owed-soft: oklch(0.29 0.05 158);
 
-  --chart-1: oklch(0.78 0.09 190);
-  --chart-2: oklch(0.76 0.13 45);
-  --chart-3: oklch(0.78 0.12 160);
-  --chart-4: oklch(0.82 0.13 85);
-  --chart-5: oklch(0.76 0.03 255);
+  --personal: oklch(0.76 0.025 260);
+  --personal-soft: oklch(0.28 0.02 260);
+  --agreed: oklch(0.72 0.15 265);
+  --agreed-soft: oklch(0.3 0.07 265);
+  --waiting: oklch(0.82 0.14 80);
+  --waiting-soft: oklch(0.31 0.06 75);
 
-  --sidebar: oklch(0.19 0.013 250);
-  --sidebar-foreground: oklch(0.95 0.006 85);
-  --sidebar-primary: oklch(0.78 0.09 190);
-  --sidebar-primary-foreground: oklch(0.19 0.03 195);
-  --sidebar-accent: oklch(0.26 0.015 250);
-  --sidebar-accent-foreground: oklch(0.95 0.006 85);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.65 0.08 190);
+  --chart-1: oklch(0.72 0.15 265);
+  --chart-2: oklch(0.74 0.15 30);
+  --chart-3: oklch(0.76 0.14 158);
+  --chart-4: oklch(0.82 0.14 80);
+  --chart-5: oklch(0.76 0.025 260);
+
+  --sidebar: oklch(0.18 0.022 266);
+  --sidebar-foreground: oklch(0.96 0.005 260);
+  --sidebar-primary: oklch(0.7 0.15 265);
+  --sidebar-primary-foreground: oklch(0.17 0.03 266);
+  --sidebar-accent: oklch(0.25 0.025 266);
+  --sidebar-accent-foreground: oklch(0.96 0.005 260);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.7 0.15 265);
+
+  --shadow-card: 0 0 0 1px oklch(1 0 0 / 0.03), 0 8px 24px -12px oklch(0 0 0 / 0.6);
+  --shadow-raised: 0 0 0 1px oklch(1 0 0 / 0.05), 0 24px 48px -20px oklch(0 0 0 / 0.75);
 }
 
 @layer base {
@@ -189,6 +216,13 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "ss01", "cv11";
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
   }
 
   h1,
@@ -232,12 +266,41 @@
 
   .font-display {
     font-family: var(--font-heading);
-    font-optical-sizing: auto;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.025em;
   }
 
   /* Room for the bottom navigation and the home indicator on phones. */
   .pb-safe {
     padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
   }
+}
+
+/* A white surface with a soft lift: the basic card of the app. */
+@utility surface {
+  background-color: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 1.8);
+  box-shadow: var(--shadow-card);
+}
+
+/* The account card: the one dark, raised object on a page, for the figure that matters. */
+@utility account-card {
+  color: var(--ink-foreground);
+  border-radius: calc(var(--radius) * 2.2);
+  background:
+    radial-gradient(120% 90% at 100% 0%, color-mix(in oklch, var(--ink-2) 90%, transparent) 0%, transparent 60%),
+    radial-gradient(80% 70% at 0% 100%, color-mix(in oklch, var(--primary) 28%, transparent) 0%, transparent 70%),
+    linear-gradient(150deg, var(--ink) 0%, color-mix(in oklch, var(--ink) 70%, var(--ink-2)) 100%);
+  box-shadow: var(--shadow-raised);
+}
+
+/* The personal (one-sided) version of the account card: slate instead of indigo. */
+@utility account-card-personal {
+  color: var(--ink-foreground);
+  border-radius: calc(var(--radius) * 2.2);
+  background:
+    radial-gradient(120% 90% at 100% 0%, oklch(0.46 0.03 260 / 0.9) 0%, transparent 60%),
+    linear-gradient(150deg, oklch(0.27 0.02 262) 0%, oklch(0.33 0.025 260) 100%);
+  box-shadow: var(--shadow-raised);
 }

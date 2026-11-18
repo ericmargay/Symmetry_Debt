@@ -74,6 +74,21 @@
     "notConfigured": {
       "title": "El inicio de sesión aún no está activo",
       "text": "Este servidor todavía no tiene configurado el acceso con Google. Puedes recorrer la página y la demostración; entrar estará disponible en cuanto se configure."
+    },
+    "showcase": {
+      "label": "Cómo se ve Symmetry Debt",
+      "title": "Dos partes. Un acuerdo.",
+      "text": "Lleva tus deudas como lleva sus cuentas un banco: cada pago marcado por quien paga y validado por quien recibe.",
+      "concept": "Préstamo para la laptop",
+      "validated": "Validado por ambos",
+      "balance": "Saldo por pagar",
+      "paid": "$2,000.00 de $6,000.00 pagados",
+      "example": "Ejemplo con datos ficticios.",
+      "points": {
+        "free": "Gratis",
+        "private": "Privado",
+        "open": "Código abierto"
+      }
     }
   },
   "common": {
@@ -172,14 +187,14 @@
     "totals": {
       "iOwe": "Total que debo",
       "owedToMe": "Total que me deben",
-      "net": "Saldo neto",
+      "net": "Tu posición neta",
       "netPositive": "A tu favor",
       "netNegative": "En tu contra",
       "netZero": "En equilibrio",
       "netHint": "Lo que te deben menos lo que debes. Solo cuenta lo registrado por ti y lo confirmado por ambos.",
       "recorded": "Registros personales",
       "confirmed": "Confirmado por ambos",
-      "awaiting": "Pagos por confirmar",
+      "awaiting": "Pagos por validar",
       "awaitingHint": "Ya registrados, pero todavía no cuentan en el saldo.",
       "proposed": "En propuesta",
       "proposedHint": "Condiciones que la otra parte aún no acepta.",
@@ -196,7 +211,8 @@
     },
     "needsMe": {
       "title": "Esperan tu respuesta",
-      "empty": "No tienes nada por responder."
+      "empty": "No tienes nada por responder.",
+      "count": "{count, plural, one {# deuda espera algo de ti} other {# deudas esperan algo de ti}}"
     },
     "waiting": {
       "title": "Esperando a la otra parte"
@@ -221,7 +237,25 @@
       "action": "Registrar una deuda"
     },
     "duePay": "Debes pagar a {name}",
-    "dueCollect": "{name} debe pagarte"
+    "dueCollect": "{name} debe pagarte",
+    "subtitleShort": "Tu resumen de hoy",
+    "quick": {
+      "label": "Acciones rápidas",
+      "newDebt": "Nueva deuda",
+      "pay": "Registrar pago",
+      "people": "Personas",
+      "accounts": "Cuentas"
+    },
+    "dueOverdue": "Vencido",
+    "debtsList": {
+      "title": "Tus deudas activas",
+      "all": "Ver todas",
+      "empty": "No tienes deudas abiertas."
+    },
+    "day": {
+      "today": "Hoy",
+      "yesterday": "Ayer"
+    }
   },
   "debts": {
     "metaTitle": "Mis deudas",
@@ -229,7 +263,7 @@
     "subtitle": "Tus registros personales y tus acuerdos compartidos, cada uno con su nivel de confirmación.",
     "new": "Nueva deuda",
     "needsYou": "Espera tu respuesta",
-    "pendingMovements": "{count, plural, one {# por confirmar} other {# por confirmar}}",
+    "pendingMovements": "{count, plural, one {# por validar} other {# por validar}}",
     "nextDue": "Próximo pago:",
     "proposedAmount": "Importe propuesto",
     "empty": {
@@ -264,6 +298,10 @@
       "one_side": "Una parte lo registró; falta que la otra lo confirme.",
       "both_sides": "Las dos partes están de acuerdo.",
       "proposal": "Condiciones que todavía nadie más ha aceptado."
+    },
+    "groups": {
+      "iOwe": "Debo",
+      "owedToMe": "Me deben"
     }
   },
   "detail": {
@@ -277,8 +315,8 @@
       "recordedHint": "Saldo según tus propios registros. La otra persona no lo ha confirmado.",
       "confirmedHint": "Solo cuenta lo que ambas partes han confirmado.",
       "proposalHint": "Todavía no es un acuerdo: falta que ambas partes acepten las mismas condiciones.",
-      "pending": "Por confirmar",
-      "pendingHint": "Registrado por una de las partes. No cuenta en el saldo hasta que la otra lo confirme.",
+      "pending": "Por validar",
+      "pendingHint": "Lo marcó una de las partes. No cuenta en el saldo hasta que la otra lo valide.",
       "ifConfirmed": "Si todo se confirma, quedarían {amount}",
       "adjustments": "Ajustes: {amount}",
       "asOf": "Saldo acordado al {date}",
@@ -297,7 +335,11 @@
       "openDispute": "Marcar en disputa",
       "requestCancellation": "Cancelar acuerdo",
       "withdrawProposal": "Retirar propuesta",
-      "addComment": "Comentar"
+      "addComment": "Comentar",
+      "markPayment": "Marcar pago",
+      "invite": "Invitar a {name}",
+      "movements": "Movimientos",
+      "installments": "Cuotas"
     },
     "banner": {
       "settledTitle": "Deuda liquidada",
@@ -434,8 +476,8 @@
       "reversed": "Revertido",
       "reversalPending": "Reverso en espera",
       "reverses": "Revierte un pago anterior",
-      "waitingOther": "Esperando la confirmación de {name}",
-      "waitingYou": "Espera tu confirmación",
+      "waitingOther": "Esperando la validación de {name}",
+      "waitingYou": "Espera tu validación",
       "needsClarification": "{name} pidió una aclaración",
       "youAsked": "Pediste una aclaración",
       "answers": "Conversación",
@@ -446,9 +488,9 @@
         "CLARIFIED": "{by, select, me {Respondiste} other {{name} respondió}}",
         "WITHDRAWN": "{by, select, me {Lo retiraste} other {{name} lo retiró}}"
       },
-      "approve": "Confirmar",
-      "approveConfirmTitle": "Confirmar este movimiento",
-      "approveConfirm": "Al confirmar, {amount} contará en el saldo acordado. Una vez confirmado no se puede editar ni borrar: solo corregir con un reverso o un ajuste que ambos aprueben.",
+      "approve": "Validar",
+      "approveConfirmTitle": "Validar este pago",
+      "approveConfirm": "Al validarlo, {amount} contará como pagado para los dos. Una vez validado no se puede editar ni borrar: solo corregir con un reverso o un ajuste que ambos aprueben.",
       "reject": "Rechazar",
       "ask": "Pedir aclaración",
       "clarify": "Responder",
@@ -500,7 +542,19 @@
       "submitPersonal": "Guardar",
       "submitShared": "Registrar y pedir confirmación",
       "saved": "Movimiento guardado.",
-      "sent": "Registrado. Falta la confirmación de {name}."
+      "sent": "Marcado. Falta que {name} lo valide.",
+      "installmentTitle": "Marcar la cuota {number} como pagada",
+      "coverage": "¿Cuánto se pagó?",
+      "full": "Completa",
+      "partial": "Parcial",
+      "includesEarlier": "Incluye {count, plural, one {# cuota anterior pendiente} other {# cuotas anteriores pendientes}}: los pagos se aplican primero a la cuota más antigua.",
+      "moreDetails": "Agregar método, referencia o comprobante",
+      "submitInstallmentShared": "Marcar y pedir a {name} que valide",
+      "submitInstallmentPersonal": "Marcar como pagada",
+      "whatsapp": "Avisar por WhatsApp",
+      "whatsappInstallment": "Hola {name}, te marqué el pago de la cuota {number} ({amount}) en Symmetry Debt. ¿Me lo validas? {url}",
+      "whatsappPayment": "Hola {name}, registré un pago de {amount} en Symmetry Debt. ¿Me lo validas? {url}",
+      "appliesToOldest": "Se aplica primero a la cuota {number}, la más antigua pendiente."
     },
     "bank": {
       "title": "Datos para pagar",
@@ -549,6 +603,63 @@
       "cancelSharedTitle": "Cancelar el acuerdo",
       "cancelSharedActive": "Un acuerdo en vigor solo se cancela si ambas partes están de acuerdo. Se le pedirá a {name} que lo acepte.",
       "cancelSharedNegotiating": "Todavía no hay un acuerdo en vigor: la propuesta se cerrará."
+    },
+    "hero": {
+      "next": "Próximo pago",
+      "paidCount": "{paid} de {total} cuotas pagadas",
+      "role": {
+        "DEBTOR": "Le debes a {name}",
+        "CREDITOR": "{name} te debe"
+      }
+    },
+    "inviteCard": {
+      "title": "Valida cada pago con {name}",
+      "text": "Por ahora este registro es solo tuyo. Invita a {name}: cuando acepte, cada cuota que palomees le llegará para validarla, y los dos verán ✓✓ cuando quede confirmada.",
+      "cta": "Invitar a {name}"
+    },
+    "attention": {
+      "title": "{count, plural, one {Tienes # pago por validar} other {Tienes # pagos por validar}}",
+      "text": "{name} marcó pagos que esperan tu validación. Valídalos si los recibiste.",
+      "cta": "Ver cuotas"
+    },
+    "installments": {
+      "title": "Cuotas",
+      "subtitleShared": "Palomea cada cuota al pagarla; {name} la valida desde su lado.",
+      "subtitlePersonal": "Palomea cada cuota al pagarla. Es tu registro personal.",
+      "subtitleProposal": "Calendario propuesto: se activa cuando ambos acepten las condiciones.",
+      "number": "Cuota {number}",
+      "due": "Vence el",
+      "progress": "{paid} de {total} pagadas",
+      "mark": "Marcar la cuota {number} como pagada",
+      "markShort": "Marcar",
+      "state": {
+        "validated": "Pagada · validada por ambos",
+        "paidPersonal": "Pagada",
+        "waitingOther": "Marcaste {amount} · esperando a {name}",
+        "waitingMe": "{name} marcó {amount} · ¿lo recibiste?",
+        "partial": "Pagado {paid} de {total}",
+        "overdue": "Vencida",
+        "dueToday": "Vence hoy",
+        "upcoming": "Por pagar",
+        "waived": "Sin importe"
+      },
+      "validate": "Validar",
+      "validateTitle": "¿Recibiste este pago?",
+      "validateText": "Al validarlo, {amount} cuenta como pagado para los dos. Ya no se podrá editar; solo revertir de común acuerdo.",
+      "notReceived": "No lo recibí",
+      "notReceivedTitle": "No recibí este pago",
+      "notReceivedHint": "{name} verá tu respuesta. El pago no contará.",
+      "undo": "Deshacer",
+      "undoTitle": "Deshacer la marca",
+      "undoText": "La cuota vuelve a quedar por pagar y {name} ya no tendrá que validarla.",
+      "legend": {
+        "validated": "Validada por ambos",
+        "waiting": "Esperando validación",
+        "personal": "Pagada (registro personal)",
+        "open": "Por pagar",
+        "overdue": "Vencida"
+      },
+      "unscheduled": "Sin fecha en el calendario"
     }
   },
   "donate": {
@@ -603,7 +714,7 @@
     "stale": "Las condiciones cambiaron mientras las revisabas. Vuelve a leerlas antes de responder.",
     "invalid_state": "Esta acción ya no está disponible en el estado actual.",
     "exceeds_balance": "El importe supera lo que queda por pagar.",
-    "nothing_to_pay": "No queda nada por pagar (contando lo que está por confirmar).",
+    "nothing_to_pay": "No queda nada por pagar (contando lo que está por validar).",
     "reversal_target_invalid": "Ese movimiento no se puede revertir.",
     "reversal_already_exists": "Ya hay un reverso en curso para ese pago.",
     "reversal_amount_mismatch": "El reverso debe ser por el importe completo del pago.",
@@ -699,7 +810,18 @@
       "own": "Comparte el enlace con la otra persona para que pueda responder.",
       "goToDebt": "Ir al acuerdo",
       "goToApp": "Ir a mi panel"
-    }
+    },
+    "request": "Solicitud de acuerdo",
+    "amountLabel": "Importe del acuerdo",
+    "plan": "Plan de pagos",
+    "noSchedule": "Sin calendario: se paga como se acuerde",
+    "single": "Un solo pago el {date}",
+    "scheduleSummary": "{count, plural, one {# pago} other {# pagos}}, del {first} al {last}",
+    "each": "de",
+    "status": "Estado",
+    "proposerAccepted": "{name} ya aceptó",
+    "waitingYou": "Falta tu validación para que cuente para los dos.",
+    "details": "Detalle de las condiciones"
   },
   "labels": {
     "mode": {
@@ -728,9 +850,9 @@
     },
     "movementStatus": {
       "PERSONAL_RECORD": "Registro personal",
-      "PENDING": "Por confirmar",
+      "PENDING": "Por validar",
       "CLARIFICATION": "En aclaración",
-      "CONFIRMED": "Confirmado por ambos",
+      "CONFIRMED": "Validado por ambos",
       "REJECTED": "Rechazado",
       "WITHDRAWN": "Retirado"
     },
@@ -777,7 +899,7 @@
       "personalHint": "Lo anotaste tú. Nadie más lo ha confirmado.",
       "one_side": "Una parte",
       "one_sideHint": "Lo registró una de las partes. Falta la confirmación de la otra.",
-      "both_sides": "Confirmado por ambos",
+      "both_sides": "Validado por ambos",
       "both_sidesHint": "Las dos partes están de acuerdo.",
       "proposal": "Propuesta",
       "proposalHint": "Nadie más ha aceptado estas condiciones todavía.",
@@ -822,14 +944,14 @@
         "open": "Código abierto"
       },
       "visual": {
-        "label": "Ilustración con datos ficticios: un acuerdo compartido que Ana y Luis aceptaron, con su saldo confirmado y un pago por confirmar, junto a un registro personal que solo ve su dueña.",
+        "label": "Ilustración con datos ficticios: un acuerdo compartido que Ana y Luis aceptaron, con su saldo confirmado y un pago por validar, junto a un registro personal que solo ve su dueña.",
         "agreement": "Acuerdo compartido",
         "concept": "Préstamo para la laptop",
         "status": "Activa",
         "accepted": "Aceptó",
         "confirmedBalance": "Saldo confirmado",
         "progress": "{paid} de {total} confirmados",
-        "awaiting": "Por confirmar",
+        "awaiting": "Por validar",
         "personal": "Registro personal",
         "personalConcept": "Cena del viernes",
         "personalWho": "Le debes a Marta",
@@ -866,11 +988,11 @@
         "text": "Lo anotaste tú. Nadie más lo ha confirmado."
       },
       "waiting": {
-        "name": "Por confirmar",
+        "name": "Por validar",
         "text": "Una parte lo registró. Falta la respuesta de la otra."
       },
       "both": {
-        "name": "Confirmado por ambos",
+        "name": "Validado por ambos",
         "text": "Las dos partes están de acuerdo."
       },
       "none": {
@@ -895,8 +1017,8 @@
       "recordedBy": "Lo registró {name}",
       "status": {
         "personal": "Registro personal",
-        "pending": "Por confirmar",
-        "confirmed": "Confirmado por ambos",
+        "pending": "Por validar",
+        "confirmed": "Validado por ambos",
         "rejected": "Rechazado · no cuenta"
       },
       "personal": {
@@ -921,21 +1043,21 @@
         "balanceLabel": "Saldo confirmado",
         "balanceHint": "Solo cuenta lo que ambos confirmaron.",
         "paid": "{paid} confirmados por ambos",
-        "awaitingLabel": "Por confirmar",
+        "awaitingLabel": "Por validar",
         "awaitingHint": "No cuenta hasta que la otra parte responda.",
         "recordPaid": "Registrar un pago de {amount}",
         "recordReceived": "Registrar que recibí {amount}",
-        "confirm": "Confirmar",
+        "confirm": "Validar",
         "reject": "Rechazar",
-        "confirmLabel": "Confirmar el pago de {amount}",
+        "confirmLabel": "Validar el pago de {amount}",
         "rejectLabel": "Rechazar el pago de {amount}",
         "waitingFor": "Esperando la respuesta de {name}",
-        "noRoom": "No queda nada por pagar, contando lo que está por confirmar.",
+        "noRoom": "No queda nada por pagar, contando lo que está por validar.",
         "coach": {
           "start": "Registra un pago y fíjate en el saldo confirmado: todavía no va a cambiar.",
-          "ownPending": "Quedó por confirmar y el saldo confirmado no cambió. Cambia a {name} para responder.",
-          "theirPending": "Te toca: confirma o rechaza lo que registró {name}.",
-          "confirmed": "Confirmado por ambos: ahora sí bajó el saldo confirmado.",
+          "ownPending": "Quedó por validar y el saldo confirmado no cambió. Cambia a {name} para responder.",
+          "theirPending": "Te toca: valida o rechaza lo que registró {name}.",
+          "confirmed": "Validado por ambos: ahora sí bajó el saldo confirmado.",
           "rejected": "Rechazado: queda en el historial, pero no cuenta en el saldo.",
           "settled": "Liquidada: el saldo confirmado llegó a cero."
         }
@@ -1033,7 +1155,7 @@
           "text": "Quien paga o quien recibe, da igual."
         },
         "s2": {
-          "title": "Queda por confirmar",
+          "title": "Queda por validar",
           "text": "El saldo confirmado todavía no cambia."
         },
         "s3": {
@@ -1087,12 +1209,12 @@
         "text": "Un comprobante no confirma un pago por sí solo: en un acuerdo compartido, la otra parte igual tiene que confirmarlo."
       },
       "card": {
-        "label": "Ilustración con datos ficticios: un pago por confirmar con un comprobante en PDF adjunto.",
+        "label": "Ilustración con datos ficticios: un pago por validar con un comprobante en PDF adjunto.",
         "payment": "Transferencia",
         "file": "transferencia-marzo.pdf",
         "attached": "Comprobante adjunto",
-        "status": "Por confirmar",
-        "note": "El comprobante acompaña al pago. La confirmación la da la otra parte."
+        "status": "Por validar",
+        "note": "El comprobante acompaña al pago. La validación la da la otra parte."
       }
     },
     "security": {
@@ -1483,7 +1605,10 @@
         "version": "Versión {version}",
         "source": "Ver el código en GitHub",
         "supportTitle": "Apoyar el proyecto"
-      }
+      },
+      "index": "Secciones de configuración",
+      "on": "Activados",
+      "off": "Desactivados"
     }
   },
   "people": {

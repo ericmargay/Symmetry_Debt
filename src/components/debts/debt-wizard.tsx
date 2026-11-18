@@ -310,15 +310,17 @@ export function DebtWizard({
   // ── After a shared proposal was created: the share link ─────────────────────
   if (done) {
     return (
-      <div className="mx-auto max-w-xl rounded-2xl border border-border bg-card p-6 sm:p-8">
-        <span className="grid size-11 place-items-center rounded-full bg-agreed-soft text-agreed" aria-hidden>
-          <Check className="size-5" />
+      <div className="surface mx-auto max-w-xl p-6 text-center sm:p-9">
+        <span className="mx-auto grid size-16 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_12px_30px_-10px_var(--primary)]" aria-hidden>
+          <Check className="size-7" strokeWidth={3} />
         </span>
-        <h1 className="mt-4 font-display text-2xl font-semibold">{t("wizard.done.title")}</h1>
+        <h1 className="mt-5 font-display text-[1.6rem] font-extrabold tracking-tight">{t("wizard.done.title")}</h1>
         {done.inviteToken ? (
           <>
             <p className="mt-2 mb-5 text-sm leading-relaxed text-muted-foreground">{t("wizard.done.text", { name: done.name })}</p>
-            <ShareLinkPanel token={done.inviteToken} emailedTo={done.emailedTo} />
+            <div className="text-left">
+              <ShareLinkPanel token={done.inviteToken} emailedTo={done.emailedTo} />
+            </div>
           </>
         ) : (
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t("wizard.done.sentDirect", { name: done.name })}</p>
@@ -336,15 +338,24 @@ export function DebtWizard({
   return (
     <div className="mx-auto max-w-2xl">
       {/* Progress */}
-      <ol className="mb-6 flex items-center gap-2" aria-label={t("wizard.stepOf", { step: step + 1, total: STEPS.length })}>
+      <ol className="mb-7 flex items-start" aria-label={t("wizard.stepOf", { step: step + 1, total: STEPS.length })}>
         {STEPS.map((name, index) => (
-          <li key={name} className="flex flex-1 flex-col gap-1.5" aria-current={index === step ? "step" : undefined}>
-            <span className={cn("h-1 rounded-full", index <= step ? "bg-primary" : "bg-muted")} aria-hidden />
-            <span className={cn("hidden text-xs sm:block", index === step ? "font-medium text-foreground" : "text-muted-foreground")}>{t(`wizard.steps.${name}`)}</span>
+          <li key={name} className="relative flex flex-1 flex-col items-center gap-2" aria-current={index === step ? "step" : undefined}>
+            {index > 0 && <span className={cn("absolute top-4 right-1/2 h-0.5 w-full -translate-y-1/2", index <= step ? "bg-primary" : "bg-border")} aria-hidden />}
+            <span
+              className={cn(
+                "relative z-10 grid size-8 place-items-center rounded-full font-display text-sm font-extrabold transition-colors",
+                index < step ? "bg-primary text-primary-foreground" : index === step ? "bg-foreground text-background ring-4 ring-primary/20" : "bg-card text-muted-foreground ring-1 ring-border",
+              )}
+              aria-hidden
+            >
+              {index < step ? <Check className="size-4" strokeWidth={3} /> : index + 1}
+            </span>
+            <span className={cn("hidden text-center text-xs sm:block", index === step ? "font-bold text-foreground" : "font-medium text-muted-foreground")}>{t(`wizard.steps.${name}`)}</span>
           </li>
         ))}
       </ol>
-      <p className="mb-1 text-xs font-medium text-muted-foreground sm:hidden">{t("wizard.stepOf", { step: step + 1, total: STEPS.length })}</p>
+      <p className="mb-2 text-center text-xs font-semibold text-muted-foreground sm:hidden">{t("wizard.stepOf", { step: step + 1, total: STEPS.length })}</p>
 
       <form
         noValidate
@@ -353,12 +364,12 @@ export function DebtWizard({
           if (step < STEPS.length - 1) next();
           else submit(true);
         }}
-        className="rounded-2xl border border-border bg-card p-5 sm:p-7"
+        className="surface p-5 sm:p-8"
       >
         {/* ── Step 1: mode ─────────────────────────────────────────────────── */}
         {step === 0 && (
           <div>
-            <h1 ref={headingRef} tabIndex={-1} className="font-display text-2xl font-semibold outline-none">
+            <h1 ref={headingRef} tabIndex={-1} className="font-display text-[1.6rem] leading-tight font-extrabold tracking-tight outline-none">
               {t("wizard.mode.question")}
             </h1>
             <p className="mt-1.5 mb-5 text-sm text-muted-foreground">{t("wizard.mode.help")}</p>
@@ -372,7 +383,7 @@ export function DebtWizard({
                 const key = mode === "PERSONAL" ? "personal" : "shared";
                 return {
                   value: mode,
-                  icon: <SymmetryMark state={mode === "PERSONAL" ? "one" : "both"} className="size-7" />,
+                  icon: <SymmetryMark state={mode === "PERSONAL" ? "one" : "both"} className="size-6" />,
                   title: t(`wizard.mode.${key}.title`),
                   description: t(`wizard.mode.${key}.subtitle`),
                   extra: (
@@ -399,7 +410,7 @@ export function DebtWizard({
         {/* ── Step 2: who and how much ─────────────────────────────────────── */}
         {step === 1 && (
           <div className="flex flex-col gap-5">
-            <h1 ref={headingRef} tabIndex={-1} className="font-display text-2xl font-semibold outline-none">
+            <h1 ref={headingRef} tabIndex={-1} className="font-display text-[1.6rem] leading-tight font-extrabold tracking-tight outline-none">
               {t("wizard.steps.who")}
             </h1>
             <div>
@@ -451,7 +462,7 @@ export function DebtWizard({
                     <Input {...field} maxLength={80} autoComplete="off" placeholder={t("wizard.who.personNamePlaceholder")} value={values.personName} onChange={(event) => set("personName", event.target.value)} />
                   )}
                 </FormField>
-                <details className="group rounded-lg border border-dashed border-border px-3 py-2 text-sm open:pb-3">
+                <details className="group rounded-2xl border border-dashed border-input px-4 py-3 text-sm open:pb-4">
                   <summary className="cursor-pointer rounded text-muted-foreground outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring">{t("wizard.who.addContact")}</summary>
                   <div className="mt-3 grid gap-4 sm:grid-cols-2">
                     <FormField label={t("wizard.who.personEmail")} error={errors.personEmail}>
@@ -465,9 +476,9 @@ export function DebtWizard({
               </div>
             )}
 
-            <div className="grid gap-4 sm:grid-cols-[1fr_9rem]">
+            <div className="grid items-start gap-4 sm:grid-cols-[1fr_9rem]">
               <FormField label={t("wizard.who.amount")} error={errors.amount}>
-                {(field) => <AmountInput {...field} currency={values.currency} value={values.amount} onChange={(amount) => set("amount", amount)} placeholder="0.00" showPreview={!errors.amount} />}
+                {(field) => <AmountInput {...field} size="lg" currency={values.currency} value={values.amount} onChange={(amount) => set("amount", amount)} placeholder="0.00" showPreview={!errors.amount} />}
               </FormField>
               <FormField label={t("wizard.who.currency")}>
                 {(field) => (
@@ -493,7 +504,7 @@ export function DebtWizard({
         {/* ── Step 3: payment plan ─────────────────────────────────────────── */}
         {step === 2 && (
           <div className="flex flex-col gap-6">
-            <h1 ref={headingRef} tabIndex={-1} className="font-display text-2xl font-semibold outline-none">
+            <h1 ref={headingRef} tabIndex={-1} className="font-display text-[1.6rem] leading-tight font-extrabold tracking-tight outline-none">
               {t("wizard.steps.plan")}
             </h1>
             <ScheduleEditor
@@ -565,23 +576,23 @@ export function DebtWizard({
         {/* ── Step 4: details and review ───────────────────────────────────── */}
         {step === 3 && (
           <div className="flex flex-col gap-6">
-            <h1 ref={headingRef} tabIndex={-1} className="font-display text-2xl font-semibold outline-none">
+            <h1 ref={headingRef} tabIndex={-1} className="font-display text-[1.6rem] leading-tight font-extrabold tracking-tight outline-none">
               {t("wizard.steps.review")}
             </h1>
 
-            <section aria-labelledby="summary-title" className="rounded-xl border border-border bg-muted/40 p-4">
+            <section aria-labelledby="summary-title" className="rounded-2xl border border-dashed border-input bg-muted/50 p-5">
               <h2 id="summary-title" className="flex flex-wrap items-center gap-2 text-sm font-semibold">
                 <SymmetryMark state={isShared ? "none" : "one"} className={isShared ? "text-muted-foreground" : "text-personal"} />
                 {isShared ? t("wizard.review.summaryShared") : t("wizard.review.summaryPersonal")}
               </h2>
-              <dl className="mt-3 grid gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
+              <dl className="mt-4 grid gap-x-6 gap-y-3 text-sm sm:grid-cols-2">
                 <div>
                   <dt className="text-xs text-muted-foreground">{values.myRole === "DEBTOR" ? t("wizard.who.personOwe") : t("wizard.who.personOwed")}</dt>
                   <dd className="font-medium break-words">{counterpartyName}</dd>
                 </div>
                 <div>
                   <dt className="text-xs text-muted-foreground">{t("wizard.who.amount")}</dt>
-                  <dd className="font-medium">{totalMinor !== null && <Money minor={totalMinor} currency={values.currency} />}</dd>
+                  <dd className="font-display text-2xl font-extrabold tracking-tight">{totalMinor !== null && <Money minor={totalMinor} currency={values.currency} display />}</dd>
                 </div>
                 <div>
                   <dt className="text-xs text-muted-foreground">{t("wizard.who.concept")}</dt>
@@ -697,7 +708,7 @@ export function DebtWizard({
         )}
 
         {/* ── Navigation ───────────────────────────────────────────────────── */}
-        <div className="mt-7 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-5">
+        <div className="-mx-5 mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-border bg-card/95 px-5 pt-5 pb-1 max-sm:sticky max-sm:bottom-[calc(5.5rem+env(safe-area-inset-bottom))] max-sm:z-10 max-sm:pb-4 max-sm:backdrop-blur sm:mx-0 sm:px-0 sm:pb-0">
           {step > 0 ? (
             <Button type="button" variant="ghost" onClick={() => goTo(step - 1)} disabled={busy}>
               <ArrowLeft aria-hidden />

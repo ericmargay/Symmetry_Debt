@@ -136,7 +136,7 @@ export function ScheduleEditor({
       )}
 
       {(value.type === "WEEKLY" || value.type === "MONTHLY") && (
-        <div className="rounded-xl border border-border bg-muted/40 p-4">
+        <div className="rounded-2xl border border-border bg-muted/50 p-4">
           {totalMinor === null ? (
             <p className="text-sm text-muted-foreground">{t("wizard.plan.needAmount")}</p>
           ) : generated.length > 0 ? (

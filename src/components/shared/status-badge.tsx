@@ -14,7 +14,7 @@ const DEBT_STYLES: Record<DebtStatus, string> = {
   CONVERTED: "bg-muted text-muted-foreground",
 };
 
-const pill = "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium whitespace-nowrap";
+const pill = "inline-flex items-center rounded-full px-2.5 py-1 text-xs leading-none font-semibold whitespace-nowrap";
 
 export function DebtStatusBadge({ status, className }: { status: DebtStatus; className?: string }) {
   const t = useTranslations("labels.status");

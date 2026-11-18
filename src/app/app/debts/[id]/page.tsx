@@ -1,4 +1,4 @@
-import { ArrowDownLeft, ArrowUpRight, CircleCheck, Clock, FileStack, Flag, Info, Link2, PartyPopper, Share2, UserCheck } from "lucide-react";
+import { ArrowDownLeft, ArrowUpRight, BellRing, CalendarClock, CircleCheck, Clock, FileStack, Flag, History, Info, Link2, ListChecks, PartyPopper, TriangleAlert, UserCheck, UserPlus, Wallet } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -16,16 +16,19 @@ import {
   PrivateNoteEditor,
   SharedBankDetailsList,
 } from "@/components/debts/detail/debt-actions";
+import { InstallmentList } from "@/components/debts/detail/installments";
 import { MovementsSection } from "@/components/debts/detail/movements-section";
+import { MarkPaymentButton, PaymentLauncher } from "@/components/debts/detail/payment-launcher";
 import { ProposalCard } from "@/components/debts/detail/proposal-card";
-import { ScheduleTable } from "@/components/debts/detail/schedule-table";
 import { TermsSummary } from "@/components/debts/detail/terms-summary";
+import { SymmetryMark } from "@/components/brand/symmetry-mark";
 import { DateTimeText } from "@/components/shared/dates";
 import { EventText, eventNote, isEventType } from "@/components/shared/event-text";
 import { Money } from "@/components/shared/money";
 import { PageHeader, Section } from "@/components/shared/page-header";
 import { DebtStatusBadge } from "@/components/shared/status-badge";
 import { SupportHint } from "@/components/shared/support";
+import { DateText } from "@/components/shared/dates";
 import { WeightBadge, WeightMark, type Weight } from "@/components/shared/weight-badge";
 import { Button } from "@/components/ui/button";
 import { formatISODate, todayInTimeZone, toISODate } from "@/domain/dates";
@@ -59,14 +62,14 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 function Banner({ tone, icon, title, children, actions }: { tone: "info" | "waiting" | "success" | "danger" | "muted"; icon: React.ReactNode; title?: string; children?: React.ReactNode; actions?: React.ReactNode }) {
   const tones = {
-    info: "border-primary/30 bg-secondary/50",
+    info: "border-primary/25 bg-secondary/70",
     waiting: "border-waiting/40 bg-waiting-soft/60",
     success: "border-owed/30 bg-owed-soft/60",
     danger: "border-destructive/30 bg-destructive/5",
     muted: "border-border bg-muted/50",
   } as const;
   return (
-    <div className={cn("flex flex-col gap-3 rounded-2xl border p-4 sm:flex-row sm:items-center sm:justify-between", tones[tone])}>
+    <div className={cn("flex flex-col gap-3 rounded-2xl border p-4 shadow-[var(--shadow-card)] sm:flex-row sm:items-center sm:justify-between", tones[tone])}>
       <div className="flex min-w-0 gap-3">
         <span className="mt-0.5 shrink-0 [&_svg]:size-4">{icon}</span>
         <div className="min-w-0 text-sm leading-relaxed">
@@ -78,6 +81,11 @@ function Banner({ tone, icon, title, children, actions }: { tone: "info" | "wait
     </div>
   );
 }
+
+/** A round quick action on the account card, as banking apps lay them out. */
+const quickAction =
+  "group flex w-[4.75rem] flex-col items-center gap-1.5 rounded-2xl text-center text-xs leading-tight font-semibold text-ink-foreground outline-none focus-visible:ring-2 focus-visible:ring-white/70";
+const quickIcon = "grid size-12 place-items-center rounded-full bg-white/12 ring-1 ring-white/15 transition-colors group-hover:bg-white/22 [&_svg]:size-5";
 
 const TIMELINE_PREVIEW = 12;
 
@@ -109,9 +117,26 @@ export default async function DebtPage({ params, searchParams }: { params: Promi
   const timeline = view.timeline.filter((entry) => isEventType(entry.type));
   const visibleTimeline = showAllHistory ? timeline : timeline.slice(0, TIMELINE_PREVIEW);
   const adjustments = balance.increasesMinor - balance.decreasesMinor;
+  const ledger = view.ledger;
+  const nextOpen = view.termsAreProposal ? null : (ledger.find((row) => row.openMinor > 0n) ?? null);
+  const toValidate = view.movements.filter((movement) => movement.actions.includes("approve")).length;
+  const movementContext = {
+    debtId: view.id,
+    mode: view.mode,
+    currency,
+    counterpartyName: name,
+    today: todayInTimeZone(actor.timeZone),
+    originDate: view.terms.originDate,
+    roomMinor: roomMinor > 0n ? roomMinor : 0n,
+    destinations,
+    maxUploadMb: env().MAX_UPLOAD_MB,
+  };
 
   return (
-    <>
+    <PaymentLauncher
+      context={movementContext}
+      next={nextOpen ? { sequence: nextOpen.sequence, dueDate: nextOpen.dueDate, fullMinor: nextOpen.cumulativeOpenMinor, earlierOpen: 0, firstOpenSequence: nextOpen.sequence } : null}
+    >
       <PageHeader
         back={{ href: "/app/debts", label: t("detail.back") }}
         title={view.terms.concept}
@@ -126,17 +151,7 @@ export default async function DebtPage({ params, searchParams }: { params: Promi
           </span>
         }
         actions={
-          <>
-            {can.convert && (
-              <Button asChild variant="outline">
-                <Link href={`/app/debts/${view.id}/share`}>
-                  <Share2 aria-hidden />
-                  {t("detail.actions.convert")}
-                </Link>
-              </Button>
-            )}
-            <DebtMenu debtId={view.id} counterpartyName={name} can={can} negotiating={negotiating} />
-          </>
+          <DebtMenu debtId={view.id} counterpartyName={name} can={can} negotiating={negotiating} />
         }
       />
 
@@ -284,95 +299,191 @@ export default async function DebtPage({ params, searchParams }: { params: Promi
           </>
         )}
 
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_20rem]">
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_21rem]">
           <div className="flex min-w-0 flex-col gap-5">
-            {/* ── Balance ───────────────────────────────────────────────── */}
-            <section aria-labelledby="balance-title" className="rounded-2xl border border-border bg-card p-5 sm:p-6" data-testid="balance">
+            {/* ── The account card ───────────────────────────────────────── */}
+            <section
+              aria-labelledby="balance-title"
+              className={cn("relative isolate overflow-hidden p-6 sm:p-7", isPersonal || view.termsAreProposal ? "account-card-personal" : "account-card")}
+              data-testid="balance"
+            >
+              <SymmetryMark state={weight === "both_sides" ? "both" : weight === "proposal" ? "none" : "one"} className="pointer-events-none absolute -top-10 -right-10 -z-10 size-56 opacity-[0.09]" />
               <div className="flex flex-wrap items-start justify-between gap-3">
-                <div>
-                  <h2 id="balance-title" className="text-sm font-medium text-muted-foreground">
-                    {view.termsAreProposal ? t("detail.balance.proposedAmount") : view.status === "SETTLED" ? t("detail.balance.settled") : t("detail.balance.outstanding")}
-                  </h2>
-                  <p className={cn("mt-1.5 text-4xl leading-none font-semibold tracking-tight", view.termsAreProposal ? "text-foreground" : owes ? "text-owe" : "text-owed")} data-testid="outstanding">
-                    <Money minor={view.termsAreProposal ? BigInt(view.terms.principalMinor) : balance.outstandingMinor} currency={currency} />
-                  </p>
-                </div>
-                <WeightBadge
-                  weight={weight}
-                  label={view.termsAreProposal ? undefined : t(`labels.level.${balance.level}`)}
-                  className="text-[0.8rem]"
-                />
+                <h2 id="balance-title" className="text-sm font-semibold text-ink-muted">
+                  {view.termsAreProposal ? t("detail.balance.proposedAmount") : view.status === "SETTLED" ? t("detail.balance.settled") : t("detail.balance.outstanding")}
+                </h2>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/12 px-2.5 py-1 text-xs font-semibold ring-1 ring-white/15" title={t(`labels.weight.${weight}Hint`)}>
+                  <SymmetryMark state={weight === "both_sides" ? "both" : weight === "proposal" ? "none" : "one"} className="size-3.5" />
+                  {view.termsAreProposal ? t("labels.weight.proposal") : t(`labels.level.${balance.level}`)}
+                </span>
               </div>
+              <p className="mt-2 font-display text-[2.75rem] leading-none font-extrabold tracking-tight sm:text-[3.25rem]" data-testid="outstanding">
+                <Money minor={view.termsAreProposal ? BigInt(view.terms.principalMinor) : balance.outstandingMinor} currency={currency} display />
+              </p>
 
               {!view.termsAreProposal && (
                 <>
-                  <div className="mt-5 h-2 overflow-hidden rounded-full bg-muted" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={paidPercent} aria-label={t("detail.schedule.paid")}>
-                    <div className={cn("h-full rounded-full", isPersonal ? "bg-personal" : "bg-agreed")} style={{ width: `${paidPercent}%` }} />
+                  <div className="mt-5 h-2 overflow-hidden rounded-full bg-white/15" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={paidPercent} aria-label={t("detail.schedule.paid")}>
+                    <div className="h-full rounded-full bg-white" style={{ width: `${paidPercent}%` }} />
                   </div>
-                  <p className="tabular mt-2 text-sm text-muted-foreground">
+                  <p className="tabular mt-2 text-sm text-ink-muted">
                     {t("detail.balance.paidOf", { paid: money(balance.paidMinor), total: money(balance.totalOwedMinor) })}
                     {adjustments !== 0n && ` · ${t("detail.balance.adjustments", { amount: `${adjustments < 0n ? "−" : "+"}${money(adjustments < 0n ? -adjustments : adjustments)}` })}`}
                   </p>
                 </>
               )}
 
-              <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-                {view.termsAreProposal ? t("detail.balance.proposalHint") : isPersonal ? t("detail.balance.recordedHint") : t("detail.balance.confirmedHint")}
-              </p>
+              {(nextOpen || (progress.overdueMinor > 0n && (view.status === "ACTIVE" || view.status === "DISPUTED"))) && (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {nextOpen && (view.status === "ACTIVE" || view.status === "DISPUTED") && (
+                    <span className="inline-flex items-center gap-2 rounded-full bg-white/12 px-3 py-1.5 text-sm ring-1 ring-white/15">
+                      <CalendarClock className="size-4 text-ink-muted" aria-hidden />
+                      <span className="text-ink-muted">{t("detail.hero.next")}</span>
+                      <span className="font-semibold">
+                        <DateText iso={nextOpen.dueDate} /> · <Money minor={nextOpen.openMinor} currency={currency} />
+                      </span>
+                    </span>
+                  )}
+                  {progress.overdueMinor > 0n && (view.status === "ACTIVE" || view.status === "DISPUTED") && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-owe px-3 py-1.5 text-sm font-semibold text-white">
+                      <TriangleAlert className="size-4" aria-hidden />
+                      {t("detail.balance.overdue", { amount: money(progress.overdueMinor) })}
+                    </span>
+                  )}
+                </div>
+              )}
 
               {balance.pendingCount > 0 && (
-                <div className="mt-4 rounded-xl border border-dashed border-waiting/50 bg-waiting-soft/50 p-3" data-testid="pending-balance">
+                <div className="mt-4 rounded-2xl border border-dashed border-white/30 bg-white/8 p-3.5" data-testid="pending-balance">
                   <div className="flex items-center justify-between gap-3 text-sm">
-                    <span className="flex items-center gap-2 font-medium">
-                      <WeightMark weight="one_side" />
+                    <span className="flex items-center gap-2 font-semibold">
+                      <SymmetryMark state="waiting" className="size-4" />
                       {t("detail.balance.pending")}
                     </span>
-                    <Money minor={balance.pendingPaymentsMinor + balance.pendingDecreasesMinor + balance.pendingIncreasesMinor + balance.pendingReversalsMinor} currency={currency} className="font-semibold" />
+                    <Money minor={balance.pendingPaymentsMinor + balance.pendingDecreasesMinor + balance.pendingIncreasesMinor + balance.pendingReversalsMinor} currency={currency} className="font-bold" />
                   </div>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                    {t("detail.balance.pendingHint")}{" "}
-                    {t("detail.balance.ifConfirmed", { amount: money(balance.projectedOutstandingMinor) })}
+                  <p className="mt-1 text-xs leading-relaxed text-ink-muted">
+                    {t("detail.balance.pendingHint")} {t("detail.balance.ifConfirmed", { amount: money(balance.projectedOutstandingMinor) })}
                   </p>
                 </div>
               )}
 
-              {progress.overdueMinor > 0n && (view.status === "ACTIVE" || view.status === "DISPUTED") && (
-                <p className="mt-3 text-sm font-medium text-destructive">
-                  {t("detail.balance.overdue", { amount: money(progress.overdueMinor) })}
-                </p>
+              <p className="mt-4 text-xs leading-relaxed text-ink-muted">
+                {view.termsAreProposal ? t("detail.balance.proposalHint") : isPersonal ? t("detail.balance.recordedHint") : t("detail.balance.confirmedHint")}
+              </p>
+
+              {!view.termsAreProposal && (
+                <div className="mt-6 flex flex-wrap gap-x-2 gap-y-3 border-t border-white/12 pt-5">
+                  {can.recordPayment && (
+                    <MarkPaymentButton className={quickAction}>
+                      <span className={quickIcon}>
+                        <Wallet aria-hidden />
+                      </span>
+                      {t("detail.actions.markPayment")}
+                    </MarkPaymentButton>
+                  )}
+                  {can.convert && (
+                    <Link href={`/app/debts/${view.id}/share`} className={quickAction}>
+                      <span className={quickIcon}>
+                        <UserPlus aria-hidden />
+                      </span>
+                      {t("detail.actions.invite", { name })}
+                    </Link>
+                  )}
+                  {ledger.length > 0 && (
+                    <a href="#cuotas" className={quickAction}>
+                      <span className={quickIcon}>
+                        <ListChecks aria-hidden />
+                      </span>
+                      {t("detail.actions.installments")}
+                    </a>
+                  )}
+                  <a href="#movimientos" className={quickAction}>
+                    <span className={quickIcon}>
+                      <History aria-hidden />
+                    </span>
+                    {t("detail.actions.movements")}
+                  </a>
+                </div>
               )}
             </section>
 
-            {/* ── Schedule ──────────────────────────────────────────────── */}
-            {progress.rows.length > 0 && (
-              <Section
-                title={view.termsAreProposal ? t("detail.schedule.proposed") : t("detail.schedule.title")}
-                description={view.termsAreProposal ? undefined : isPersonal ? t("detail.schedule.basisRecorded") : t("detail.schedule.basisConfirmed")}
+            {/* ── Waiting for me ────────────────────────────────────────── */}
+            {toValidate > 0 && (
+              <Banner
+                tone="waiting"
+                icon={<BellRing className="text-waiting" aria-hidden />}
+                title={t("detail.attention.title", { count: toValidate })}
+                actions={
+                  <Button asChild size="sm">
+                    <a href={ledger.length > 0 ? "#cuotas" : "#movimientos"}>{t("detail.attention.cta")}</a>
+                  </Button>
+                }
               >
-                <ScheduleTable progress={progress} currency={currency} showProgress={!view.termsAreProposal} />
-              </Section>
+                <p>{t("detail.attention.text", { name })}</p>
+              </Banner>
+            )}
+
+            {/* ── A personal record can become an agreement ─────────────── */}
+            {isPersonal && can.convert && (
+              <section className="surface flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:p-6">
+                <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-secondary text-primary">
+                  <SymmetryMark state="both" className="size-8" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <h2 className="text-[1.05rem] font-bold">{t("detail.inviteCard.title", { name })}</h2>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{t("detail.inviteCard.text", { name })}</p>
+                </div>
+                <Button asChild className="shrink-0">
+                  <Link href={`/app/debts/${view.id}/share`}>
+                    <UserPlus aria-hidden />
+                    {t("detail.inviteCard.cta", { name })}
+                  </Link>
+                </Button>
+              </section>
+            )}
+
+            {/* ── Instalments: the checklist ────────────────────────────── */}
+            {ledger.length > 0 && (
+              <section id="cuotas" aria-labelledby="cuotas-title" className="surface scroll-mt-24 overflow-hidden pb-4">
+                <div className="px-4 pt-5 pb-4 sm:px-5 sm:pt-6">
+                  <h2 id="cuotas-title" className="text-[1.05rem] font-bold">
+                    {t("detail.installments.title")}
+                  </h2>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                    {view.termsAreProposal ? t("detail.installments.subtitleProposal") : isPersonal ? t("detail.installments.subtitlePersonal") : t("detail.installments.subtitleShared", { name })}
+                  </p>
+                </div>
+                <InstallmentList
+                  ledger={ledger}
+                  movements={view.movements}
+                  mode={view.mode}
+                  currency={currency}
+                  counterpartyName={name}
+                  canMark={can.recordPayment}
+                  proposal={view.termsAreProposal}
+                />
+                {progress.unscheduledMinor - progress.unscheduledPaidMinor > 0n && !view.termsAreProposal && (
+                  <p className="mt-3 flex justify-between gap-3 px-4 text-sm text-muted-foreground sm:px-5">
+                    <span>{t("detail.installments.unscheduled")}</span>
+                    <Money minor={progress.unscheduledMinor - progress.unscheduledPaidMinor} currency={currency} className="font-semibold text-foreground" />
+                  </p>
+                )}
+              </section>
             )}
 
             {/* ── Movements ─────────────────────────────────────────────── */}
             {!view.termsAreProposal && (
-              <MovementsSection
-                movements={view.movements}
-                timeZone={actor.timeZone}
-                canRecordPayment={can.recordPayment}
-                canRecordAdjustment={can.recordAdjustment}
-                canAttach={can.attach}
-                context={{
-                  debtId: view.id,
-                  mode: view.mode,
-                  currency,
-                  counterpartyName: name,
-                  today: todayInTimeZone(actor.timeZone),
-                  originDate: view.terms.originDate,
-                  roomMinor: roomMinor > 0n ? roomMinor : 0n,
-                  destinations,
-                  maxUploadMb: env().MAX_UPLOAD_MB,
-                }}
-              />
+              <div id="movimientos" className="scroll-mt-24">
+                <MovementsSection
+                  movements={view.movements}
+                  timeZone={actor.timeZone}
+                  canRecordPayment={can.recordPayment}
+                  canRecordAdjustment={can.recordAdjustment}
+                  canAttach={can.attach}
+                  context={movementContext}
+                />
+              </div>
             )}
 
             {/* ── History ───────────────────────────────────────────────── */}
@@ -499,6 +610,6 @@ export default async function DebtPage({ params, searchParams }: { params: Promi
           </div>
         </div>
       </div>
-    </>
+    </PaymentLauncher>
   );
 }

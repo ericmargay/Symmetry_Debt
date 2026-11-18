@@ -235,3 +235,48 @@ export function finalDueDate(installments: readonly InstallmentInput[]): ISODate
   }
   return latest;
 }
+
+/** A payment one side recorded and the other has not validated yet. */
+export interface PendingPayment {
+  id: string;
+  amountMinor: bigint;
+}
+
+export interface InstallmentLedgerRow extends InstallmentProgress {
+  /** The pending payments that would land on this instalment once validated, and how much of each. */
+  pending: Array<{ paymentId: string; amountMinor: bigint }>;
+  pendingMinor: bigint;
+  /** Still unpaid even if every pending payment is validated. */
+  openMinor: bigint;
+  /** Everything open up to and including this instalment: what "pay up to here" costs. */
+  cumulativeOpenMinor: bigint;
+}
+
+/**
+ * The schedule as a checklist: for each instalment, what is validated (paid), what is marked
+ * and waiting for the other side (pending), and what nobody has marked yet (open).
+ *
+ * Payments are applied oldest instalment first — the way a bank applies a loan payment — so a
+ * pending payment fills the first instalments that still have room after the counted ones.
+ * `pending` must be in the order the payments happened.
+ */
+export function installmentLedger(progress: ScheduleProgress, pending: readonly PendingPayment[]): InstallmentLedgerRow[] {
+  const queue = pending.map((payment) => ({ id: payment.id, left: payment.amountMinor > 0n ? payment.amountMinor : 0n }));
+  let cumulative = 0n;
+  return progress.rows.map((row) => {
+    let room = row.remainingMinor;
+    const parts: InstallmentLedgerRow["pending"] = [];
+    for (const payment of queue) {
+      if (room === 0n) break;
+      if (payment.left === 0n) continue;
+      const take = minBigInt(room, payment.left);
+      payment.left -= take;
+      room -= take;
+      parts.push({ paymentId: payment.id, amountMinor: take });
+    }
+    const pendingMinor = sumMinor(parts.map((part) => part.amountMinor));
+    const openMinor = row.remainingMinor - pendingMinor;
+    cumulative += openMinor;
+    return { ...row, pending: parts, pendingMinor, openMinor, cumulativeOpenMinor: cumulative };
+  });
+}

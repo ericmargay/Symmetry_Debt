@@ -47,7 +47,7 @@ export function OpenSource({ repoUrl }: { repoUrl: string }) {
           {POINTS.map(({ key, icon: Icon }) => (
             <li key={key} data-reveal className="landing-lift group rounded-3xl border border-border bg-card p-6">
               <Icon className="size-6 text-primary transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6" aria-hidden />
-              <h3 className="mt-4 font-display text-xl leading-snug font-medium">{t(`${key}.title`)}</h3>
+              <h3 className="mt-4 font-display text-xl leading-snug font-extrabold tracking-tight">{t(`${key}.title`)}</h3>
               <p className="mt-2 text-[0.95rem] leading-relaxed text-muted-foreground">{t(`${key}.text`)}</p>
             </li>
           ))}

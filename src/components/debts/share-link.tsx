@@ -31,13 +31,13 @@ export function ShareLinkPanel({ token, emailedTo }: { token: string; emailedTo?
         <Input readOnly value={origin ? url : ""} onFocus={(event) => event.currentTarget.select()} className="tabular font-mono text-xs" data-testid="share-link" />
       </label>
       <div className="flex flex-wrap gap-2">
-        <CopyButton value={url} label={t("copy")} variant="default" size="default" />
-        <Button asChild variant="outline">
+        <Button asChild>
           <a href={`https://wa.me/?text=${encodeURIComponent(message)}`} target="_blank" rel="noopener noreferrer">
             <MessageCircle aria-hidden />
             {t("whatsapp")}
           </a>
         </Button>
+        <CopyButton value={url} label={t("copy")} variant="outline" size="default" />
         <Button asChild variant="outline">
           <a href={`mailto:?subject=${encodeURIComponent(t("emailSubject"))}&body=${encodeURIComponent(message)}`}>
             <Mail aria-hidden />
@@ -52,7 +52,7 @@ export function ShareLinkPanel({ token, emailedTo }: { token: string; emailedTo?
         )}
       </div>
       {emailedTo && <p className="text-sm text-muted-foreground">{t("emailed", { email: emailedTo })}</p>}
-      <p className="flex gap-2 rounded-lg bg-waiting-soft px-3 py-2.5 text-xs leading-relaxed text-foreground/80">
+      <p className="flex gap-2 rounded-xl bg-waiting-soft px-3 py-2.5 text-xs leading-relaxed text-foreground/80">
         <ShieldAlert className="mt-0.5 size-3.5 shrink-0 text-waiting" aria-hidden />
         <span>
           {t("onceNotice")} {t("privacy")}

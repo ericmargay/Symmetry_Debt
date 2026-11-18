@@ -52,19 +52,19 @@ test("shared agreement: link, acceptance by both, and payments that count only w
   await recordPayment(luis, "1500", "Registrar y pedir confirmación");
   await expect(outstanding(luis)).toHaveText("$5,000.00");
   await expect(luis.getByTestId("pending-balance")).toContainText("$1,500.00");
-  await expect(luis.getByTestId("movement")).toContainText("Por confirmar");
+  await expect(luis.getByTestId("movement")).toContainText("Por validar");
   // Whoever recorded it cannot confirm it.
-  await expect(luis.getByTestId("movement").getByRole("button", { name: "Confirmar", exact: true })).toHaveCount(0);
+  await expect(luis.getByTestId("movement").getByRole("button", { name: "Validar", exact: true })).toHaveCount(0);
 
   // Ana is told, and confirms.
   await ana.page.goto(`${APP}/app/notifications`);
   await expect(ana.page.getByText(`${luisWho.name} registró un pago de $1,500.00`)).toBeVisible();
   await ana.page.goto(debtUrl);
   await expect(outstanding(ana.page)).toHaveText("$5,000.00");
-  await ana.page.getByTestId("movement").getByRole("button", { name: "Confirmar", exact: true }).click();
-  await ana.page.getByRole("alertdialog").getByRole("button", { name: "Confirmar", exact: true }).click();
+  await ana.page.getByTestId("movement").getByRole("button", { name: "Validar", exact: true }).click();
+  await ana.page.getByRole("alertdialog").getByRole("button", { name: "Validar", exact: true }).click();
   await expect(outstanding(ana.page)).toHaveText("$3,500.00");
-  await expect(ana.page.getByTestId("movement")).toContainText("Confirmado por ambos");
+  await expect(ana.page.getByTestId("movement")).toContainText("Validado por ambos");
   // A confirmed movement can no longer be edited or deleted — only reversed, with both agreeing.
   await expect(ana.page.getByTestId("movement").getByRole("button", { name: /Editar|Eliminar/ })).toHaveCount(0);
   await expect(ana.page.getByTestId("movement").getByRole("button", { name: "Proponer reverso" })).toBeVisible();
@@ -75,7 +75,7 @@ test("shared agreement: link, acceptance by both, and payments that count only w
   // Ana records a payment she says she received; Luis rejects it: it never counts.
   await recordPayment(ana.page, "900", "Registrar y pedir confirmación");
   await luis.reload();
-  const pending = luis.getByTestId("movement").filter({ hasText: "Espera tu confirmación" });
+  const pending = luis.getByTestId("movement").filter({ hasText: "Espera tu validación" });
   await pending.getByRole("button", { name: "Rechazar" }).click();
   await luis.getByRole("dialog").getByLabel("Motivo").fill("Ese pago no lo hice");
   await luis.getByRole("dialog").getByRole("button", { name: "Rechazar" }).click();
@@ -138,7 +138,7 @@ test("converting a personal record: the record stays intact, only what was chose
   await recordPayment(ana.page, "2000", "Guardar");
   await expect(outstanding(ana.page)).toHaveText("$7,000.00");
 
-  await ana.page.getByRole("link", { name: "Invitar a confirmar esta deuda" }).click();
+  await ana.page.getByRole("link", { name: "Invitar a Luis" }).first().click();
   await expect(ana.page.getByText(/Tu registro personal no cambia/)).toBeVisible();
   // Share the amount and only ONE of the two payments.
   const boxes = ana.page.locator("fieldset", { hasText: "Abonos a reconocer" }).getByRole("checkbox");
@@ -174,7 +174,7 @@ test("converting a personal record: the record stays intact, only what was chose
   await expect(ana.page.getByTestId("balance").getByText("Saldo confirmado")).toBeVisible();
   // Only the shared payment was recognised by both.
   await expect(ana.page.getByTestId("movement")).toHaveCount(1);
-  await expect(ana.page.getByTestId("movement")).toContainText("Confirmado por ambos");
+  await expect(ana.page.getByTestId("movement")).toContainText("Validado por ambos");
   expect(["$9,000.00", "$8,000.00"]).toContain(await outstanding(ana.page).innerText());
 
   // The personal record became a read-only archive with its whole private history.

@@ -882,3 +882,49 @@ describe("people who already share an agreement", () => {
     expect(await prisma.contact.count()).toBe(2);
   });
 });
+
+describe("the instalment checklist", () => {
+  it("shows, instalment by instalment, what one side marked and what both validated", async () => {
+    const { ana, luis, debtId } = await activeAgreement({
+      amount: "3000",
+      schedule: { type: "CUSTOM", installments: [1, 2, 3].map((sequence) => ({ sequence, dueDate: monthsAhead(sequence), amount: "1000" })) },
+    });
+
+    const marked = await recordMovement(luis, debtId, payment("1000"));
+    let anaView = await getDebtView(ana, debtId);
+    expect(anaView.ledger[0]).toMatchObject({ pendingMinor: 100000n, openMinor: 0n, pending: [{ paymentId: marked.paymentId, amountMinor: 100000n }] });
+    expect(anaView.ledger[1]).toMatchObject({ pendingMinor: 0n, openMinor: 100000n, cumulativeOpenMinor: 100000n });
+    expect(anaView.movements.find((movement) => movement.id === marked.paymentId)?.actions).toContain("approve");
+    // Nothing counts yet: the balance only moves once Ana validates.
+    expect(anaView.balance.outstandingMinor).toBe(300000n);
+
+    const luisView = await getDebtView(luis, debtId);
+    expect(luisView.ledger[0].pendingMinor).toBe(100000n);
+    expect(luisView.movements.find((movement) => movement.id === marked.paymentId)?.actions).toEqual(["withdraw"]);
+
+    await decideMovement(ana, marked.paymentId, "approve");
+    anaView = await getDebtView(ana, debtId);
+    expect(anaView.ledger[0]).toMatchObject({ state: "PAID", paidMinor: 100000n, pendingMinor: 0n, pending: [] });
+    expect(anaView.balance.outstandingMinor).toBe(200000n);
+
+    // A partial payment that is rejected never lands anywhere.
+    const partial = await recordMovement(luis, debtId, payment("400"));
+    await decideMovement(ana, partial.paymentId, "reject", "No llegó");
+    anaView = await getDebtView(ana, debtId);
+    expect(anaView.ledger[1]).toMatchObject({ paidMinor: 0n, pendingMinor: 0n, openMinor: 100000n });
+  });
+
+  it("personal records never wait: the ledger has nothing pending", async () => {
+    const owner = await createUser("Ana");
+    const { createPersonalDebt } = await import("@/server/services/personal");
+    const { debtId } = await createPersonalDebt(owner, {
+      mode: "PERSONAL", idempotencyKey: key(), myRole: "DEBTOR", counterparty: { kind: "new", name: "Marta", email: null, phone: null },
+      concept: "Cuotas", currency: "MXN", amount: "2000", originDate: daysAgo(5),
+      schedule: { type: "CUSTOM", installments: [1, 2].map((sequence) => ({ sequence, dueDate: monthsAhead(sequence), amount: "1000" })) },
+      plannedMethod: null, previousPayments: [], privateNotes: null, receivingAccountId: null,
+    });
+    await recordMovement(owner, debtId, payment("1000"));
+    const view = await getDebtView(owner, debtId);
+    expect(view.ledger.map((row) => [row.state, row.pendingMinor])).toEqual([["PAID", 0n], ["UPCOMING", 0n]]);
+  });
+});

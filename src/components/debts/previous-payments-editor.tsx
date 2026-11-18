@@ -41,7 +41,7 @@ export function PreviousPaymentsEditor({
       {value.length > 0 && (
         <ol className="flex flex-col gap-3">
           {value.map((payment, index) => (
-            <li key={index} className="grid gap-2 rounded-xl border border-border bg-muted/30 p-3 sm:grid-cols-[1fr_1fr_1fr_auto]">
+            <li key={index} className="grid gap-2 rounded-2xl border border-border bg-muted/50 p-3.5 sm:grid-cols-[1fr_1fr_1fr_auto]">
               <AmountInput
                 aria-label={t("wizard.review.previousAmount", { index: index + 1 })}
                 currency={currency}

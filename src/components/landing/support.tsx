@@ -45,7 +45,7 @@ export function Support({ links, repoUrl }: { links: DonationLink[]; repoUrl: st
               <span className="grid size-11 place-items-center rounded-full bg-owe-soft text-owe">
                 <Heart className="size-5" aria-hidden />
               </span>
-              <h2 id="support-title" className="mt-5 font-display text-[1.75rem] leading-tight font-medium sm:text-3xl">
+              <h2 id="support-title" className="mt-5 font-display text-[1.75rem] leading-tight font-extrabold tracking-tight sm:text-3xl">
                 {t("title")}
               </h2>
               <p className="mt-3 max-w-lg text-[0.95rem] leading-relaxed text-muted-foreground">{links.length > 0 ? t("text") : t("textFree")}</p>

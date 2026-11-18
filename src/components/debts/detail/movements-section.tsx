@@ -1,6 +1,21 @@
 "use client";
 
-import { ArrowDownRight, ArrowUpRight, Check, HelpCircle, MessageSquareReply, Pencil, Plus, Reply, RotateCcw, SlidersHorizontal, Trash2, Undo2, X } from "lucide-react";
+import {
+  ArrowDownRight,
+  ArrowUpRight,
+  Check,
+  ChevronDown,
+  HelpCircle,
+  MessageSquareReply,
+  Pencil,
+  Plus,
+  Reply,
+  RotateCcw,
+  SlidersHorizontal,
+  Trash2,
+  Undo2,
+  X,
+} from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { decideMovementAction, deleteMovementAction } from "@/actions/movements";
@@ -10,18 +25,19 @@ import { DateText, DateTimeText } from "@/components/shared/dates";
 import { ConfirmButton, ReasonButton } from "@/components/shared/dialogs";
 import { Money } from "@/components/shared/money";
 import { MovementStatusBadge } from "@/components/shared/status-badge";
-import { WeightMark, type Weight } from "@/components/shared/weight-badge";
+import { Ticks, type TickState } from "@/components/shared/ticks";
 import { Button } from "@/components/ui/button";
 import { formatMoney } from "@/domain/money";
 import { intlLocales, type Locale } from "@/i18n/config";
 import { cn } from "@/lib/utils";
 import type { MovementView } from "@/server/services/views";
 
-const WEIGHT: Partial<Record<MovementView["status"], Weight>> = {
+const TICKS: Partial<Record<MovementView["status"], TickState>> = {
   PERSONAL_RECORD: "personal",
-  PENDING: "one_side",
-  CLARIFICATION: "one_side",
-  CONFIRMED: "both_sides",
+  PENDING: "one",
+  CLARIFICATION: "one",
+  CONFIRMED: "both",
+  REJECTED: "rejected",
 };
 
 function Detail({ label, children }: { label: string; children: React.ReactNode }) {
@@ -55,9 +71,9 @@ export function MovementsSection({
   const [dialog, setDialog] = useState<{ kind: MovementFormKind; edit?: MovementToEdit; reversal?: { id: string; amountMinor: bigint } } | null>(null);
 
   return (
-    <section aria-labelledby="movements-title" className="rounded-2xl border border-border bg-card p-5 sm:p-6">
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <h2 id="movements-title" className="text-base font-semibold">
+    <section aria-labelledby="movements-title" className="surface p-5 sm:p-6">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+        <h2 id="movements-title" className="text-[1.05rem] font-bold">
           {t("detail.movements.title")}
         </h2>
         <div className="flex flex-wrap gap-2">
@@ -77,13 +93,22 @@ export function MovementsSection({
       </div>
 
       {movements.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-border px-4 py-8 text-center text-sm text-muted-foreground">{t("detail.movements.empty")}</p>
+        <p className="rounded-2xl bg-muted/60 px-4 py-8 text-center text-sm text-muted-foreground">{t("detail.movements.empty")}</p>
       ) : (
-        <ul className="flex flex-col gap-3">
+        <ul className="-mx-2 flex flex-col">
           {movements.map((movement) => {
             const reduces = movement.kind === "PAYMENT" || movement.kind === "ADJUSTMENT_DECREASE";
             const dimmed = movement.status === "REJECTED" || movement.status === "WITHDRAWN";
-            const weight = WEIGHT[movement.status];
+            const ticks = TICKS[movement.status];
+            const hasDetails = Boolean(
+              movement.method ||
+              movement.reference ||
+              movement.place ||
+              movement.bank?.originBank ||
+              movement.bank?.destinationLabel ||
+              movement.bank?.trackingKey ||
+              movement.notes,
+            );
             const amount = formatMoney(movement.amountMinor, context.currency, intlLocale);
             const waitingText =
               movement.status === "PENDING"
@@ -98,19 +123,37 @@ export function MovementsSection({
             const needsMe = movement.actions.includes("approve") || movement.actions.includes("clarify");
 
             return (
-              <li key={movement.id} className={cn("rounded-xl border p-4", needsMe ? "border-waiting/50 bg-waiting-soft/40" : "border-border", dimmed && "opacity-70")} data-testid="movement">
+              <li
+                key={movement.id}
+                className={cn("rounded-2xl px-2 py-3.5 [&+&]:border-t [&+&]:border-border", needsMe && "bg-waiting-soft/50 px-3", dimmed && "opacity-70")}
+                data-testid="movement"
+              >
                 <div className="flex items-start gap-3">
-                  <span className={cn("mt-0.5 grid size-9 shrink-0 place-items-center rounded-full", reduces ? "bg-owed-soft text-owed" : "bg-owe-soft text-owe")} aria-hidden>
-                    {movement.kind === "REVERSAL" ? <Undo2 className="size-4" /> : reduces ? <ArrowDownRight className="size-4" /> : <ArrowUpRight className="size-4" />}
+                  <span
+                    className={cn("mt-0.5 grid size-10 shrink-0 place-items-center rounded-full", reduces ? "bg-owed-soft text-owed" : "bg-owe-soft text-owe")}
+                    aria-hidden
+                  >
+                    {movement.kind === "REVERSAL" ? (
+                      <Undo2 className="size-4" />
+                    ) : reduces ? (
+                      <ArrowDownRight className="size-4" />
+                    ) : (
+                      <ArrowUpRight className="size-4" />
+                    )}
                   </span>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                      <p className="text-sm font-medium">{t(`labels.movementKind.${movement.kind}`)}</p>
-                      <Money minor={movement.amountMinor} currency={context.currency} sign={reduces ? "−" : "+"} className={cn("text-base font-semibold", dimmed && "line-through")} />
+                      <p className="font-semibold">{t(`labels.movementKind.${movement.kind}`)}</p>
+                      <Money
+                        minor={movement.amountMinor}
+                        currency={context.currency}
+                        sign={reduces ? "−" : "+"}
+                        className={cn("font-display text-[1.05rem] font-bold", dimmed && "line-through")}
+                      />
                     </div>
                     <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1.5">
                       <span className="inline-flex items-center gap-1.5">
-                        {weight && <WeightMark weight={weight} />}
+                        {ticks && <Ticks state={ticks} />}
                         <MovementStatusBadge status={movement.status} />
                       </span>
                       <span className="text-xs text-muted-foreground">
@@ -124,27 +167,35 @@ export function MovementsSection({
                     </div>
                     {waitingText && <p className="mt-2 text-sm font-medium text-waiting">{waitingText}</p>}
 
-                    <dl className="mt-3 grid gap-x-6 gap-y-2 sm:grid-cols-2">
-                      {movement.method && <Detail label={t("detail.movements.method")}>{t(`labels.method.${movement.method}`)}</Detail>}
-                      {movement.reference && <Detail label={t("detail.movements.reference")}>{movement.reference}</Detail>}
-                      {movement.place && <Detail label={t("detail.movements.place")}>{movement.place}</Detail>}
-                      {movement.bank?.originBank && <Detail label={t("detail.movements.originBank")}>{movement.bank.originBank}</Detail>}
-                      {movement.bank?.destinationLabel && <Detail label={t("detail.movements.destination")}>{movement.bank.destinationLabel}</Detail>}
-                      {movement.bank?.trackingKey && (
-                        <Detail label={t("detail.movements.trackingKey")}>
-                          <span className="font-mono text-xs">{movement.bank.trackingKey}</span>
-                        </Detail>
-                      )}
-                      {movement.notes && (
-                        <div className="sm:col-span-2">
-                          <Detail label={t("detail.movements.notes")}>
-                            <span className="whitespace-pre-line">{movement.notes}</span>
-                          </Detail>
-                        </div>
-                      )}
-                    </dl>
+                    {hasDetails && (
+                      <details className="group/details mt-2">
+                        <summary className="inline-flex cursor-pointer list-none items-center gap-1 rounded text-xs font-semibold text-muted-foreground outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
+                          {movement.method ? t(`labels.method.${movement.method}`) : t("detail.movements.notes")}
+                          <ChevronDown className="size-3.5 transition-transform group-open/details:rotate-180" aria-hidden />
+                        </summary>
+                        <dl className="mt-2 grid gap-x-6 gap-y-2 rounded-xl bg-muted/50 p-3 sm:grid-cols-2">
+                          {movement.method && <Detail label={t("detail.movements.method")}>{t(`labels.method.${movement.method}`)}</Detail>}
+                          {movement.reference && <Detail label={t("detail.movements.reference")}>{movement.reference}</Detail>}
+                          {movement.place && <Detail label={t("detail.movements.place")}>{movement.place}</Detail>}
+                          {movement.bank?.originBank && <Detail label={t("detail.movements.originBank")}>{movement.bank.originBank}</Detail>}
+                          {movement.bank?.destinationLabel && <Detail label={t("detail.movements.destination")}>{movement.bank.destinationLabel}</Detail>}
+                          {movement.bank?.trackingKey && (
+                            <Detail label={t("detail.movements.trackingKey")}>
+                              <span className="font-mono text-xs">{movement.bank.trackingKey}</span>
+                            </Detail>
+                          )}
+                          {movement.notes && (
+                            <div className="sm:col-span-2">
+                              <Detail label={t("detail.movements.notes")}>
+                                <span className="whitespace-pre-line">{movement.notes}</span>
+                              </Detail>
+                            </div>
+                          )}
+                        </dl>
+                      </details>
+                    )}
 
-                    <p className="mt-3 text-xs text-muted-foreground">
+                    <p className="mt-2 text-xs text-muted-foreground">
                       {movement.origin === "HISTORICAL"
                         ? t("detail.movements.historical")
                         : movement.recordedByMe
@@ -163,7 +214,10 @@ export function MovementsSection({
                           .map((approval, index) => (
                             <li key={index} className="text-sm">
                               <span className="font-medium">
-                                {t(`detail.movements.decision.${approval.decision as "APPROVED"}`, { by: approval.byMe ? "me" : "other", name: context.counterpartyName })}
+                                {t(`detail.movements.decision.${approval.decision as "APPROVED"}`, {
+                                  by: approval.byMe ? "me" : "other",
+                                  name: context.counterpartyName,
+                                })}
                               </span>
                               {approval.comment && <span className="mt-0.5 block text-muted-foreground">“{approval.comment}”</span>}
                             </li>
@@ -264,7 +318,12 @@ export function MovementsSection({
                         />
                       )}
                       {movement.canReverse && (
-                        <Button type="button" variant="ghost" size="sm" onClick={() => setDialog({ kind: "REVERSAL", reversal: { id: movement.id, amountMinor: movement.amountMinor } })}>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setDialog({ kind: "REVERSAL", reversal: { id: movement.id, amountMinor: movement.amountMinor } })}
+                        >
                           <RotateCcw aria-hidden />
                           {t("detail.movements.reverse")}
                         </Button>

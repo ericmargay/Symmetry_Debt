@@ -50,7 +50,7 @@ export function Product() {
 
       <div data-reveal className="mt-14 rounded-3xl border border-border bg-background p-6 sm:p-9">
         <div className="max-w-2xl">
-          <h3 className="font-display text-2xl leading-snug font-medium">{legend("title")}</h3>
+          <h3 className="font-display text-2xl leading-snug font-extrabold tracking-tight">{legend("title")}</h3>
           <p className="mt-2 leading-relaxed text-muted-foreground">{legend("lead")}</p>
         </div>
         <ul className="mt-8 grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">
@@ -90,12 +90,12 @@ function ModeCard({
     <article data-reveal className={cn("relative overflow-hidden rounded-3xl border border-border bg-background p-7 sm:p-9", className)}>
       <div aria-hidden className={cn("absolute inset-x-0 top-0 h-1", tone === "personal" ? "bg-personal" : "bg-agreed")} />
       <div className="flex items-start justify-between gap-4">
-        <p className={cn("text-xs font-semibold tracking-[0.18em] uppercase", tone === "personal" ? "text-personal" : "text-agreed")}>
+        <p className={cn("text-xs font-bold", tone === "personal" ? "text-personal" : "text-agreed")}>
           {kicker}
         </p>
         <SymmetryMark state={mark} className={cn("size-12", tone === "personal" ? "text-personal" : "text-agreed")} />
       </div>
-      <h3 className="mt-2 font-display text-[1.75rem] leading-tight font-medium">{title}</h3>
+      <h3 className="mt-2 font-display text-[1.75rem] leading-tight font-extrabold tracking-tight">{title}</h3>
       <p className="mt-3 leading-relaxed text-muted-foreground">{text}</p>
       <ul className="mt-6 space-y-2.5">
         {points.map((point) => (

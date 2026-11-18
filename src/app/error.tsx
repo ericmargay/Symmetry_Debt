@@ -13,8 +13,8 @@ export default function ErrorPage({ error, reset }: { error: Error & { digest?: 
 
   return (
     <main id="content" className="grid min-h-[70dvh] place-items-center px-6">
-      <div className="max-w-sm text-center">
-        <h1 className="font-display text-3xl font-semibold">{t("errors.page.errorTitle")}</h1>
+      <div className="surface max-w-sm px-8 py-10 text-center">
+        <h1 className="font-display text-2xl font-extrabold tracking-tight">{t("errors.page.errorTitle")}</h1>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{t("errors.page.errorText")}</p>
         <Button type="button" className="mt-6" onClick={reset}>
           {t("common.retry")}

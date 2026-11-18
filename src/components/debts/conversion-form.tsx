@@ -83,11 +83,11 @@ export function ConversionForm({
 
   if (done) {
     return (
-      <div className="mx-auto max-w-xl rounded-2xl border border-border bg-card p-6 sm:p-8">
+      <div className="surface mx-auto max-w-xl p-6 sm:p-9">
         <span className="grid size-11 place-items-center rounded-full bg-agreed-soft text-agreed" aria-hidden>
           <Check className="size-5" />
         </span>
-        <h2 className="mt-4 font-display text-2xl font-semibold">{t("convert.doneTitle")}</h2>
+        <h2 className="mt-4 font-display text-[1.6rem] font-extrabold tracking-tight">{t("convert.doneTitle")}</h2>
         {done.inviteToken ? (
           <>
             <p className="mt-2 mb-5 text-sm leading-relaxed text-muted-foreground">{t("convert.doneText", { name: counterpartyName })}</p>
@@ -114,7 +114,7 @@ export function ConversionForm({
   return (
     <form
       noValidate
-      className="mx-auto flex max-w-2xl flex-col gap-6 rounded-2xl border border-border bg-card p-5 sm:p-7"
+      className="surface mx-auto flex max-w-2xl flex-col gap-6 p-5 sm:p-8"
       onSubmit={(event) => {
         event.preventDefault();
         run(
@@ -159,7 +159,7 @@ export function ConversionForm({
           <legend className="text-sm font-semibold">{t("convert.payments")}</legend>
           <p className="mt-1 mb-3 text-xs leading-relaxed text-muted-foreground">{t("convert.paymentsHint", { name: counterpartyName })}</p>
           {payments.length === 0 ? (
-            <p className="rounded-lg bg-muted/50 px-3 py-2.5 text-sm text-muted-foreground">{t("convert.noPayments")}</p>
+            <p className="rounded-2xl bg-muted px-4 py-3 text-sm text-muted-foreground">{t("convert.noPayments")}</p>
           ) : (
             <>
               <div className="mb-2 flex gap-3 text-xs">
@@ -175,7 +175,7 @@ export function ConversionForm({
                   const checked = selected.includes(payment.id);
                   return (
                     <li key={payment.id}>
-                      <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-border px-3 py-2.5 text-sm has-checked:border-primary has-checked:bg-secondary/40 has-focus-visible:ring-2 has-focus-visible:ring-ring">
+                      <label className="flex cursor-pointer items-center gap-3 rounded-2xl border-2 border-border px-3.5 py-3 text-sm has-checked:border-primary has-checked:bg-secondary/40 has-focus-visible:ring-2 has-focus-visible:ring-ring">
                         <input
                           type="checkbox"
                           checked={checked}
@@ -198,7 +198,7 @@ export function ConversionForm({
         </fieldset>
       )}
 
-      <section aria-labelledby="preview-title" className="rounded-xl border border-dashed border-border p-4">
+      <section aria-labelledby="preview-title" className="rounded-2xl border border-dashed border-input bg-muted/50 p-5">
         <div className="mb-2 flex items-center justify-between gap-2">
           <h2 id="preview-title" className="text-sm font-semibold">
             {t("convert.preview", { name: counterpartyName })}
@@ -290,7 +290,7 @@ export function ConversionForm({
         </FormField>
       )}
 
-      <p className="rounded-lg bg-muted/50 px-3 py-2.5 text-xs leading-relaxed text-muted-foreground">{t("wizard.review.acceptNotice")}</p>
+      <p className="rounded-2xl bg-secondary px-4 py-3 text-xs leading-relaxed text-secondary-foreground">{t("wizard.review.acceptNotice")}</p>
 
       <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-5">
         <Button asChild variant="ghost">

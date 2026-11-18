@@ -36,15 +36,14 @@ export function Section({
 
 export function SectionHeading({
   id,
-  index,
   eyebrow,
   title,
   lead,
   className,
 }: {
   id: string;
-  /** Editorial numbering ("01"). Decorative. */
-  index: string;
+  /** Kept for callers; no longer shown (numbered eyebrows read as a template). */
+  index?: string;
   eyebrow: string;
   title: string;
   lead?: string;
@@ -52,14 +51,11 @@ export function SectionHeading({
 }) {
   return (
     <div data-reveal className={cn("max-w-2xl", className)}>
-      <p className="flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-primary uppercase">
-        <span aria-hidden className="tabular text-muted-foreground">
-          {index}
-        </span>
-        <span aria-hidden className="landing-bar h-px w-8 bg-primary/40" />
+      <p className="inline-flex items-center gap-2 rounded-full bg-secondary px-3 py-1 text-xs font-bold text-secondary-foreground">
+        <span aria-hidden className="size-1.5 rounded-full bg-primary" />
         {eyebrow}
       </p>
-      <h2 id={`${id}-title`} className="mt-5 font-display text-[2rem] leading-[1.08] font-medium sm:text-4xl lg:text-[2.75rem]">
+      <h2 id={`${id}-title`} className="mt-5 font-display text-[2rem] leading-[1.08] font-extrabold tracking-tight sm:text-4xl lg:text-[2.75rem]">
         {title}
       </h2>
       {lead && <p className="mt-5 text-lg leading-relaxed text-pretty text-muted-foreground">{lead}</p>}
@@ -71,7 +67,7 @@ export function SectionHeading({
 export function FeatureItem({ icon: Icon, title, text }: { icon: LucideIcon; title: string; text: string }) {
   return (
     <li data-reveal className="group flex gap-4">
-      <span className="mt-0.5 grid size-10 shrink-0 place-items-center rounded-xl bg-secondary text-secondary-foreground transition-[background-color,color,translate,rotate] duration-300 group-hover:-translate-y-0.5 group-hover:-rotate-3 group-hover:bg-agreed-soft group-hover:text-agreed">
+      <span className="mt-0.5 grid size-11 shrink-0 place-items-center rounded-2xl bg-secondary text-primary transition-[background-color,color,translate,rotate] duration-300 group-hover:-translate-y-0.5 group-hover:-rotate-3 group-hover:bg-agreed-soft group-hover:text-agreed">
         <Icon className="size-5" aria-hidden />
       </span>
       <div>

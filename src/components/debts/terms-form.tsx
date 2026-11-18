@@ -136,7 +136,7 @@ export function TermsForm({
   return (
     <form
       noValidate
-      className="mx-auto flex max-w-2xl flex-col gap-6 rounded-2xl border border-border bg-card p-5 sm:p-7"
+      className="surface mx-auto flex max-w-2xl flex-col gap-6 p-5 sm:p-8"
       onSubmit={(event) => {
         event.preventDefault();
         submit();
@@ -265,7 +265,7 @@ export function TermsForm({
         </FormField>
       )}
 
-      {!isPersonal && variant !== "draft" && <p className="rounded-lg bg-secondary/60 px-3 py-2.5 text-xs leading-relaxed text-secondary-foreground">{t("wizard.review.acceptNotice")}</p>}
+      {!isPersonal && variant !== "draft" && <p className="rounded-2xl bg-secondary px-4 py-3 text-xs leading-relaxed text-secondary-foreground">{t("wizard.review.acceptNotice")}</p>}
 
       <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-5">
         <Button asChild variant="ghost">

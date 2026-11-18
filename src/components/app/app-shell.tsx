@@ -55,17 +55,31 @@ function NavLink({ href, active, icon: Icon, children, onNavigate, badge }: { hr
       onClick={onNavigate}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "flex min-h-10 items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        active ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-muted-foreground hover:bg-sidebar-accent/60 hover:text-foreground",
+        "flex min-h-11 items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        active ? "bg-secondary text-secondary-foreground" : "text-muted-foreground hover:bg-muted hover:text-foreground",
       )}
     >
-      <Icon className={cn("size-4 shrink-0", active && "text-primary")} aria-hidden />
+      <Icon className={cn("size-[1.1rem] shrink-0", active && "text-primary")} aria-hidden />
       <span className="truncate">{children}</span>
       {badge ? (
-        <span className="ml-auto rounded-full bg-primary px-1.5 py-0.5 text-[0.65rem] leading-none font-semibold text-primary-foreground tabular">
-          {badge > 99 ? "99+" : badge}
-        </span>
+        <span className="ml-auto rounded-full bg-owe px-1.5 py-0.5 text-[0.65rem] leading-none font-bold text-white tabular">{badge > 99 ? "99+" : badge}</span>
       ) : null}
+    </Link>
+  );
+}
+
+/** A tab of the top bar (large screens). */
+function TopLink({ href, active, children }: { href: string; active: boolean; children: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      aria-current={active ? "page" : undefined}
+      className={cn(
+        "relative rounded-full px-3.5 py-2 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        active ? "bg-foreground text-background shadow-sm" : "text-muted-foreground hover:bg-muted hover:text-foreground",
+      )}
+    >
+      {children}
     </Link>
   );
 }
@@ -78,15 +92,14 @@ function UserMenu({ user, repoUrl, align = "end" }: { user: ShellUser; repoUrl: 
         <button
           type="button"
           aria-label={t("shell.userMenu")}
-          className="flex w-full items-center gap-3 rounded-lg p-1.5 text-left outline-none hover:bg-sidebar-accent/60 focus-visible:ring-2 focus-visible:ring-ring"
+          className="flex items-center gap-2 rounded-full p-0.5 text-left outline-none hover:ring-4 hover:ring-muted focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <Avatar className="size-8">
+          <Avatar className="size-9 ring-2 ring-card">
             {user.image && <AvatarImage src={user.image} alt="" referrerPolicy="no-referrer" />}
-            <AvatarFallback className="bg-secondary text-xs font-semibold text-secondary-foreground">{initials(user.name)}</AvatarFallback>
+            <AvatarFallback className="bg-primary text-xs font-bold text-primary-foreground">{initials(user.name)}</AvatarFallback>
           </Avatar>
-          <span className="hidden min-w-0 flex-1 lg:block">
-            <span className="block truncate text-sm font-medium">{user.name}</span>
-            <span className="block truncate text-xs text-muted-foreground">{user.email}</span>
+          <span className="sr-only">
+            {user.name} · {user.email}
           </span>
         </button>
       </DropdownMenuTrigger>
@@ -135,8 +148,9 @@ function UserMenu({ user, repoUrl, align = "end" }: { user: ShellUser; repoUrl: 
 }
 
 /**
- * Frame of the signed-in app: a sidebar on large screens; on phones a slim top bar plus a
- * bottom bar with the four places people go most and "new debt" in the middle.
+ * Frame of the signed-in app, laid out like a banking app: a top bar with the main places as
+ * tabs on large screens; on phones a slim top bar plus a floating bottom bar with the four
+ * places people go most and "new debt" in the middle.
  */
 export function AppShell({ user, unread, repoUrl, children }: { user: ShellUser; unread: number; repoUrl: string; children: React.ReactNode }) {
   const t = useTranslations();
@@ -148,76 +162,62 @@ export function AppShell({ user, unread, repoUrl, children }: { user: ShellUser;
     <Link
       href="/app/notifications"
       aria-label={unread > 0 ? t("nav.notificationsUnread", { count: unread }) : t("nav.notifications")}
-      className="relative grid size-10 place-items-center rounded-lg text-muted-foreground outline-none hover:bg-accent hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
+      aria-current={isActive("/app/notifications", false) ? "page" : undefined}
+      className="relative grid size-10 place-items-center rounded-full bg-card text-foreground shadow-[var(--shadow-card)] outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
     >
-      <Bell className="size-[1.15rem]" aria-hidden />
-      {unread > 0 && <span className="absolute top-2 right-2 size-2 rounded-full bg-owe ring-2 ring-background" aria-hidden />}
+      <Bell className="size-[1.1rem]" aria-hidden />
+      {unread > 0 && (
+        <span className="tabular absolute -top-1 -right-1 grid min-w-5 place-items-center rounded-full bg-owe px-1 text-[0.65rem] leading-5 font-bold text-white ring-2 ring-background" aria-hidden>
+          {unread > 9 ? "9+" : unread}
+        </span>
+      )}
     </Link>
   );
 
   return (
-    <div className="min-h-dvh lg:pl-64">
-      {/* Sidebar (large screens) */}
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-sidebar-border bg-sidebar lg:flex">
-        <div className="flex h-16 items-center px-5">
-          <Link href="/app" className="rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring">
+    <div className="min-h-dvh">
+      <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-4 px-4 sm:px-6 lg:px-8">
+          <Link href="/app" className="shrink-0 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring">
             <Logo />
           </Link>
-        </div>
-        <div className="px-3 pb-3">
-          <Button asChild className="w-full justify-center">
-            <Link href="/app/debts/new">
-              <Plus aria-hidden />
-              {t("shell.newDebt")}
-            </Link>
-          </Button>
-        </div>
-        <nav aria-label={t("nav.primary")} className="flex flex-1 flex-col gap-0.5 overflow-y-auto px-3">
-          {PRIMARY.map((item) => (
-            <NavLink key={item.href} href={item.href} icon={item.icon} active={isActive(item.href, item.exact)}>
-              {t(`nav.${item.key}`)}
-            </NavLink>
-          ))}
-          <NavLink href="/app/notifications" icon={Bell} active={isActive("/app/notifications", false)} badge={unread}>
-            {t("nav.notifications")}
-          </NavLink>
-          <NavLink href="/app/settings" icon={Settings} active={isActive("/app/settings", false)}>
-            {t("nav.settings")}
-          </NavLink>
-        </nav>
-        <div className="border-t border-sidebar-border p-3">
-          <SupportTrigger className="mb-2 min-h-9 w-full px-3" />
-          <UserMenu user={user} repoUrl={repoUrl} align="start" />
-        </div>
-      </aside>
-
-      {/* Top bar (phones and tablets) */}
-      <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-border bg-background/90 px-3 backdrop-blur lg:hidden">
-        <Link href="/app" className="rounded-md px-1 outline-none focus-visible:ring-2 focus-visible:ring-ring">
-          <Logo />
-        </Link>
-        <div className="flex items-center gap-1">
-          {bell}
-          <div className="w-11">
+          <nav aria-label={t("nav.primary")} className="ml-4 hidden items-center gap-1 lg:flex">
+            {PRIMARY.map((item) => (
+              <TopLink key={item.href} href={item.href} active={isActive(item.href, item.exact)}>
+                {t(`nav.${item.key}`)}
+              </TopLink>
+            ))}
+          </nav>
+          <div className="ml-auto flex items-center gap-2.5">
+            <Button asChild size="sm" className="hidden lg:inline-flex">
+              <Link href="/app/debts/new">
+                <Plus aria-hidden />
+                {t("shell.newDebt")}
+              </Link>
+            </Button>
+            {bell}
             <UserMenu user={user} repoUrl={repoUrl} />
           </div>
         </div>
       </header>
 
-      <main id="content" className="mx-auto w-full max-w-5xl px-4 pt-6 pb-28 sm:px-6 lg:px-10 lg:pt-10 lg:pb-16">
+      <main id="content" className="mx-auto w-full max-w-6xl px-4 pt-6 pb-32 sm:px-6 lg:px-8 lg:pt-10 lg:pb-16">
         {children}
-        <footer className="mt-16 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border pt-5 text-xs text-muted-foreground">
+        <footer className="mt-20 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-border pt-5 text-xs text-muted-foreground">
           <span>{t("shell.footerNote")}</span>
           <a href={repoUrl} target="_blank" rel="noopener noreferrer" className="rounded underline-offset-2 outline-none hover:text-foreground hover:underline focus-visible:ring-2 focus-visible:ring-ring">
             {t("footer.source")}
           </a>
-          <SupportTrigger>{t("footer.support")}</SupportTrigger>
+          <Link href="/app/settings" className="rounded underline-offset-2 outline-none hover:text-foreground hover:underline focus-visible:ring-2 focus-visible:ring-ring">
+            {t("nav.settings")}
+          </Link>
+          <SupportTrigger />
         </footer>
       </main>
 
       {/* Bottom bar (phones and tablets) */}
-      <nav aria-label={t("nav.primary")} className="pb-safe fixed inset-x-0 bottom-0 z-30 border-t border-border bg-background/95 backdrop-blur lg:hidden">
-        <ul className="mx-auto grid max-w-md grid-cols-5 items-end px-1 pt-1">
+      <nav aria-label={t("nav.primary")} className="pb-safe fixed inset-x-0 bottom-0 z-30 px-3 lg:hidden">
+        <ul className="mx-auto mb-1 grid max-w-md grid-cols-5 items-center rounded-[1.75rem] border border-border/70 bg-card/90 px-1.5 py-1.5 shadow-[var(--shadow-raised)] backdrop-blur-xl">
           {[PRIMARY[0], PRIMARY[1]].map((item) => (
             <li key={item.href}>
               <BottomLink href={item.href} icon={item.icon} active={isActive(item.href, item.exact)} label={t(`nav.${item.key}`)} />
@@ -227,9 +227,9 @@ export function AppShell({ user, unread, repoUrl, children }: { user: ShellUser;
             <Link
               href="/app/debts/new"
               aria-label={t("shell.newDebt")}
-              className="-mt-4 grid size-12 place-items-center rounded-full bg-primary text-primary-foreground shadow-md outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="grid size-[3.25rem] place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_8px_20px_-6px_var(--primary)] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
-              <Plus className="size-5" aria-hidden />
+              <Plus className="size-6" aria-hidden />
             </Link>
           </li>
           <li>
@@ -240,7 +240,7 @@ export function AppShell({ user, unread, repoUrl, children }: { user: ShellUser;
               type="button"
               onClick={() => setMenuOpen(true)}
               aria-haspopup="dialog"
-              className="flex w-full flex-col items-center gap-0.5 rounded-lg px-1 py-1.5 text-[0.68rem] font-medium text-muted-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="flex w-full flex-col items-center gap-0.5 rounded-2xl px-1 py-1.5 text-[0.68rem] font-semibold text-muted-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <Menu className="size-5" aria-hidden />
               {t("nav.menu")}
@@ -250,7 +250,7 @@ export function AppShell({ user, unread, repoUrl, children }: { user: ShellUser;
       </nav>
 
       <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
-        <SheetContent side="bottom" className="rounded-t-2xl pb-safe">
+        <SheetContent side="bottom" className="rounded-t-3xl pb-safe">
           <SheetHeader>
             <SheetTitle>{t("nav.menu")}</SheetTitle>
             <SheetDescription className="truncate">{t("shell.signedInAs", { email: user.email })}</SheetDescription>
@@ -283,7 +283,7 @@ function BottomLink({ href, icon: Icon, active, label }: { href: string; icon: t
       href={href}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "flex flex-col items-center gap-0.5 rounded-lg px-1 py-1.5 text-[0.68rem] font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "flex flex-col items-center gap-0.5 rounded-2xl px-1 py-1.5 text-[0.68rem] font-semibold outline-none focus-visible:ring-2 focus-visible:ring-ring",
         active ? "text-primary" : "text-muted-foreground",
       )}
     >

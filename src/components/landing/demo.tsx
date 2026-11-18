@@ -168,7 +168,7 @@ export function Demo() {
       <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
         {/* Balance and actions */}
         <div className="border-border p-5 sm:p-7 lg:border-r">
-          <p className="font-display text-2xl leading-tight font-medium">{t("concept")}</p>
+          <p className="font-display text-2xl leading-tight font-extrabold tracking-tight">{t("concept")}</p>
           <p className="tabular mt-1 text-sm text-muted-foreground">{t("summary", { total: money(TOTAL) })}</p>
           <p className="mt-4 text-[0.95rem] leading-relaxed text-muted-foreground">
             {isPersonal ? t("personal.intro") : t("shared.intro")}
@@ -176,7 +176,7 @@ export function Demo() {
 
           {!isPersonal && (
             <div className="mt-5">
-              <p id="demo-view-as" className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+              <p id="demo-view-as" className="text-xs font-semibold text-muted-foreground">
                 {t("shared.viewAs")}
               </p>
               <div role="group" aria-labelledby="demo-view-as" className="mt-2 grid grid-cols-2 gap-2">
@@ -205,7 +205,7 @@ export function Demo() {
               <SymmetryMark state={isPersonal ? "one" : "both"} className="size-4" />
               {isPersonal ? t("personal.balanceLabel") : t("shared.balanceLabel")}
             </p>
-            <p className="tabular mt-2 font-display text-4xl leading-none font-medium sm:text-[2.75rem]" data-testid="demo-balance">
+            <p className="tabular mt-2 font-display text-4xl leading-none font-extrabold tracking-tight sm:text-[2.75rem]" data-testid="demo-balance">
               {money(outstanding)}
             </p>
             <p className="mt-2 text-xs text-muted-foreground">{isPersonal ? t("personal.balanceHint") : t("shared.balanceHint")}</p>
@@ -252,7 +252,7 @@ export function Demo() {
 
         {/* Movements */}
         <div className="border-t border-border p-5 sm:p-7 lg:border-t-0">
-          <h3 className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">{t("movements")}</h3>
+          <h3 className="text-xs font-semibold text-muted-foreground">{t("movements")}</h3>
           {movements.length === 0 ? (
             <p className="mt-4 text-sm text-muted-foreground">{t("empty")}</p>
           ) : (

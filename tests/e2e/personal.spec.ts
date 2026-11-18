@@ -12,16 +12,19 @@ test("personal tracking: record, pay in parts, settle — with nobody else invol
   // It is a personal record and says so; nothing suggests the other person confirmed anything.
   await expect(page.getByTestId("balance").getByText("Saldo registrado")).toBeVisible();
   await expect(page.getByText("Saldo según tus propios registros. La otra persona no lo ha confirmado.")).toBeVisible();
-  await expect(page.getByText("Confirmado por ambos")).toHaveCount(0);
-  await expect(page.getByText("Próxima")).toHaveCount(3);
+  await expect(page.getByText(/(Confirmado|Validado) por ambos/)).toHaveCount(0);
+  const installments = page.getByTestId("installment");
+  await expect(installments.filter({ hasText: "Por pagar" })).toHaveCount(3);
 
   // A partial payment changes the balance at once.
   await recordPayment(page, "1,250.50", "Guardar");
   await expect(outstanding(page)).toHaveText("$1,749.50");
   await expect(page.getByTestId("movement")).toHaveCount(1);
   await expect(page.getByTestId("movement").getByText("Registro personal")).toBeVisible();
-  await expect(page.getByText("Pagada")).toHaveCount(1);
-  await expect(page.getByText("Pago parcial")).toHaveCount(1);
+  // Applied oldest first: the first instalment is paid and the second partly.
+  await expect(installments.nth(0)).toContainText("Pagada");
+  await expect(installments.nth(1)).toContainText("Pagado $250.50 de $1,000.00");
+  await expect(installments.filter({ hasText: "Por pagar" })).toHaveCount(1);
 
   // More than what is left is refused, in the form.
   await page.getByRole("button", { name: "Registrar pago" }).click();
@@ -58,6 +61,8 @@ test("cash and transfer payments keep their own details", async ({ page }) => {
   await page.getByLabel("Método utilizado").selectOption("CASH");
   await page.getByLabel("Lugar de entrega").fill("En la oficina");
   await page.getByRole("button", { name: "Guardar", exact: true }).click();
+  // The details of a payment fold under its method, like a line on a bank statement.
+  await page.getByTestId("movement").locator("summary", { hasText: "Efectivo" }).click();
   await expect(page.getByText("En la oficina")).toBeVisible();
 
   await page.getByRole("button", { name: "Registrar pago" }).click();

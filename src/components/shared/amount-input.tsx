@@ -18,12 +18,15 @@ export function AmountInput({
   currency,
   className,
   showPreview = true,
+  size = "default",
   ...props
-}: Omit<React.ComponentProps<"input">, "value" | "onChange" | "type"> & {
+}: Omit<React.ComponentProps<"input">, "value" | "onChange" | "type" | "size"> & {
   value: string;
   onChange: (value: string) => void;
   currency: string;
   showPreview?: boolean;
+  /** "lg": the amount as the hero of the step, like a transfer screen. */
+  size?: "default" | "lg";
 }) {
   const locale = useLocale() as Locale;
   const t = useTranslations("validation");
@@ -39,9 +42,9 @@ export function AmountInput({
           autoComplete="off"
           value={value}
           onChange={(event) => onChange(event.target.value)}
-          className="tabular pr-14"
+          className={cn("tabular pr-14", size === "lg" && "h-16 rounded-2xl pl-4 font-display text-[1.75rem] font-extrabold tracking-tight md:text-[1.75rem]")}
         />
-        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs font-medium text-muted-foreground" aria-hidden>
+        <span className={cn("pointer-events-none absolute inset-y-0 right-3 flex items-center font-semibold text-muted-foreground", size === "lg" ? "right-4 text-sm" : "text-xs")} aria-hidden>
           {currency}
         </span>
       </div>

@@ -27,7 +27,7 @@ export function LandingFooter({ repoUrl }: { repoUrl: string }) {
 
           <nav aria-label={t("footer.navLabel")} className="contents">
             <div>
-              <h2 className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">{t("footer.sections")}</h2>
+              <h2 className="text-xs font-semibold text-muted-foreground">{t("footer.sections")}</h2>
               <ul className="mt-3 text-sm">
                 {LANDING_ANCHORS.map((item) => (
                   <li key={item.key}>
@@ -40,7 +40,7 @@ export function LandingFooter({ repoUrl }: { repoUrl: string }) {
             </div>
 
             <div>
-              <h2 className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">{t("footer.project")}</h2>
+              <h2 className="text-xs font-semibold text-muted-foreground">{t("footer.project")}</h2>
               <ul className="mt-3 text-sm">
                 <li>
                   <a href={repoUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
@@ -59,7 +59,7 @@ export function LandingFooter({ repoUrl }: { repoUrl: string }) {
           </nav>
 
           <div>
-            <h2 className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">{t("footer.preferences")}</h2>
+            <h2 className="text-xs font-semibold text-muted-foreground">{t("footer.preferences")}</h2>
             {/* Full-size touch targets on phones; the compact controls from sm up. */}
             <div className="mt-4 flex flex-wrap items-center gap-2">
               <LanguageSwitch className="max-sm:[&_button]:min-h-10 max-sm:[&_button]:min-w-10" />

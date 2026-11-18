@@ -10,6 +10,7 @@ import {
   allocatePayments,
   finalDueDate,
   generateSchedule,
+  installmentLedger,
   normalizeSchedule,
   validateSchedule,
   type InstallmentInput,
@@ -280,5 +281,53 @@ describe("movement rules", () => {
     expect(checkConfirmation(balance, { kind: "PAYMENT", amountMinor: 500n })).toBeNull();
     expect(checkConfirmation(balance, { kind: "PAYMENT", amountMinor: 501n })).toBe("exceeds_balance");
     expect(checkConfirmation(balance, { kind: "ADJUSTMENT_INCREASE", amountMinor: 99999n })).toBeNull();
+  });
+});
+
+describe("installmentLedger", () => {
+  const schedule = [
+    { sequence: 1, dueDate: "2026-10-16", amountMinor: 293300n },
+    { sequence: 2, dueDate: "2026-11-16", amountMinor: 293300n },
+    { sequence: 3, dueDate: "2026-12-16", amountMinor: 293300n },
+  ];
+  const progress = (paidMinor: bigint) => allocatePayments(schedule, { totalOwedMinor: 879900n, paidMinor, today: "2026-11-20" });
+
+  it("without pending payments, open is what remains and adds up instalment by instalment", () => {
+    const rows = installmentLedger(progress(100000n), []);
+    expect(rows.map((row) => [row.paidMinor, row.pendingMinor, row.openMinor, row.cumulativeOpenMinor])).toEqual([
+      [100000n, 0n, 193300n, 193300n],
+      [0n, 0n, 293300n, 486600n],
+      [0n, 0n, 293300n, 779900n],
+    ]);
+  });
+
+  it("a pending payment fills the oldest room first, after what is already validated", () => {
+    const rows = installmentLedger(progress(293300n), [{ id: "p1", amountMinor: 293300n }]);
+    expect(rows[0]).toMatchObject({ state: "PAID", pendingMinor: 0n, openMinor: 0n });
+    expect(rows[1]).toMatchObject({ pending: [{ paymentId: "p1", amountMinor: 293300n }], pendingMinor: 293300n, openMinor: 0n });
+    expect(rows[2]).toMatchObject({ pendingMinor: 0n, openMinor: 293300n, cumulativeOpenMinor: 293300n });
+  });
+
+  it("a partial payment leaves the rest open; one payment can span two instalments; several can share one", () => {
+    const partial = installmentLedger(progress(0n), [{ id: "p1", amountMinor: 100000n }]);
+    expect(partial[0]).toMatchObject({ pendingMinor: 100000n, openMinor: 193300n });
+
+    const spanning = installmentLedger(progress(0n), [{ id: "p1", amountMinor: 400000n }]);
+    expect(spanning[0].pending).toEqual([{ paymentId: "p1", amountMinor: 293300n }]);
+    expect(spanning[1].pending).toEqual([{ paymentId: "p1", amountMinor: 106700n }]);
+
+    const shared = installmentLedger(progress(0n), [
+      { id: "a", amountMinor: 100000n },
+      { id: "b", amountMinor: 193300n },
+      { id: "c", amountMinor: 50000n },
+    ]);
+    expect(shared[0].pending.map((part) => part.paymentId)).toEqual(["a", "b"]);
+    expect(shared[1].pending).toEqual([{ paymentId: "c", amountMinor: 50000n }]);
+  });
+
+  it("pending beyond the schedule is not invented onto any instalment", () => {
+    const rows = installmentLedger(progress(0n), [{ id: "p1", amountMinor: 999999999n }]);
+    expect(rows.every((row) => row.openMinor === 0n)).toBe(true);
+    expect(rows.reduce((sum, row) => sum + row.pendingMinor, 0n)).toBe(879900n);
   });
 });
